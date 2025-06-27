@@ -1,0 +1,39 @@
+{
+  "name": "@tencentcloud/rtc-mcp",
+  "version": "0.1.0",
+  "description": "Tencent RTC SDK MCP Server",
+  "main": "index.js",
+  "bin": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "xx"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.10.1",
+    "@types/express": "^5.0.1",
+    "@types/node": "^22.15.32",
+    "aegis-web-sdk": "^1.40.2",
+    "express": "^5.1.0",
+    "shx": "^0.3.4",
+    "typescript": "^5.8.2",
+    "zod": "^3.24.2"
+},
+  "author": "Tencent Cloud Terminal R&D Center",
+  "keywords": [
+    "mcp",
+    "mcp Server",
+    "call",
+    "video call",
+    "audio call",
+    "video",
+    "audio",
+    "TRTC",
+    "camera",
+    "microphone",
+    "webrtc",
+    "real-time communication",
+    "javascript",
+    "rtc"
+  ],
+  "license": "ISC"
+}
