@@ -1,635 +1,398 @@
-## TUICallKit API 简介
+## TUICallKit (UI Included)
 
-TUICallKit API 是音视频通话组件的**含 UI 接口**，使用TUICallKit API，您可以通过简单接口快速实现一个类微信的音视频通话场景，更详细的接入步骤，详情请参见 [快速接入TUICallKit](https://cloud.tencent.com/document/product/647/78730)。
-
-## API 概览
+TUICallKit is an audio/video call component that **includes UI elements**. You can use its APIs to quickly implement an audio/video call application similar to WeChat.
 <table>
 <tr>
 <td rowspan="1" colSpan="1" >API</td>
 
-<td rowspan="1" colSpan="1" >描述</td>
+<td rowspan="1" colSpan="1" >Description</td>
 </tr>
 
 <tr>
-<td rowspan="1" colSpan="1" >[createInstance](https://cloud.tencent.com/document/product/647/78753#createInstance)</td>
+<td rowspan="1" colSpan="1" >[createInstance](https://www.tencentcloud.com/document/product/647/51011#createInstance)</td>
 
-<td rowspan="1" colSpan="1" >创建 TUICallKit 实例（单例模式）</td>
+<td rowspan="1" colSpan="1" >Create a TUICallKit instance (singleton mode).</td>
 </tr>
 
 <tr>
-<td rowspan="1" colSpan="1" >[setSelfInfo](https://cloud.tencent.com/document/product/647/78753#setSelfInfo)</td>
+<td rowspan="1" colSpan="1" >[setSelfInfo](https://www.tencentcloud.com/document/product/647/51011#setSelfInfo)</td>
 
-<td rowspan="1" colSpan="1" >设置用户的昵称、头像</td>
+<td rowspan="1" colSpan="1" >Set the user's profile picture and nickname.</td>
 </tr>
 
 <tr>
-<td rowspan="1" colSpan="1" >[calls](https://cloud.tencent.com/document/product/647/78753#calls)</td>
+<td rowspan="1" colSpan="1" >[calls](https://www.tencentcloud.com/document/product/647/51011#calls)</td>
 
-<td rowspan="1" colSpan="1" >发起单人或多人通话</td>
+<td rowspan="1" colSpan="1" >Initiate a one-to-one or multi-person call</td>
 </tr>
 
 <tr>
-<td rowspan="1" colSpan="1" >[join](https://cloud.tencent.com/document/product/647/78753#join)</td>
+<td rowspan="1" colSpan="1" >[join](https://www.tencentcloud.com/document/product/647/51011#join)</td>
 
-<td rowspan="1" colSpan="1" >主动加入通话</td>
+<td rowspan="1" colSpan="1" >Proactively join a call</td>
 </tr>
 
 <tr>
-<td rowspan="1" colSpan="1" >[setCallingBell](https://cloud.tencent.com/document/product/647/78753#setCallingBell)</td>
+<td rowspan="1" colSpan="1" >[setCallingBell](https://www.tencentcloud.com/document/product/647/51011#setCallingBell)</td>
 
-<td rowspan="1" colSpan="1" >设置自定义来电铃音</td>
+<td rowspan="1" colSpan="1" >Set the ringtone.</td>
 </tr>
 
 <tr>
-<td rowspan="1" colSpan="1" >[enableMuteMode](https://cloud.tencent.com/document/product/647/78753#enableMuteMode)</td>
+<td rowspan="1" colSpan="1" >[enableMuteMode](https://www.tencentcloud.com/document/product/647/51011#enableMuteMode)</td>
 
-<td rowspan="1" colSpan="1" >开启/关闭静音模式</td>
+<td rowspan="1" colSpan="1" >Set whether to turn on the mute mode.</td>
 </tr>
 
 <tr>
-<td rowspan="1" colSpan="1" >[enableFloatWindow](https://cloud.tencent.com/document/product/647/78753#enableFloatWindow)</td>
+<td rowspan="1" colSpan="1" >[enableFloatWindow](https://www.tencentcloud.com/document/product/647/51011#enableFloatWindow)</td>
 
-<td rowspan="1" colSpan="1" >开启/关闭悬浮窗功能</td>
+<td rowspan="1" colSpan="1" >Set whether to enable floating windows.</td>
 </tr>
 
 <tr>
-<td rowspan="1" colSpan="1" >[enableIncomingBanner](https://cloud.tencent.com/document/product/647/78753#enableIncomingBanner)</td>
+<td rowspan="1" colSpan="1" >[enableIncomingBanner](https://www.tencentcloud.com/document/product/647/51011#enableIncomingBanner)</td>
 
-<td rowspan="1" colSpan="1" >开启/关闭来电横幅显示</td>
-</tr>
-</table>
-
-
-## API 详情
-
-### createInstance
-
-创建 TUICallKit 的单例。
-
-
-
-
-【Objective-C】
-``` objectivec
-- (instancetype)createInstance;
-```
-
-
-【Swift】
-``` swift
-public static func createInstance() -> TUICallKit
-```
-
-### setSelfInfo
-
-设置用户昵称、头像。用户昵称不能超过500字节，用户头像必须是 URL 格式。
-
-
-
-
-【Objective-C】
-``` objectivec
-- (void)setSelfInfo:(NSString * _Nullable)nickname avatar:(NSString * _Nullable)avatar succ:(TUICallSucc)succ fail:(TUICallFail)fail;
-```
-
-
-【Swift】
-``` swift
-public func setSelfInfo(nickname: String, avatar: String, succ:@escaping TUICallSucc, fail: @escaping TUICallFail)
-```
-<table>
-<tr>
-<td rowspan="1" colSpan="1" >参数</td>
-
-<td rowspan="1" colSpan="1" >类型</td>
-
-<td rowspan="1" colSpan="1" >含义</td>
-</tr>
-
-<tr>
-<td rowspan="1" colSpan="1" >nickname</td>
-
-<td rowspan="1" colSpan="1" >NSString</td>
-
-<td rowspan="1" colSpan="1" >用户昵称</td>
-</tr>
-
-<tr>
-<td rowspan="1" colSpan="1" >avatar</td>
-
-<td rowspan="1" colSpan="1" >NSString</td>
-
-<td rowspan="1" colSpan="1" >用户头像（格式为 URL）</td>
-</tr>
-
-<tr>
-<td rowspan="1" colSpan="1" >succ</td>
-
-<td rowspan="1" colSpan="1" >TUICallSucc</td>
-
-<td rowspan="1" colSpan="1" >成功回调</td>
-</tr>
-
-<tr>
-<td rowspan="1" colSpan="1" >fail</td>
-
-<td rowspan="1" colSpan="1" >TUICallFail</td>
-
-<td rowspan="1" colSpan="1" >失败回调</td>
+<td rowspan="1" colSpan="1" >Set whether to display incoming banner.</td>
 </tr>
 </table>
 
 
-### calls
+## TUICallEngine (No UI)
 
-发起通话。
-
-
-
-
-【Swift】
-``` swift
-func calls(userIdList: [String], callMediaType: TUICallMediaType, params: TUICallParams,
-                      succ: @escaping TUICallSucc, fail: @escaping TUICallFail)
-
-```
-
-
-【Objective-C】
-``` objectivec
-- (void)calls:(NSArray<NSString *> *)userIdList callMediaType:(TUICallMediaType)callMediaType params:(TUICallParams *)params succ:(TUICallSucc)succ fail:(TUICallFail)fail; 
-```
-
-参数如下表所示：
+`TUICallEngine` is an audio/video call component that **does not include UI elements**. If `TUICallKit` does not meet your requirements, you can use the APIs of `TUICallEngine` to customize your project.
 <table>
 <tr>
-<td rowspan="1" colSpan="1" >参数</td>
+<td rowspan="1" colSpan="1" >API</td>
 
-<td rowspan="1" colSpan="1" >类型</td>
-
-<td rowspan="1" colSpan="1" >含义</td>
+<td rowspan="1" colSpan="1" >Description</td>
 </tr>
 
 <tr>
-<td rowspan="1" colSpan="1" >userIdList</td>
+<td rowspan="1" colSpan="1" >[createInstance](https://www.tencentcloud.com/document/product/647/51012#createInstance)</td>
 
-<td rowspan="1" colSpan="1" > NSArray</td>
-
-<td rowspan="1" colSpan="1" >目标用户的 userId 列表</td>
+<td rowspan="1" colSpan="1" >Create a TUICallEngine instance (singleton).</td>
 </tr>
 
 <tr>
-<td rowspan="1" colSpan="1" >callMediaType</td>
+<td rowspan="1" colSpan="1" >[destroyInstance](https://www.tencentcloud.com/document/product/647/51012#destroyInstance)</td>
 
-<td rowspan="1" colSpan="1" >[TUICallMediaType](https://cloud.tencent.com/document/product/647/90446#MediaType)</td>
-
-<td rowspan="1" colSpan="1" >通话的媒体类型，比如视频通话、语音通话</td>
+<td rowspan="1" colSpan="1" >Destroy TUICallEngine instance (singleton).</td>
 </tr>
 
 <tr>
-<td rowspan="1" colSpan="1" >params</td>
+<td rowspan="1" colSpan="1" >[Init](https://www.tencentcloud.com/document/product/647/51012#Init)</td>
 
-<td rowspan="1" colSpan="1" >[TUICallParams](https://cloud.tencent.com/document/product/647/90446#CallParams)</td>
+<td rowspan="1" colSpan="1" >Authenticates the basic audio/video call capabilities.</td>
+</tr>
 
-<td rowspan="1" colSpan="1" >通话扩展参数，例如：房间号、通话邀请超时时间，离线推送自定义内容等</td>
+<tr>
+<td rowspan="1" colSpan="1" >[addObserver](https://www.tencentcloud.com/document/product/647/51012#addObserver)</td>
+
+<td rowspan="1" colSpan="1" >Add listener.</td>
+</tr>
+
+<tr>
+<td rowspan="1" colSpan="1" >[removeObserver](https://www.tencentcloud.com/document/product/647/51012#removeObserver)</td>
+
+<td rowspan="1" colSpan="1" >Remove listener.</td>
+</tr>
+
+<tr>
+<td rowspan="1" colSpan="1" >[calls](https://www.tencentcloud.com/document/product/647/51012#calls)</td>
+
+<td rowspan="1" colSpan="1" >Initiate a one-to-one or multi-person call</td>
+</tr>
+
+<tr>
+<td rowspan="1" colSpan="1" >[join](https://www.tencentcloud.com/document/product/647/51012#join)</td>
+
+<td rowspan="1" colSpan="1" >Proactively join a call</td>
+</tr>
+
+<tr>
+<td rowspan="1" colSpan="1" >[accept](https://www.tencentcloud.com/document/product/647/51012#accept)</td>
+
+<td rowspan="1" colSpan="1" >Accept call.</td>
+</tr>
+
+<tr>
+<td rowspan="1" colSpan="1" >[reject](https://www.tencentcloud.com/document/product/647/51012#reject)</td>
+
+<td rowspan="1" colSpan="1" >Reject call.</td>
+</tr>
+
+<tr>
+<td rowspan="1" colSpan="1" >[hangup](https://www.tencentcloud.com/document/product/647/51012#hangup)</td>
+
+<td rowspan="1" colSpan="1" >Hang up call.</td>
+</tr>
+
+<tr>
+<td rowspan="1" colSpan="1" >[ignore](https://www.tencentcloud.com/document/product/647/51012#hangup)</td>
+
+<td rowspan="1" colSpan="1" >Ignore call.</td>
+</tr>
+
+<tr>
+<td rowspan="1" colSpan="1" >[inviteUser](https://www.tencentcloud.com/document/product/647/51012#inviteUser)</td>
+
+<td rowspan="1" colSpan="1" >Invite users to the current call.</td>
+</tr>
+
+<tr>
+<td rowspan="1" colSpan="1" >[switchCallMediaType](https://www.tencentcloud.com/document/product/647/51012#switchCallMediaType)</td>
+
+<td rowspan="1" colSpan="1" >Switch the call media type, such as from video call to audio call.</td>
+</tr>
+
+<tr>
+<td rowspan="1" colSpan="1" >[startRemoteView](https://www.tencentcloud.com/document/product/647/51012#startRemoteView)</td>
+
+<td rowspan="1" colSpan="1" >Subscribe to the video stream of a remote user.</td>
+</tr>
+
+<tr>
+<td rowspan="1" colSpan="1" >[stopRemoteView](https://www.tencentcloud.com/document/product/647/51012#stopRemoteView)</td>
+
+<td rowspan="1" colSpan="1" >Unsubscribe from the video stream of a remote user.</td>
+</tr>
+
+<tr>
+<td rowspan="1" colSpan="1" >[openCamera](https://www.tencentcloud.com/document/product/647/51012#openCamera)</td>
+
+<td rowspan="1" colSpan="1" >Turn on the camera.</td>
+</tr>
+
+<tr>
+<td rowspan="1" colSpan="1" >[closeCamera](https://www.tencentcloud.com/document/product/647/51012#closeCamera)</td>
+
+<td rowspan="1" colSpan="1" >Turn off the camera.</td>
+</tr>
+
+<tr>
+<td rowspan="1" colSpan="1" >[switchCamera](https://www.tencentcloud.com/document/product/647/51012#switchCamera)</td>
+
+<td rowspan="1" colSpan="1" >Switch camera.</td>
+</tr>
+
+<tr>
+<td rowspan="1" colSpan="1" >[openMicrophone](https://www.tencentcloud.com/document/product/647/51012#openMicrophone)</td>
+
+<td rowspan="1" colSpan="1" >Enable microphone.</td>
+</tr>
+
+<tr>
+<td rowspan="1" colSpan="1" >[closeMicrophone](https://www.tencentcloud.com/document/product/647/51012#closeMicrophone)</td>
+
+<td rowspan="1" colSpan="1" >Disable the microphone.</td>
+</tr>
+
+<tr>
+<td rowspan="1" colSpan="1" >[selectAudioPlaybackDevice](https://www.tencentcloud.com/document/product/647/51012#selectAudioPlaybackDevice)</td>
+
+<td rowspan="1" colSpan="1" >Select the audio playback device (Earpiece/Speakerphone).</td>
+</tr>
+
+<tr>
+<td rowspan="1" colSpan="1" >[setSelfInfo](https://www.tencentcloud.com/document/product/647/51012#setSelfInfo)</td>
+
+<td rowspan="1" colSpan="1" >Set the user's profile picture and nickname.</td>
+</tr>
+
+<tr>
+<td rowspan="1" colSpan="1" >[enableMultiDeviceAbility](https://www.tencentcloud.com/document/product/647/51012#enableMultiDeviceAbility)</td>
+
+<td rowspan="1" colSpan="1" >Sets whether to enable multi-device login for TUICallEngine (supported by the [Group Call package](https://trtc.io/document/54632?platform=ios&product=call&menulabel=web)).</td>
+</tr>
+
+<tr>
+<td rowspan="1" colSpan="1" >[setVideoRenderParams](https://www.tencentcloud.com/document/product/647/51012#setVideoRenderParams)</td>
+
+<td rowspan="1" colSpan="1" >Set the rendering mode of video.</td>
+</tr>
+
+<tr>
+<td rowspan="1" colSpan="1" >[setVideoEncoderParams](https://www.tencentcloud.com/document/product/647/51012#setVideoEncoderParams)</td>
+
+<td rowspan="1" colSpan="1" >Set the encoding parameters of video encoder.</td>
+</tr>
+
+<tr>
+<td rowspan="1" colSpan="1" >[getTRTCCloudInstance](https://www.tencentcloud.com/document/product/647/51012#getTRTCCloudInstance)</td>
+
+<td rowspan="1" colSpan="1" >Advanced features.</td>
+</tr>
+
+<tr>
+<td rowspan="1" colSpan="1" >[setBeautyLevel](https://www.tencentcloud.com/document/product/647/51012#setBeautyLevel)</td>
+
+<td rowspan="1" colSpan="1" >Set beauty level, support turning off default beauty.</td>
 </tr>
 </table>
 
 
-### join
+### TUICallObserver
 
-主动加入通话。
-
-
-
-
-【Swift】
-``` java
-func join(callId: String)
-```
-
-
-【Objective-C】
-``` java
-- (void)join:(NSString *)callId;
-```
-
-参数如下表所示：
+`TUICallObserver` is the callback class of `TUICallEngine`. You can use it to listen for events.
 <table>
 <tr>
-<td rowspan="1" colSpan="1" >参数</td>
+<td rowspan="1" colSpan="1" >API</td>
 
-<td rowspan="1" colSpan="1" >类型</td>
-
-<td rowspan="1" colSpan="1" >含义</td>
+<td rowspan="1" colSpan="1" >Description</td>
 </tr>
 
 <tr>
-<td rowspan="1" colSpan="1" >callId</td>
+<td rowspan="1" colSpan="1" >[onError](https://www.tencentcloud.com/document/product/647/51013#onError)</td>
 
-<td rowspan="1" colSpan="1" >NSString</td>
+<td rowspan="1" colSpan="1" >An error occurred during the call.</td>
+</tr>
 
-<td rowspan="1" colSpan="1" >此次通话的唯一 ID</td>
+<tr>
+<td rowspan="1" colSpan="1" >[onCallReceived](https://www.tencentcloud.com/document/product/647/51013#onCallReceived)</td>
+
+<td rowspan="1" colSpan="1" >A call was received.</td>
+</tr>
+
+<tr>
+<td rowspan="1" colSpan="1" >[onCallCancelled](https://www.tencentcloud.com/document/product/647/51013#onCallCancelled)</td>
+
+<td rowspan="1" colSpan="1" >The call was canceled.</td>
+</tr>
+
+<tr>
+<td rowspan="1" colSpan="1" >[onCallBegin](https://www.tencentcloud.com/document/product/647/51013#onCallBegin)</td>
+
+<td rowspan="1" colSpan="1" >The call was connected.</td>
+</tr>
+
+<tr>
+<td rowspan="1" colSpan="1" >[onCallEnd](https://www.tencentcloud.com/document/product/647/51013#onCallEnd)</td>
+
+<td rowspan="1" colSpan="1" >The call ended.</td>
+</tr>
+
+<tr>
+<td rowspan="1" colSpan="1" >[onCallMediaTypeChanged](https://www.tencentcloud.com/document/product/647/51013#onCallMediaTypeChanged)</td>
+
+<td rowspan="1" colSpan="1" >The call type changed.</td>
+</tr>
+
+<tr>
+<td rowspan="1" colSpan="1" >[onUserReject](https://www.tencentcloud.com/document/product/647/51013#onUserReject)</td>
+
+<td rowspan="1" colSpan="1" >A user declined the call.</td>
+</tr>
+
+<tr>
+<td rowspan="1" colSpan="1" >[onUserNoResponse](https://www.tencentcloud.com/document/product/647/51013#onUserNoResponse)</td>
+
+<td rowspan="1" colSpan="1" >A user didn't respond.</td>
+</tr>
+
+<tr>
+<td rowspan="1" colSpan="1" >[onUserLineBusy](https://www.tencentcloud.com/document/product/647/51013#onUserLineBusy)</td>
+
+<td rowspan="1" colSpan="1" >A user was busy.</td>
+</tr>
+
+<tr>
+<td rowspan="1" colSpan="1" >[onUserJoin](https://www.tencentcloud.com/document/product/647/51013#onUserJoin)</td>
+
+<td rowspan="1" colSpan="1" >A user joined the call.</td>
+</tr>
+
+<tr>
+<td rowspan="1" colSpan="1" >[onUserLeave](https://www.tencentcloud.com/document/product/647/51013#onUserLeave)</td>
+
+<td rowspan="1" colSpan="1" >A user left the call.</td>
+</tr>
+
+<tr>
+<td rowspan="1" colSpan="1" >[onUserVideoAvailable](https://www.tencentcloud.com/document/product/647/51013#onUserVideoAvailable)</td>
+
+<td rowspan="1" colSpan="1" >Whether a user has a video stream.</td>
+</tr>
+
+<tr>
+<td rowspan="1" colSpan="1" >[onUserAudioAvailable](https://www.tencentcloud.com/document/product/647/51013#onUserAudioAvailable)</td>
+
+<td rowspan="1" colSpan="1" >Whether a user has an audio stream.</td>
+</tr>
+
+<tr>
+<td rowspan="1" colSpan="1" >[onUserVoiceVolumeChanged](https://www.tencentcloud.com/document/product/647/51013#onUserVoiceVolumeChanged)</td>
+
+<td rowspan="1" colSpan="1" >The volume levels of all users.</td>
+</tr>
+
+<tr>
+<td rowspan="1" colSpan="1" >[onUserNetworkQualityChanged](https://www.tencentcloud.com/document/product/647/51013#onUserNetworkQualityChanged)</td>
+
+<td rowspan="1" colSpan="1" >The network quality of all users.</td>
+</tr>
+
+<tr>
+<td rowspan="1" colSpan="1" >[onKickedOffline](https://www.tencentcloud.com/document/product/647/51013#onKickedOffline)</td>
+
+<td rowspan="1" colSpan="1" >The current user was kicked offline.</td>
+</tr>
+
+<tr>
+<td rowspan="1" colSpan="1" >[onUserSigExpired](https://www.tencentcloud.com/document/product/647/51013#onUserSigExpired)</td>
+
+<td rowspan="1" colSpan="1" >The user sig is expired.</td>
 </tr>
 </table>
 
 
-### setCallingBell
-
-设置自定义来电铃音。
-这里仅限传入本地文件地址，需要确保该文件目录是应用可以访问的。
-- 铃声设置后与设备绑定，更换用户，铃声依旧会生效。
-
-- 如需恢复默认铃声，`filePath` 传空即可。
-
-
-   
-
-
-【Objective-C】
-``` objectivec
-- (void)setCallingBell:(NSString *)filePath;
-```
-
-
-【Swift】
-``` swift
-public func setCallingBell(filePath: String)
-```
-
-
-### enableMuteMode
-
-开启后，收到通话请求，不会播放来电铃声。
-
-
-
-
-【Objective-C】
-``` objectivec
-- (void)enableMuteMode:(BOOL)enable;
-```
-
-
-【Swift】
-``` swift
-public func enableMuteMode(enable: Bool)
-```
-
-### enableFloatWindow
-
-开启/关闭悬浮窗功能。
-默认为`false`，通话界面左上角的悬浮窗按钮隐藏，设置为 true 后显示。
-
-
-
-
-【Objective-C】
-``` objectivec
-- (void)enableFloatWindow:(BOOL)enable;
-```
-
-
-【Swift】
-``` swift
-public func enableFloatWindow(enable: Bool)
-```
-
-### enableIncomingBanner
-
-开启/关闭来电横幅显示。
-
-默认为`false`，被叫端收到邀请后默认弹出全屏通话等待界面，开启后先展示一个横幅，然后根据需要拉起全屏通话界面。
-``` swift
-public func enableIncomingBanner(enable: Bool)
-```
-
-## 废弃接口
-
-### call
-
-拨打电话（1v1通话）。**注意：建议使用 calls 接口。**
-
-
-
-
-【Objective-C】
-``` objectivec
-- (void)call:(NSString *)userId callMediaType:(TUICallMediaType)callMediaType;
-```
-
-
-【Swift】
-``` swift
-public func call(userId: String, callMediaType: TUICallMediaType)
-```
-
-参数如下表所示：
+## Definitions of Key Typ
 <table>
 <tr>
-<td rowspan="1" colSpan="1" >参数</td>
+<td rowspan="1" colSpan="1" >API</td>
 
-<td rowspan="1" colSpan="1" >类型</td>
-
-<td rowspan="1" colSpan="1" >含义</td>
+<td rowspan="1" colSpan="1" >Description</td>
 </tr>
 
 <tr>
-<td rowspan="1" colSpan="1" >userId</td>
+<td rowspan="1" colSpan="1" >[TUICallMediaType](https://write.woa.com/document/114219413111934976)</td>
 
-<td rowspan="1" colSpan="1" >NSString</td>
-
-<td rowspan="1" colSpan="1" >目标用户的 userId</td>
+<td rowspan="1" colSpan="1" >Call media type, Enumeration type: Unknown, Video, and Audio.</td>
 </tr>
 
 <tr>
-<td rowspan="1" colSpan="1" >callMediaType</td>
+<td rowspan="1" colSpan="1" >[TUICallRole](https://write.woa.com/document/114219413111934976)</td>
 
-<td rowspan="1" colSpan="1" >[TUICallMediaType](https://cloud.tencent.com/document/product/647/90446#MediaType)</td>
-
-<td rowspan="1" colSpan="1" >通话的媒体类型，比如视频通话、语音通话</td>
-</tr>
-</table>
-
-
-### call
-
-拨打电话（1v1通话），支持自定义房间号、通话邀请超时时间，离线推送内容等。**注意：建议使用 calls 接口。**
-
-
-
-
-【Objective-C】
-``` objectivec
-- (void)call:(NSString *)userId callMediaType:(TUICallMediaType)callMediaType params:(TUICallParams *)params succ:(TUICallSucc __nullable)succ fail:(TUICallFail __nullable)fail;
-```
-
-
-【Swift】
-``` swift
-public func call(userId: String, callMediaType: TUICallMediaType, params: TUICallParams,
-                     succ: @escaping TUICallSucc, fail: @escaping TUICallFail)
-```
-
-参数如下表所示：
-<table>
-<tr>
-<td rowspan="1" colSpan="1" >参数</td>
-
-<td rowspan="1" colSpan="1" >类型</td>
-
-<td rowspan="1" colSpan="1" >含义</td>
+<td rowspan="1" colSpan="1" >Call role, Enumeration type: None, Call, and Called.</td>
 </tr>
 
 <tr>
-<td rowspan="1" colSpan="1" >userId</td>
+<td rowspan="1" colSpan="1" >[TUICallStatus](https://write.woa.com/document/114219413111934976)</td>
 
-<td rowspan="1" colSpan="1" >NSString</td>
-
-<td rowspan="1" colSpan="1" >目标用户的 userId</td>
+<td rowspan="1" colSpan="1" >Call status, Enumeration type: None, Waiting, and Accept.</td>
 </tr>
 
 <tr>
-<td rowspan="1" colSpan="1" >callMediaType</td>
+<td rowspan="1" colSpan="1" >[TUIRoomId](https://write.woa.com/document/114219413111934976)</td>
 
-<td rowspan="1" colSpan="1" >[TUICallMediaType](https://cloud.tencent.com/document/product/647/90446#MediaType)</td>
-
-<td rowspan="1" colSpan="1" >通话的媒体类型，比如视频通话、语音通话</td>
+<td rowspan="1" colSpan="1" >The room ID, which can be a number or string.</td>
 </tr>
 
 <tr>
-<td rowspan="1" colSpan="1" >params</td>
+<td rowspan="1" colSpan="1" >[TUICallCamera](https://write.woa.com/document/114219413111934976)</td>
 
-<td rowspan="1" colSpan="1" >[TUICallParams](https://cloud.tencent.com/document/product/647/90446#CallParams)</td>
-
-<td rowspan="1" colSpan="1" >通话扩展参数，例如：房间号、通话邀请超时时间，离线推送自定义内容等</td>
+<td rowspan="1" colSpan="1" >The camera type. Enumeration type: Front camera and Back camera.</td>
 </tr>
 
 <tr>
-<td rowspan="1" colSpan="1" >succ</td>
+<td rowspan="1" colSpan="1" >[TUIAudioPlaybackDevice](https://write.woa.com/document/114219413111934976)</td>
 
-<td rowspan="1" colSpan="1" >TUICallSucc</td>
-
-<td rowspan="1" colSpan="1" >成功回调</td>
+<td rowspan="1" colSpan="1" >The audio playback device type. Enumeration type: Earpiece and Speakerphone.</td>
 </tr>
 
 <tr>
-<td rowspan="1" colSpan="1" >fail</td>
+<td rowspan="1" colSpan="1" >[TUINetworkQualityInfo](https://write.woa.com/document/114219413111934976)</td>
 
-<td rowspan="1" colSpan="1" >TUICallFail</td>
-
-<td rowspan="1" colSpan="1" >失败回调</td>
-</tr>
-</table>
-
-
-### groupCall
-
-发起群组通话。**注意：建议使用 calls 接口。**
-
-> **注意：**
-> 
-
-> 使用群组通话前需要创建 IM 群组，如果已经创建，请忽略。
-> 
-
-> 群组的创建详见：[IM 群组管理](https://cloud.tencent.com/document/product/269/75394#.E5.88.9B.E5.BB.BA.E7.BE.A4.E7.BB.84) ，或者您也可以直接使用 [IM TUIKit](https://cloud.tencent.com/document/product/269/37059)，一站式集成聊天、通话等场景。
-> 
-
-
-
-
-
-【Objective-C】
-``` objectivec
-- (void)groupCall:(NSString *)groupId userIdList:(NSArray<NSString *> *)userIdList callMediaType:(TUICallMediaType)callMediaType;
-```
-
-
-【Swift】
-``` swift
-public func groupCall(groupId: String, userIdList: [String], callMediaType: TUICallMediaType)
-```
-<table>
-<tr>
-<td rowspan="1" colSpan="1" >参数</td>
-
-<td rowspan="1" colSpan="1" >类型</td>
-
-<td rowspan="1" colSpan="1" >含义</td>
-</tr>
-
-<tr>
-<td rowspan="1" colSpan="1" >groupId</td>
-
-<td rowspan="1" colSpan="1" >NSString</td>
-
-<td rowspan="1" colSpan="1" >此次群组通话的群 ID</td>
-</tr>
-
-<tr>
-<td rowspan="1" colSpan="1" >userIdList</td>
-
-<td rowspan="1" colSpan="1" >NSArray</td>
-
-<td rowspan="1" colSpan="1" >目标用户的 userId 列表</td>
-</tr>
-
-<tr>
-<td rowspan="1" colSpan="1" >callMediaType</td>
-
-<td rowspan="1" colSpan="1" >[TUICallMediaType](https://cloud.tencent.com/document/product/647/90446#MediaType)</td>
-
-<td rowspan="1" colSpan="1" >通话的媒体类型，比如视频通话、语音通话</td>
-</tr>
-</table>
-
-
-### groupCall
-
-发起群组通话，支持自定义房间号、通话邀请超时时间，离线推送内容等。**注意：建议使用 calls 接口。**
-
-> **注意：**
-> 
-
-> 使用群组通话前需要创建 IM 群组，如果已经创建，请忽略。
-> 
-
-> 群组的创建详见：[IM 群组管理](https://cloud.tencent.com/document/product/269/75394#.E5.88.9B.E5.BB.BA.E7.BE.A4.E7.BB.84) ，或者您也可以直接使用 [IM TUIKit](https://cloud.tencent.com/document/product/269/37059)，一站式集成聊天、通话等场景。
-> 
-
-
-
-
-
-【Objective-C】
-``` objectivec
-- (void)groupCall:(NSString *)groupId userIdList:(NSArray<NSString *> *)userIdList callMediaType:(TUICallMediaType)callMediaType params:(TUICallParams *)params succ:(TUICallSucc __nullable)succ fail:(TUICallFail __nullable)fail;
-```
-
-
-【Swift】
-``` swift
-public func groupCall(groupId: String, userIdList: [String], callMediaType: TUICallMediaType, params: TUICallParams, succ: @escaping TUICallSucc, fail: @escaping TUICallFail)
-```
-<table>
-<tr>
-<td rowspan="1" colSpan="1" >参数</td>
-
-<td rowspan="1" colSpan="1" >类型</td>
-
-<td rowspan="1" colSpan="1" >含义</td>
-</tr>
-
-<tr>
-<td rowspan="1" colSpan="1" >groupId</td>
-
-<td rowspan="1" colSpan="1" >NSString</td>
-
-<td rowspan="1" colSpan="1" >此次群组通话的群 ID</td>
-</tr>
-
-<tr>
-<td rowspan="1" colSpan="1" >userIdList</td>
-
-<td rowspan="1" colSpan="1" >NSArray</td>
-
-<td rowspan="1" colSpan="1" >目标用户的 userId 列表</td>
-</tr>
-
-<tr>
-<td rowspan="1" colSpan="1" >callMediaType</td>
-
-<td rowspan="1" colSpan="1" >[TUICallMediaType](https://cloud.tencent.com/document/product/647/90446#MediaType)</td>
-
-<td rowspan="1" colSpan="1" >通话的媒体类型，比如视频通话、语音通话</td>
-</tr>
-
-<tr>
-<td rowspan="1" colSpan="1" >params</td>
-
-<td rowspan="1" colSpan="1" >[TUICallParams](https://cloud.tencent.com/document/product/647/90446#CallParams)</td>
-
-<td rowspan="1" colSpan="1" >通话扩展参数，例如：房间号、通话邀请超时时间，离线推送自定义内容等</td>
-</tr>
-
-<tr>
-<td rowspan="1" colSpan="1" >succ</td>
-
-<td rowspan="1" colSpan="1" >TUICallSucc</td>
-
-<td rowspan="1" colSpan="1" >成功回调</td>
-</tr>
-
-<tr>
-<td rowspan="1" colSpan="1" >fail</td>
-
-<td rowspan="1" colSpan="1" >TUICallFail</td>
-
-<td rowspan="1" colSpan="1" >失败回调</td>
-</tr>
-</table>
-
-
-### joinInGroupCall
-
-
-
-加入群组中已有的音视频通话。**注意：建议使用 join 接口。**
-
-> **注意：**
-> 
-
-> 加入群组中已有的音视频通话前，需要提前创建或加入 IM 群组，并且群组中已有用户在通话中，如果已经创建，请忽略。
-> 
-
-> 群组的创建详见：[IM 群组管理](https://cloud.tencent.com/document/product/269/75394#.E5.88.9B.E5.BB.BA.E7.BE.A4.E7.BB.84) ，或者您也可以直接使用 [IM TUIKit](https://cloud.tencent.com/document/product/269/37059)，一站式集成聊天、通话等场景。
-> 
-
-
-
-
-
-【Objective-C】
-``` objectivec
-- (void)joinInGroupCall:(TUIRoomId *)roomId groupId:(NSString *)groupId callMediaType:(TUICallMediaType)callMediaType;
-```
-
-
-【Swift】
-``` swift
-public func joinInGroupCall(roomId: TUIRoomId, groupId: String, callMediaType: TUICallMediaType)
-```
-<table>
-<tr>
-<td rowspan="1" colSpan="1" >参数</td>
-
-<td rowspan="1" colSpan="1" >类型</td>
-
-<td rowspan="1" colSpan="1" >含义</td>
-</tr>
-
-<tr>
-<td rowspan="1" colSpan="1" >roomId</td>
-
-<td rowspan="1" colSpan="1" >[TUIRoomId](https://cloud.tencent.com/document/product/647/90446#RoomId)</td>
-
-<td rowspan="1" colSpan="1" >此次通话的音视频房间 ID</td>
-</tr>
-
-<tr>
-<td rowspan="1" colSpan="1" >groupId</td>
-
-<td rowspan="1" colSpan="1" >NSString</td>
-
-<td rowspan="1" colSpan="1" >此次群组通话的群 ID</td>
-</tr>
-
-<tr>
-<td rowspan="1" colSpan="1" >callMediaType</td>
-
-<td rowspan="1" colSpan="1" >[TUICallMediaType](https://cloud.tencent.com/document/product/647/90446#MediaType)</td>
-
-<td rowspan="1" colSpan="1" >通话的媒体类型，比如视频通话、语音通话</td>
+<td rowspan="1" colSpan="1" >The current network quality.</td>
 </tr>
 </table>

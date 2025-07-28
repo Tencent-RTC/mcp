@@ -1,86 +1,84 @@
-## TUICallKit API 简介
+## TUICallKit APIs
 
-TUICallKit API 是音视频通话组件的**含 UI 接口**，使用TUICallKit API，您可以通过简单接口快速实现一个类微信的音视频通话场景，更详细的接入步骤，详情请参见 [快速接入（TUICallKit）](https://write.woa.com/document/86735801792671744)。
+`TUICallKit` is an audio/video call component that **includes UI elements**. You can use its APIs to quickly implement an audio/video call application similar to WeChat. For directions on integration, see [Integrating TUICallKit](https://write.woa.com/document/113558560409751552).
 
-## API 概览
+## API overview
 <table>
 <tr>
 <td rowspan="1" colSpan="1" >API</td>
 
-<td rowspan="1" colSpan="1" >描述</td>
+<td rowspan="1" colSpan="1" >Description</td>
 </tr>
 
 <tr>
-<td rowspan="1" colSpan="1" >[login](https://write.woa.com/document/94733520019521536)</td>
+<td rowspan="1" colSpan="1" >[login](https://write.woa.com/document/114033067004104704)</td>
 
-<td rowspan="1" colSpan="1" >登录</td>
+<td rowspan="1" colSpan="1" >Log in</td>
 </tr>
 
 <tr>
 <td rowspan="1" colSpan="1" >[logout](https://write.woa.com/#logout)</td>
 
-<td rowspan="1" colSpan="1" >登出</td>
+<td rowspan="1" colSpan="1" >Sign out</td>
 </tr>
 
 <tr>
-<td rowspan="1" colSpan="1" >[setSelfInfo](https://write.woa.com/document/94733520019521536)</td>
+<td rowspan="1" colSpan="1" >[setSelfInfo](https://write.woa.com/document/114033067004104704)</td>
 
-<td rowspan="1" colSpan="1" >设置用户的昵称、头像</td>
+<td rowspan="1" colSpan="1" >Sets the user nickname and profile photo.</td>
 </tr>
 
 <tr>
-<td rowspan="1" colSpan="1" >[calls](https://write.woa.com/document/94733520019521536)</td>
+<td rowspan="1" colSpan="1" >[calls](https://write.woa.com/document/114033067004104704)</td>
 
-<td rowspan="1" colSpan="1" >发起通话。</td>
+<td rowspan="1" colSpan="1" >Start a call.</td>
 </tr>
 
 <tr>
-<td rowspan="1" colSpan="1" >[join](https://write.woa.com/document/94733520019521536)</td>
+<td rowspan="1" colSpan="1" >[join](https://write.woa.com/document/114033067004104704)</td>
 
-<td rowspan="1" colSpan="1" >主动加入通话。</td>
+<td rowspan="1" colSpan="1" >Join the call.</td>
 </tr>
 
 <tr>
-<td rowspan="1" colSpan="1" >[enableMuteMode](https://write.woa.com/document/94733520019521536)</td>
+<td rowspan="1" colSpan="1" >[enableMuteMode](https://write.woa.com/document/114033067004104704)</td>
 
-<td rowspan="1" colSpan="1" >开启/关闭静音模式</td>
+<td rowspan="1" colSpan="1" >Sets whether to turn on the mute mode.</td>
 </tr>
 
 <tr>
-<td rowspan="1" colSpan="1" >[enableFloatWindow](https://write.woa.com/document/94733520019521536)</td>
+<td rowspan="1" colSpan="1" >[enableFloatWindow](https://write.woa.com/document/114033067004104704)</td>
 
-<td rowspan="1" colSpan="1" >开启/关闭悬浮窗功能</td>
+<td rowspan="1" colSpan="1" >Sets whether to enable floating windows.</td>
 </tr>
 
 <tr>
-<td rowspan="1" colSpan="1" >[setCallingBell](https://write.woa.com/document/94733520019521536)</td>
+<td rowspan="1" colSpan="1" >[setCallingBell](https://write.woa.com/document/114033067004104704)</td>
 
-<td rowspan="1" colSpan="1" >设置自定义来电铃音</td>
+<td rowspan="1" colSpan="1" >Custom ringtone.</td>
 </tr>
 
 <tr>
-<td rowspan="1" colSpan="1" >[enableVirtualBackground](https://write.woa.com/document/94733520019521536)</td>
+<td rowspan="1" colSpan="1" >[enableVirtualBackground](https://write.woa.com/document/114033067004104704)</td>
 
-<td rowspan="1" colSpan="1" >开启/关闭虚拟背景功能</td>
+<td rowspan="1" colSpan="1" >Turn On/Off the Virtual Background feature</td>
 </tr>
 </table>
 
 
-## API 详情
+## Details
 
 ### login
-
-登录。
 ``` cpp
 Future<TUIResult> login(int sdkAppId, String userId, String userSig)
 ```
 <table>
 <tr>
-<td rowspan="1" colSpan="1" >参数</td>
+<td rowspan="1" colSpan="1" >Parameter</td>
 
-<td rowspan="1" colSpan="1" >类型</td>
+<td rowspan="1" colSpan="1" >Type</td>
 
-<td rowspan="1" colSpan="1" >含义</td>
+<td rowspan="1" colSpan="1" >Description</td>
 </tr>
 
 <tr>
@@ -88,7 +86,7 @@ Future<TUIResult> login(int sdkAppId, String userId, String userSig)
 
 <td rowspan="1" colSpan="1" >int</td>
 
-<td rowspan="1" colSpan="1" >用户 SDKAppID</td>
+<td rowspan="1" colSpan="1" >User SDKAppID</td>
 </tr>
 
 <tr>
@@ -96,7 +94,7 @@ Future<TUIResult> login(int sdkAppId, String userId, String userSig)
 
 <td rowspan="1" colSpan="1" >String</td>
 
-<td rowspan="1" colSpan="1" >用户 ID</td>
+<td rowspan="1" colSpan="1" >User ID, a string type, can only include English letters (a-z and A-Z), numbers (0-9), hyphens (-), and underscores (_).</td>
 </tr>
 
 <tr>
@@ -104,39 +102,37 @@ Future<TUIResult> login(int sdkAppId, String userId, String userSig)
 
 <td rowspan="1" colSpan="1" >String</td>
 
-<td rowspan="1" colSpan="1" >用户签名 userSig</td>
+<td rowspan="1" colSpan="1" >User Signature.<br>UserSig is obtained by encrypting information such as sdkAppId and userId using the SDKSecretKey([Signature calculation method](https://www.tencentcloud.com/document/product/647/35166)). It serves as a ticket for authentication, enabling Tencent Cloud to determine if the current user is authorized to use TRTC services.</td>
 </tr>
 
 <tr>
-<td rowspan="1" colSpan="1" >返回值</td>
+<td rowspan="1" colSpan="1" >return value</td>
 
-<td rowspan="1" colSpan="1" >[TUIResult](https://write.woa.com/document/109226385552285696)</td>
+<td rowspan="1" colSpan="1" >[TUIResult](https://write.woa.com/document/114033029832187904)</td>
 
-<td rowspan="1" colSpan="1" >包含 code 和 message 信息：code 为空 ("") 表示调用成功；code 不为空 ("") 表示调用失败，失败原因见 message</td>
+<td rowspan="1" colSpan="1" >Contains code and message information: code is empty ("") means the call is successful; code is not empty ("") means the call failed, see message for the reason of failure</td>
 </tr>
 </table>
 
 
 ### logout
-
-登出。
 ``` cpp
 Future<void> logout()
 ```
 
 ### setSelfInfo
 
-设置用户昵称、头像。用户昵称不能超过500字节，用户头像必须是URL格式。
+This API is used to set the alias and profile photo. The alias cannot exceed 500 bytes, and the profile photo is specified by a URL.
 ``` cpp
 Future<TUIResult> setSelfInfo(String nickname, String avatar)
 ```
 <table>
 <tr>
-<td rowspan="1" colSpan="1" >参数</td>
+<td rowspan="1" colSpan="1" >Parameter</td>
 
-<td rowspan="1" colSpan="1" >类型</td>
+<td rowspan="1" colSpan="1" >Type</td>
 
-<td rowspan="1" colSpan="1" >含义</td>
+<td rowspan="1" colSpan="1" >Description</td>
 </tr>
 
 <tr>
@@ -144,7 +140,7 @@ Future<TUIResult> setSelfInfo(String nickname, String avatar)
 
 <td rowspan="1" colSpan="1" >String</td>
 
-<td rowspan="1" colSpan="1" >目标用户的昵称，非必填</td>
+<td rowspan="1" colSpan="1" >The nick name.</td>
 </tr>
 
 <tr>
@@ -152,32 +148,32 @@ Future<TUIResult> setSelfInfo(String nickname, String avatar)
 
 <td rowspan="1" colSpan="1" >String</td>
 
-<td rowspan="1" colSpan="1" >目标用户的头像，非必填</td>
+<td rowspan="1" colSpan="1" >The profile photo.</td>
 </tr>
 
 <tr>
-<td rowspan="1" colSpan="1" >返回值</td>
+<td rowspan="1" colSpan="1" >return value</td>
 
-<td rowspan="1" colSpan="1" >[TUIResult](https://write.woa.com/document/109226385552285696)</td>
+<td rowspan="1" colSpan="1" >[TUIResult](https://write.woa.com/document/114033029832187904)</td>
 
-<td rowspan="1" colSpan="1" >包含 code 和 message 信息：code 为空 ("") 表示调用成功；code 不为空 ("") 表示调用失败，失败原因见 message</td>
+<td rowspan="1" colSpan="1" >Contains code and message information: code is empty ("") means the call is successful; code is not empty ("") means the call failed, see message for the reason of failure</td>
 </tr>
 </table>
 
 
 ### calls
 
-发起通话。**v2.9+ 版本支持。**
+Initiate a call. **Supported by v2.9+.**
 ``` java
 Future<TUIResult> calls(List<String> userIdList, TUICallMediaType mediaType, TUICallParams params)
 ```
 <table>
 <tr>
-<td rowspan="1" colSpan="1" >参数</td>
+<td rowspan="1" colSpan="1" >Parameter</td>
 
-<td rowspan="1" colSpan="1" >类型</td>
+<td rowspan="1" colSpan="1" >Type</td>
 
-<td rowspan="1" colSpan="1" >含义</td>
+<td rowspan="1" colSpan="1" >Description</td>
 </tr>
 
 <tr>
@@ -185,40 +181,40 @@ Future<TUIResult> calls(List<String> userIdList, TUICallMediaType mediaType, TUI
 
 <td rowspan="1" colSpan="1" >List<String></td>
 
-<td rowspan="1" colSpan="1" >目标用户的userId 列表</td>
+<td rowspan="1" colSpan="1" >The target user IDs.</td>
 </tr>
 
 <tr>
 <td rowspan="1" colSpan="1" >callMediaType</td>
 
-<td rowspan="1" colSpan="1" >[TUICallMediaType](https://write.woa.com/document/109226385552285696)</td>
+<td rowspan="1" colSpan="1" >[TUICallMediaType](https://write.woa.com/document/114033029832187904)</td>
 
-<td rowspan="1" colSpan="1" >通话的媒体类型，比如：`TUICallMediaType.video `或  `TUICallMediaType.audio`</td>
+<td rowspan="1" colSpan="1" >The call type, which can be video or audio.</td>
 </tr>
 
 <tr>
 <td rowspan="1" colSpan="1" >params</td>
 
-<td rowspan="1" colSpan="1" >[TUICallParams](https://write.woa.com/document/109226385552285696)</td>
+<td rowspan="1" colSpan="1" >[TUICallParams](https://write.woa.com/document/114033029832187904)</td>
 
-<td rowspan="1" colSpan="1" >**可选**通话扩展参数，例如：房间号、通话邀请超时时间，离线推送自定义内容等</td>
+<td rowspan="1" colSpan="1" >**Optional **Extended call parameters, such as room number, call invitation timeout, offline push of custom content, etc.</td>
 </tr>
 </table>
 
 
 ### join
 
-主动加入通话。**v2.9+ 版本支持。**
+Actively join the call. **Supported by v2.9+.**
 ``` java
 Future<void> join(String callId)
 ```
 <table>
 <tr>
-<td rowspan="1" colSpan="1" >参数</td>
+<td rowspan="1" colSpan="1" >Parameter</td>
 
-<td rowspan="1" colSpan="1" >类型</td>
+<td rowspan="1" colSpan="1" >Type</td>
 
-<td rowspan="1" colSpan="1" >含义</td>
+<td rowspan="1" colSpan="1" >Description</td>
 </tr>
 
 <tr>
@@ -226,24 +222,24 @@ Future<void> join(String callId)
 
 <td rowspan="1" colSpan="1" >String</td>
 
-<td rowspan="1" colSpan="1" >此次通话的唯一 ID</td>
+<td rowspan="1" colSpan="1" >Unique ID for this call.</td>
 </tr>
 </table>
 
 
 ### enableMuteMode
 
-开启后，收到通话请求，不会播放来电铃声。
+This API is used to set whether to turn on the mute mode.
 ``` javascript
 Future<void> enableMuteMode(bool enable)
 ```
 <table>
 <tr>
-<td rowspan="1" colSpan="1" >参数</td>
+<td rowspan="1" colSpan="1" >Parameter</td>
 
-<td rowspan="1" colSpan="1" >类型</td>
+<td rowspan="1" colSpan="1" >Type</td>
 
-<td rowspan="1" colSpan="1" >含义</td>
+<td rowspan="1" colSpan="1" >Description</td>
 </tr>
 
 <tr>
@@ -251,24 +247,24 @@ Future<void> enableMuteMode(bool enable)
 
 <td rowspan="1" colSpan="1" >bool</td>
 
-<td rowspan="1" colSpan="1" >开启、关闭静音；true 表示开启静音</td>
+<td rowspan="1" colSpan="1" >Turn on and off the mute; true means to turn on the mute</td>
 </tr>
 </table>
 
 
 ### enableFloatWindow
 
-开启/关闭悬浮窗功能，设置为false后，通话界面左上角的悬浮窗按钮会隐藏。
+This API is used to set whether to enable floating windows. The default value is `false`, and the floating window button in the top left corner of the call view is hidden. If it is set to `true`, the button will become visible.
 ``` javascript
 Future<void> enableFloatWindow(bool enable)
 ```
 <table>
 <tr>
-<td rowspan="1" colSpan="1" >参数</td>
+<td rowspan="1" colSpan="1" >Parameter</td>
 
-<td rowspan="1" colSpan="1" >类型</td>
+<td rowspan="1" colSpan="1" >Type</td>
 
-<td rowspan="1" colSpan="1" >含义</td>
+<td rowspan="1" colSpan="1" >Description</td>
 </tr>
 
 <tr>
@@ -276,31 +272,49 @@ Future<void> enableFloatWindow(bool enable)
 
 <td rowspan="1" colSpan="1" >bool</td>
 
-<td rowspan="1" colSpan="1" >开启、关闭悬浮窗功能；true 表示开启浮窗</td>
+<td rowspan="1" colSpan="1" >The default value is false, and the floating window button in the top left corner of the call view is hidden. If it is set to true, the button will become visible.</td>
 </tr>
 </table>
 
 
 ### setCallingBell
 
-自定义来电铃声：将铃声文件添加至主工程的`assets`资源中，传入资源文件名称即可。
+Custom ringtone.
 ``` javascript
 Future<void> setCallingBell(String assetName)
 ```
+<table>
+<tr>
+<td rowspan="1" colSpan="1" >Parameter</td>
+
+<td rowspan="1" colSpan="1" >Type</td>
+
+<td rowspan="1" colSpan="1" >Description</td>
+</tr>
+
+<tr>
+<td rowspan="1" colSpan="1" >assetName</td>
+
+<td rowspan="1" colSpan="1" >String</td>
+
+<td rowspan="1" colSpan="1" >The path of the ringtone. The ringtone file needs to be added to the assets resource of the main project.</td>
+</tr>
+</table>
+
 
 ### enableVirtualBackground
 
-开启/关闭虚拟背景功能，开启虚拟背景功能后，您可以在 UI 上显示模糊背景的功能按钮，点击按钮可直接启用模糊背景功能。
+Turn On/Off the Virtual Background feature. After enabling the Virtual Background feature, you can display the Blurry Background feature button on the UI. Clicking the button will directly enable the Blurry Background feature.
 ``` javascript
 Future<void> enableVirtualBackground(bool enable)
 ```
 <table>
 <tr>
-<td rowspan="1" colSpan="1" >参数</td>
+<td rowspan="1" colSpan="1" >Parameter</td>
 
-<td rowspan="1" colSpan="1" >类型</td>
+<td rowspan="1" colSpan="1" >Type</td>
 
-<td rowspan="1" colSpan="1" >含义</td>
+<td rowspan="1" colSpan="1" >Meaning</td>
 </tr>
 
 <tr>
@@ -308,34 +322,35 @@ Future<void> enableVirtualBackground(bool enable)
 
 <td rowspan="1" colSpan="1" >bool</td>
 
-<td rowspan="1" colSpan="1" >开启、关闭静音；true 表示开启静音</td>
+<td rowspan="1" colSpan="1" >Turn on, turn off mute; true means mute is on</td>
 </tr>
 </table>
 
 
-## 废弃接口
+## Deprecated interfaces
 
 ### call
 
-拨打电话（1v1通话）。
+This API is used to make a (one-to-one) call.
 
-> **注意：**
+> **Note：**
 > 
 
-> 该接口已在 v2.9+ 版本废弃，建议使用 calls 接口替代。
+> This interface has been deprecated in v2.9+. It is recommended to use the calls interface instead.
 > 
 
 ``` cpp
 Future<void> call(String userId, TUICallMediaType callMediaType, [TUICallParams? params])
-
 ```
+
+The parameters are described below:
 <table>
 <tr>
-<td rowspan="1" colSpan="1" >参数</td>
+<td rowspan="1" colSpan="1" >Parameter</td>
 
-<td rowspan="1" colSpan="1" >类型</td>
+<td rowspan="1" colSpan="1" >Type</td>
 
-<td rowspan="1" colSpan="1" >含义</td>
+<td rowspan="1" colSpan="1" >Description</td>
 </tr>
 
 <tr>
@@ -343,39 +358,41 @@ Future<void> call(String userId, TUICallMediaType callMediaType, [TUICallParams?
 
 <td rowspan="1" colSpan="1" >String</td>
 
-<td rowspan="1" colSpan="1" >目标用户的 userID</td>
+<td rowspan="1" colSpan="1" >The target user ID.</td>
 </tr>
 
 <tr>
 <td rowspan="1" colSpan="1" >callMediaType</td>
 
-<td rowspan="1" colSpan="1" >[TUICallMediaType](https://write.woa.com/document/109226385552285696)</td>
+<td rowspan="1" colSpan="1" >[TUICallMediaType](https://write.woa.com/document/114033029832187904)</td>
 
-<td rowspan="1" colSpan="1" >通话的媒体类型，比如：`TUICallMediaType.video `或 `TUICallMediaType.audio`</td>
+<td rowspan="1" colSpan="1" >`The call type, which can be video or audio.`</td>
 </tr>
 </table>
 
 
 ### groupCall
 
-发起群组通话，注意：使用群组通话前需要创建 IM 群组，如果已经创建，请忽略。
+This API is used to make a group call.
 
-> **注意：**
+> **Note：**
 > 
 
-> 该接口已在 v2.9+ 版本废弃，建议使用 calls 接口替代。
+> This interface has been deprecated in v2.9+. It is recommended to use the calls interface instead.
 > 
 
 ``` javascript
 Future<void> groupCall(String groupId, List<String> userIdList, TUICallMediaType callMediaType,[TUICallParams? params])
 ```
+
+The parameters are described below:
 <table>
 <tr>
-<td rowspan="1" colSpan="1" >参数</td>
+<td rowspan="1" colSpan="1" >Parameter</td>
 
-<td rowspan="1" colSpan="1" >类型</td>
+<td rowspan="1" colSpan="1" >Type</td>
 
-<td rowspan="1" colSpan="1" >含义</td>
+<td rowspan="1" colSpan="1" >Description</td>
 </tr>
 
 <tr>
@@ -383,7 +400,7 @@ Future<void> groupCall(String groupId, List<String> userIdList, TUICallMediaType
 
 <td rowspan="1" colSpan="1" >String</td>
 
-<td rowspan="1" colSpan="1" >此次群组通话的群 ID</td>
+<td rowspan="1" colSpan="1" >The group ID.</td>
 </tr>
 
 <tr>
@@ -391,27 +408,27 @@ Future<void> groupCall(String groupId, List<String> userIdList, TUICallMediaType
 
 <td rowspan="1" colSpan="1" >List<String></td>
 
-<td rowspan="1" colSpan="1" >目标用户的 userId 列表</td>
+<td rowspan="1" colSpan="1" >The target user IDs.</td>
 </tr>
 
 <tr>
 <td rowspan="1" colSpan="1" >callMediaType</td>
 
-<td rowspan="1" colSpan="1" >[TUICallMediaType](https://write.woa.com/document/109226385552285696)</td>
+<td rowspan="1" colSpan="1" >[TUICallMediaType](https://write.woa.com/document/114033029832187904)</td>
 
-<td rowspan="1" colSpan="1" >通话的媒体类型，比如：`TUICallMediaType.video `或  `TUICallMediaType.audio`</td>
+<td rowspan="1" colSpan="1" >`The call type, which can be video or audio.`</td>
 </tr>
 </table>
 
 
 ### joinInGroupCall
 
-加入群组中已有的音视频通话。
+This API is used to join a group call.Before making a group call, you need to create an IM group first.
 
-> **注意：**
+> **Note：**
 > 
 
-> 该接口已在 v2.9+ 版本废弃，建议使用 join 接口替代。
+> This interface has been deprecated in v2.9+. It is recommended to use the join interface instead.
 > 
 
 ``` javascript
@@ -419,19 +436,19 @@ Future<void> joinInGroupCall(TUIRoomId roomId, String groupId, TUICallMediaType 
 ```
 <table>
 <tr>
-<td rowspan="1" colSpan="1" >参数</td>
+<td rowspan="1" colSpan="1" >Parameter</td>
 
-<td rowspan="1" colSpan="1" >类型</td>
+<td rowspan="1" colSpan="1" >Type</td>
 
-<td rowspan="1" colSpan="1" >含义</td>
+<td rowspan="1" colSpan="1" >Description</td>
 </tr>
 
 <tr>
 <td rowspan="1" colSpan="1" >roomId</td>
 
-<td rowspan="1" colSpan="1" >[TUIRoomID](https://write.woa.com/document/109226385552285696)</td>
+<td rowspan="1" colSpan="1" >[TUIRoomID](https://write.woa.com/document/114033029832187904)</td>
 
-<td rowspan="1" colSpan="1" >此次通话的音视频房间 ID</td>
+<td rowspan="1" colSpan="1" >The room ID.</td>
 </tr>
 
 <tr>
@@ -439,14 +456,14 @@ Future<void> joinInGroupCall(TUIRoomId roomId, String groupId, TUICallMediaType 
 
 <td rowspan="1" colSpan="1" >String</td>
 
-<td rowspan="1" colSpan="1" >此次群组通话的群 ID</td>
+<td rowspan="1" colSpan="1" >The group ID.</td>
 </tr>
 
 <tr>
 <td rowspan="1" colSpan="1" >callMediaType</td>
 
-<td rowspan="1" colSpan="1" >[TUICallMediaType](https://write.woa.com/document/109226385552285696)</td>
+<td rowspan="1" colSpan="1" >[TUICallMediaType](https://write.woa.com/document/114033029832187904)</td>
 
-<td rowspan="1" colSpan="1" >通话的媒体类型，比如：`TUICallMediaType.video `或 `TUICallMediaType.audio`</td>
+<td rowspan="1" colSpan="1" >`The call type, which can be video or audio.`</td>
 </tr>
 </table>

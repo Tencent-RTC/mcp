@@ -1,0 +1,19 @@
+{
+  "name": "@tencent/aegis-node-sdk",
+  "version": "1.43.25",
+  "author": "taddeng <taddeng@tencent.com>",
+  "description": "aegis sdk for node application",
+  "main": "lib/aegis.min",
+  "types": "lib/packages/node-sdk/src/index.d.ts",
+  "buildOptions": {
+    "name": "Aegis",
+    "format": "umd"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "@tencent/polaris": "^0.4.1",
+    "agentkeepalive": "^4.1.4",
+    "axios": "^0.24.0"
+  },
+  "gitHead": "667f95bd1bd1654431e74b8a3b806d64a601adbf"
+}

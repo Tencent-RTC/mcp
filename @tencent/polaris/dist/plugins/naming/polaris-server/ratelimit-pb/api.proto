@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package v1;
+
+import "ratelimit.proto";
+
+service RateLimitAPI {
+	// 限流KEY初始化
+	rpc InitializeQuota(RateLimitRequest) returns(RateLimitResponse) {}
+	// 获取限流配额
+	rpc AcquireQuota(stream RateLimitRequest) returns(stream RateLimitResponse) {}
+}

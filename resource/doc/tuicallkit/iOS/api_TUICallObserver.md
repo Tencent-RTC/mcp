@@ -1,143 +1,143 @@
-## TUICallObserver API 简介
+## TUICallObserver APIs
 
-TUICallObserver 是 TUICallEngine 对应的回调事件类，您可以通过此回调，来监听自己感兴趣的回调事件。
+`TUICallObserver` is the callback class of `TUICallEngine`. You can use it to listen for events.
 
-## 回调事件概览
+## Overview
 <table>
 <tr>
 <td rowspan="1" colSpan="1" >API</td>
 
-<td rowspan="1" colSpan="1" >描述</td>
+<td rowspan="1" colSpan="1" >Description</td>
 </tr>
 
 <tr>
-<td rowspan="1" colSpan="1" >[onError](https://cloud.tencent.com/document/product/647/78755#onError)</td>
+<td rowspan="1" colSpan="1" >[onError](https://www.tencentcloud.com/document/product/647/51013#onError)</td>
 
-<td rowspan="1" colSpan="1" >通话过程中错误回调</td>
+<td rowspan="1" colSpan="1" >An error occurred during the call.</td>
 </tr>
 
 <tr>
-<td rowspan="1" colSpan="1" >[onCallReceived](https://cloud.tencent.com/document/product/647/78755#onCallReceived)</td>
+<td rowspan="1" colSpan="1" >[onCallReceived](https://www.tencentcloud.com/document/product/647/51013#onCallReceived)</td>
 
-<td rowspan="1" colSpan="1" >通话请求的回调</td>
+<td rowspan="1" colSpan="1" >A call was received.</td>
 </tr>
 
 <tr>
-<td rowspan="1" colSpan="1" >[onCallCancelled](https://cloud.tencent.com/document/product/647/78755#onCallCancelled)</td>
+<td rowspan="1" colSpan="1" >[onCallBegin](https://www.tencentcloud.com/document/product/647/51013#onCallBegin)</td>
 
-<td rowspan="1" colSpan="1" >通话取消的回调</td>
+<td rowspan="1" colSpan="1" >The call was connected.</td>
 </tr>
 
 <tr>
-<td rowspan="1" colSpan="1" >[onCallEnd](https://cloud.tencent.com/document/product/647/78755#onCallEnd)</td>
+<td rowspan="1" colSpan="1" >[onCallEnd](https://www.tencentcloud.com/document/product/647/51013#onCallEnd)</td>
 
-<td rowspan="1" colSpan="1" >通话结束的回调</td>
+<td rowspan="1" colSpan="1" >The call ended.</td>
 </tr>
 
 <tr>
-<td rowspan="1" colSpan="1" >[onCallNotConnected](https://cloud.tencent.com/document/product/647/78755#onCallNotConnected)</td>
+<td rowspan="1" colSpan="1" >[onCallNotConnected](https://www.tencentcloud.com/document/product/647/51013#onCallNotConnected)</td>
 
-<td rowspan="1" colSpan="1" >通话未接通的回调</td>
+<td rowspan="1" colSpan="1" >The call not connected.</td>
 </tr>
 
 <tr>
-<td rowspan="1" colSpan="1" >[onUserReject](https://cloud.tencent.com/document/product/647/78755#onUserReject)</td>
+<td rowspan="1" colSpan="1" >[onUserReject](https://www.tencentcloud.com/document/product/647/51013#onUserReject)</td>
 
-<td rowspan="1" colSpan="1" >xxxx 用户拒绝通话的回调</td>
+<td rowspan="1" colSpan="1" >A user declined the call.</td>
 </tr>
 
 <tr>
-<td rowspan="1" colSpan="1" >[onUserNoResponse](https://cloud.tencent.com/document/product/647/78755#onUserNoResponse)</td>
+<td rowspan="1" colSpan="1" >[onUserNoResponse](https://www.tencentcloud.com/document/product/647/51013#onUserNoResponse)</td>
 
-<td rowspan="1" colSpan="1" >xxxx 用户不响应的回调</td>
+<td rowspan="1" colSpan="1" >A user didn't respond.</td>
 </tr>
 
 <tr>
-<td rowspan="1" colSpan="1" >[onUserLineBusy](https://cloud.tencent.com/document/product/647/78755#onUserLineBusy)</td>
+<td rowspan="1" colSpan="1" >[onUserLineBusy](https://www.tencentcloud.com/document/product/647/51013#onUserLineBusy)</td>
 
-<td rowspan="1" colSpan="1" >xxxx 用户忙线的回调</td>
+<td rowspan="1" colSpan="1" >A user was busy.</td>
 </tr>
 
 <tr>
-<td rowspan="1" colSpan="1" >[onUserInviting](https://cloud.tencent.com/document/product/647/78755#onUserInviting)</td>
+<td rowspan="1" colSpan="1" >[onUserInviting](https://www.tencentcloud.com/document/product/647/51013#onUserInviting)</td>
 
-<td rowspan="1" colSpan="1" >xxxx 用户被追加邀请加入通话时的回调</td>
+<td rowspan="1" colSpan="1" >A user is invited to join a call.</td>
 </tr>
 
 <tr>
-<td rowspan="1" colSpan="1" >[onUserJoin](https://cloud.tencent.com/document/product/647/78755#onUserJoin)</td>
+<td rowspan="1" colSpan="1" >[onUserJoin](https://www.tencentcloud.com/document/product/647/51013#onUserJoin)</td>
 
-<td rowspan="1" colSpan="1" >xxxx 用户加入通话的回调</td>
+<td rowspan="1" colSpan="1" >A user joined the call.</td>
 </tr>
 
 <tr>
-<td rowspan="1" colSpan="1" >[onUserLeave](https://cloud.tencent.com/document/product/647/78755#onUserLeave)</td>
+<td rowspan="1" colSpan="1" >[onUserLeave](https://www.tencentcloud.com/document/product/647/51013#onUserLeave)</td>
 
-<td rowspan="1" colSpan="1" >xxxx 用户离开通话的回调</td>
+<td rowspan="1" colSpan="1" >A user left the call.</td>
 </tr>
 
 <tr>
-<td rowspan="1" colSpan="1" >[onUserVideoAvailable](https://cloud.tencent.com/document/product/647/78755#onUserVideoAvailable)</td>
+<td rowspan="1" colSpan="1" >[onUserVideoAvailable](https://www.tencentcloud.com/document/product/647/51013#onUserVideoAvailable)</td>
 
-<td rowspan="1" colSpan="1" >xxxx 用户是否有视频流的回调</td>
+<td rowspan="1" colSpan="1" >Whether a user had a video stream.</td>
 </tr>
 
 <tr>
-<td rowspan="1" colSpan="1" >[onUserAudioAvailable](https://cloud.tencent.com/document/product/647/78755#onUserAudioAvailable)</td>
+<td rowspan="1" colSpan="1" >[onUserAudioAvailable](https://www.tencentcloud.com/document/product/647/51013#onUserAudioAvailable)</td>
 
-<td rowspan="1" colSpan="1" >xxxx 用户是否有音频流的回调</td>
+<td rowspan="1" colSpan="1" >Whether a user had an audio stream.</td>
 </tr>
 
 <tr>
-<td rowspan="1" colSpan="1" >[onUserVoiceVolumeChanged](https://cloud.tencent.com/document/product/647/78755#onUserVoiceVolumeChanged)</td>
+<td rowspan="1" colSpan="1" >[onUserVoiceVolumeChanged](https://www.tencentcloud.com/document/product/647/51013#onUserVoiceVolumeChanged)</td>
 
-<td rowspan="1" colSpan="1" >所有用户音量大小的反馈回调</td>
+<td rowspan="1" colSpan="1" >The volume levels of all users.</td>
 </tr>
 
 <tr>
-<td rowspan="1" colSpan="1" >[onUserNetworkQualityChanged](https://cloud.tencent.com/document/product/647/78755#onUserNetworkQualityChanged)</td>
+<td rowspan="1" colSpan="1" >[onUserNetworkQualityChanged](https://www.tencentcloud.com/document/product/647/51013#onUserNetworkQualityChanged)</td>
 
-<td rowspan="1" colSpan="1" >所有用户网络质量的反馈回调</td>
+<td rowspan="1" colSpan="1" >The network quality of all users.</td>
 </tr>
 
 <tr>
-<td rowspan="1" colSpan="1" >[onKickedOffline](https://cloud.tencent.com/document/product/647/78755#onKickedOffline)</td>
+<td rowspan="1" colSpan="1" >[onKickedOffline](https://www.tencentcloud.com/document/product/647/51013#onKickedOffline)</td>
 
-<td rowspan="1" colSpan="1" >当前用户被踢下线</td>
+<td rowspan="1" colSpan="1" >The current user was kicked offline.</td>
 </tr>
 
 <tr>
-<td rowspan="1" colSpan="1" >[onUserSigExpired](https://cloud.tencent.com/document/product/647/78755#onUserSigExpired)</td>
+<td rowspan="1" colSpan="1" >[onUserSigExpired](https://www.tencentcloud.com/document/product/647/51013#onUserSigExpired)</td>
 
-<td rowspan="1" colSpan="1" >在线时票据过期</td>
+<td rowspan="1" colSpan="1" >The user sig is expired.</td>
 </tr>
 </table>
 
 
-## 回调事件详情
+## Details
 
 ### onError
 
-错误回调。
+An error occurred.
 
-> **说明：**
+> **Note:**
 > 
 
-> SDK 不可恢复的错误，一定要监听，并分情况给用户适当的界面提示。
+> This callback indicates that the SDK encountered an unrecoverable error. Such errors must be listened for, and UI reminders should be sent to users if necessary.
 > 
 
-``` objectivec
+``` objc
 - (void)onError:(int)code message:(NSString * _Nullable)message;
 ```
 
-参数如下表所示：
+The parameters are described below:
 <table>
 <tr>
-<td rowspan="1" colSpan="1" >参数</td>
+<td rowspan="1" colSpan="1" >Parameter</td>
 
-<td rowspan="1" colSpan="1" >类型</td>
+<td rowspan="1" colSpan="1" >Type</td>
 
-<td rowspan="1" colSpan="1" >含义</td>
+<td rowspan="1" colSpan="1" >Description</td>
 </tr>
 
 <tr>
@@ -145,7 +145,7 @@ TUICallObserver 是 TUICallEngine 对应的回调事件类，您可以通过此�
 
 <td rowspan="1" colSpan="1" >int</td>
 
-<td rowspan="1" colSpan="1" >错误码</td>
+<td rowspan="1" colSpan="1" >The error code.</td>
 </tr>
 
 <tr>
@@ -153,26 +153,26 @@ TUICallObserver 是 TUICallEngine 对应的回调事件类，您可以通过此�
 
 <td rowspan="1" colSpan="1" >NSString</td>
 
-<td rowspan="1" colSpan="1" >错误信息</td>
+<td rowspan="1" colSpan="1" >The error message.</td>
 </tr>
 </table>
 
 
 ### onCallReceived
 
-收到一个新的来电请求回调，被叫会收到，您可以通过监听这个事件，来决定是否显示通话接听界面。
-``` objectivec
+A call invitation was received. This callback is received by an invitee. You can listen for this event to determine whether to display the incoming call view.
+``` objc
 - (void)onCallReceived:(NSString *)callId callerId:(NSString *)callerId calleeIdList:(NSArray<NSString *> *)calleeIdList mediaType:(TUICallMediaType)mediaType info:(TUICallObserverExtraInfo *)info;
 ```
 
-参数如下表所示：
+The parameters are described below:
 <table>
 <tr>
-<td rowspan="1" colSpan="1" >参数</td>
+<td rowspan="1" colSpan="1" >Parameter</td>
 
-<td rowspan="1" colSpan="1" >类型</td>
+<td rowspan="1" colSpan="1" >Type</td>
 
-<td rowspan="1" colSpan="1" >含义</td>
+<td rowspan="1" colSpan="1" >Description</td>
 </tr>
 
 <tr>
@@ -180,7 +180,7 @@ TUICallObserver 是 TUICallEngine 对应的回调事件类，您可以通过此�
 
 <td rowspan="1" colSpan="1" >NSString</td>
 
-<td rowspan="1" colSpan="1" >此次通话的唯一 ID</td>
+<td rowspan="1" colSpan="1" >Unique ID of this call</td>
 </tr>
 
 <tr>
@@ -188,7 +188,7 @@ TUICallObserver 是 TUICallEngine 对应的回调事件类，您可以通过此�
 
 <td rowspan="1" colSpan="1" >NSString</td>
 
-<td rowspan="1" colSpan="1" >主叫 ID（邀请方）</td>
+<td rowspan="1" colSpan="1" >Caller ID </td>
 </tr>
 
 <tr>
@@ -196,42 +196,42 @@ TUICallObserver 是 TUICallEngine 对应的回调事件类，您可以通过此�
 
 <td rowspan="1" colSpan="1" >NSArray</td>
 
-<td rowspan="1" colSpan="1" >被叫 ID 列表（被邀请方）</td>
+<td rowspan="1" colSpan="1" >Callee ID List</td>
 </tr>
 
 <tr>
 <td rowspan="1" colSpan="1" >mediaType</td>
 
-<td rowspan="1" colSpan="1" >[TUICallMediaType](https://cloud.tencent.com/document/product/647/90446#MediaType)</td>
+<td rowspan="1" colSpan="1" >[TUICallMediaType](https://www.tencentcloud.com/document/product/647/54902#MediaType)</td>
 
-<td rowspan="1" colSpan="1" >通话的媒体类型，比如视频通话、语音通话</td>
+<td rowspan="1" colSpan="1" >The call type, which can be video or audio.</td>
 </tr>
 
 <tr>
 <td rowspan="1" colSpan="1" >info</td>
 
-<td rowspan="1" colSpan="1" >[TUICallObserverExtraInfo](https://cloud.tencent.com/document/product/647/90446#ObserverExtraInfo)</td>
+<td rowspan="1" colSpan="1" >[TUICallObserverExtraInfo](https://www.tencentcloud.com/document/product/647/54902#ObserverExtraInfo)</td>
 
-<td rowspan="1" colSpan="1" >其他信息</td>
+<td rowspan="1" colSpan="1" >Extended information</td>
 </tr>
 </table>
 
 
 ### onCallBegin
 
-表示通话接通，主叫和被叫都可以收到，您可以通过监听这个事件来开启云端录制、内容审核等流程。
-``` objectivec
+The call was connected. This callback is received by both the inviter and invitees. You can listen for this event to determine whether to start on-cloud recording, content moderation, or other tasks.
+``` swift
 - (void)onCallBegin:(NSString *)callId mediaType:(TUICallMediaType)mediaType info:(TUICallObserverExtraInfo *)info;
 ```
 
-参数如下表所示：
+The parameters are described below:
 <table>
 <tr>
-<td rowspan="1" colSpan="1" >参数</td>
+<td rowspan="1" colSpan="1" >Parameter</td>
 
-<td rowspan="1" colSpan="1" >类型</td>
+<td rowspan="1" colSpan="1" >Type</td>
 
-<td rowspan="1" colSpan="1" >含义</td>
+<td rowspan="1" colSpan="1" >Description</td>
 </tr>
 
 <tr>
@@ -239,42 +239,42 @@ TUICallObserver 是 TUICallEngine 对应的回调事件类，您可以通过此�
 
 <td rowspan="1" colSpan="1" >NSString</td>
 
-<td rowspan="1" colSpan="1" >此次通话的唯一 ID</td>
+<td rowspan="1" colSpan="1" >Unique ID of this call</td>
 </tr>
 
 <tr>
 <td rowspan="1" colSpan="1" >mediaType</td>
 
-<td rowspan="1" colSpan="1" >[TUICallMediaType](https://cloud.tencent.com/document/product/647/90446#MediaType)</td>
+<td rowspan="1" colSpan="1" >[TUICallMediaType](https://www.tencentcloud.com/document/product/647/54902#MediaType)</td>
 
-<td rowspan="1" colSpan="1" >通话的媒体类型，视频通话、语音通话</td>
+<td rowspan="1" colSpan="1" >The call type, which can be video or audio.</td>
 </tr>
 
 <tr>
 <td rowspan="1" colSpan="1" >info</td>
 
-<td rowspan="1" colSpan="1" >[TUICallObserverExtraInfo](https://cloud.tencent.com/document/product/647/90446#ObserverExtraInfo)</td>
+<td rowspan="1" colSpan="1" >[TUICallObserverExtraInfo](https://www.tencentcloud.com/document/product/647/54902#ObserverExtraInfo)</td>
 
-<td rowspan="1" colSpan="1" >其他信息</td>
+<td rowspan="1" colSpan="1" >Extended information</td>
 </tr>
 </table>
 
 
 ### onCallEnd
 
-表示通话挂断，主叫和被叫都可以收到，您可以通过监听这个事件来显示通话时长、通话类型等信息，或者来停止云端的录制流程。
-``` objectivec
+The call ended. This callback is received by both the inviter and invitees. You can listen for this event to determine when to display call information such as call duration and call type, or stop on-cloud recording.
+``` swift
 - (void)onCallEnd:(NSString *)callId mediaType:(TUICallMediaType)mediaType reason:(TUICallEndReason)reason userId:(NSString *)userId totalTime:(float)totalTime info:(TUICallObserverExtraInfo *)info;
 ```
 
-参数如下表所示：
+The parameters are described below:
 <table>
 <tr>
-<td rowspan="1" colSpan="1" >参数</td>
+<td rowspan="1" colSpan="1" >Parameter</td>
 
-<td rowspan="1" colSpan="1" >类型</td>
+<td rowspan="1" colSpan="1" >Type</td>
 
-<td rowspan="1" colSpan="1" >含义</td>
+<td rowspan="1" colSpan="1" >Description</td>
 </tr>
 
 <tr>
@@ -282,23 +282,23 @@ TUICallObserver 是 TUICallEngine 对应的回调事件类，您可以通过此�
 
 <td rowspan="1" colSpan="1" >NSString</td>
 
-<td rowspan="1" colSpan="1" >此次通话的音视频房间 ID</td>
+<td rowspan="1" colSpan="1" >Unique ID of this call</td>
 </tr>
 
 <tr>
 <td rowspan="1" colSpan="1" >mediaType</td>
 
-<td rowspan="1" colSpan="1" >[TUICallMediaType](https://cloud.tencent.com/document/product/647/90446#MediaType)</td>
+<td rowspan="1" colSpan="1" >[TUICallMediaType](https://www.tencentcloud.com/document/product/647/54902#MediaType)</td>
 
-<td rowspan="1" colSpan="1" >通话的媒体类型，视频通话、语音通话</td>
+<td rowspan="1" colSpan="1" >The call type, which can be video or audio.</td>
 </tr>
 
 <tr>
 <td rowspan="1" colSpan="1" >reason</td>
 
-<td rowspan="1" colSpan="1" >[TUICallEndReason](https://cloud.tencent.com/document/product/647/90446#EndReason)</td>
+<td rowspan="1" colSpan="1" >[TUICallEndReason](https://www.tencentcloud.com/document/product/647/54902#EndReason)</td>
 
-<td rowspan="1" colSpan="1" >通话结束原因</td>
+<td rowspan="1" colSpan="1" >Call end reason</td>
 </tr>
 
 <tr>
@@ -306,7 +306,7 @@ TUICallObserver 是 TUICallEngine 对应的回调事件类，您可以通过此�
 
 <td rowspan="1" colSpan="1" >NSString</td>
 
-<td rowspan="1" colSpan="1" >结束通话的用户 ID</td>
+<td rowspan="1" colSpan="1" >​​Ended by user ID</td>
 </tr>
 
 <tr>
@@ -314,52 +314,52 @@ TUICallObserver 是 TUICallEngine 对应的回调事件类，您可以通过此�
 
 <td rowspan="1" colSpan="1" >float</td>
 
-<td rowspan="1" colSpan="1" >此次通话的时长，单位：秒</td>
+<td rowspan="1" colSpan="1" >The call duration.</td>
 </tr>
 
 <tr>
 <td rowspan="1" colSpan="1" >info</td>
 
-<td rowspan="1" colSpan="1" >[TUICallObserverExtraInfo](https://cloud.tencent.com/document/product/647/90446#ObserverExtraInfo)</td>
+<td rowspan="1" colSpan="1" >[TUICallObserverExtraInfo](https://www.tencentcloud.com/document/product/647/54902#ObserverExtraInfo)</td>
 
-<td rowspan="1" colSpan="1" >其他信息</td>
+<td rowspan="1" colSpan="1" >Extended information</td>
 </tr>
 </table>
 
 
-> **注意：**
+> **Note:**
 > 
 
-> 客户端的事件一般都会随着杀进程等异常事件丢失掉，如果您需要通过监听通话时长来完成计费等逻辑，建议可以使用 REST API 来完成这类流程。
+> Client-side callbacks are often lost when errors occur, for example, when the process is closed. If you need to measure the duration of a call for billing or other purposes, we recommend you use the RESTful API.
 > 
 
 
 ### onCallNotConnected
 
-表示此次通话主叫取消、被叫超时、拒接等，涉及多个场景，您可以通过监听这个事件来实现类似未接来电、重置 UI 状态等显示逻辑。
-- 主叫取消：主叫收到该回调（userId 为自己）；被叫收到该回调（userId 为**主叫的 ID）。**
+This indicates that the call was canceled by the caller, timed out by the callee, rejected by the callee, or the callee was busy. There are multiple scenarios involved. You can listen to this event to achieve UI logic such as missed calls and resetting UI status. 
+- Call cancellation by the caller: The caller receives the callback (userId is himself); the callee receives the callback (userId is the ID of the caller) 
 
-- 被叫超时：主叫会同时收到 [onUserNoResponse](https://cloud.tencent.com/document/product/647/78755#onUserNoResponse) 和 onCallNotConnected 回调（userId 是自己的 ID）；被叫收到 onCallNotConnected 回调（userId 是自己的 ID）。
+- Callee timeout: the caller will simultaneously receive the [onUserNoResponse](https://www.tencentcloud.com/document/product/647/54902#onUserNoResponse) and onCallNotConnected callbacks (userId is his own ID); the callee receives the onCallNotConnected callback (userId is his own ID) 
 
-- 被叫拒接：主叫会同时收到 [onUserReject](https://cloud.tencent.com/document/product/647/78755#onUserReject) 和 onCallNotConnected 回调（userId 是自己的 ID）；被叫收到 onCallNotConnected 回调（userId 是自己的 ID）。
+- Callee rejection: The caller will simultaneously receive the [onUserReject](https://www.tencentcloud.com/document/product/647/54902#onUserReject) and onCallNotConnected callbacks (userId is his own ID); the callee receives the onCallNotConnected callback (userId is his own ID) 
 
-- 被叫忙线：主叫会同时收到 [onUserLineBusy](https://cloud.tencent.com/document/product/647/78755#onUserLineBusy) 和 onCallNotConnected 回调（userId 是自己的 ID）。
+- Callee busy: The caller will simultaneously receive the [onUserLineBusy](https://www.tencentcloud.com/document/product/647/54902#onUserLineBusy) and onCallNotConnected callbacks (userId is his own ID); 
 
-- 异常中断：被叫接收通话失败，收到该回调（userId 是自己的 ID）。
+- Abnormal interruption: The callee failed to receive the call ，he receives this callback (userId is his own ID).
 
-   ``` objectivec
+   ``` objc
    - (void)onCallNotConnected:(NSString *)callId mediaType:(TUICallMediaType)mediaType reason:(TUICallEndReason)reaso userId:(NSString *)userId info:(TUICallObserverExtraInfo *)info
    ```
 
-   参数如下表所示：
+   The parameters are described below:
 
 <table>
 <tr>
-<td rowspan="1" colSpan="1" >参数</td>
+<td rowspan="1" colSpan="1" >Parameter</td>
 
-<td rowspan="1" colSpan="1" >类型</td>
+<td rowspan="1" colSpan="1" >Type</td>
 
-<td rowspan="1" colSpan="1" >含义</td>
+<td rowspan="1" colSpan="1" >Description</td>
 </tr>
 
 <tr>
@@ -367,23 +367,23 @@ TUICallObserver 是 TUICallEngine 对应的回调事件类，您可以通过此�
 
 <td rowspan="1" colSpan="1" >NSString</td>
 
-<td rowspan="1" colSpan="1" >此次通话的音视频房间 ID</td>
+<td rowspan="1" colSpan="1" >Unique ID of this call</td>
 </tr>
 
 <tr>
 <td rowspan="1" colSpan="1" >mediaType</td>
 
-<td rowspan="1" colSpan="1" >[TUICallMediaType](https://cloud.tencent.com/document/product/647/90446#MediaType)</td>
+<td rowspan="1" colSpan="1" >[TUICallMediaType](https://www.tencentcloud.com/document/product/647/54902#MediaType)</td>
 
-<td rowspan="1" colSpan="1" >通话的媒体类型，视频通话、语音通话</td>
+<td rowspan="1" colSpan="1" >The call type, which can be video or audio.</td>
 </tr>
 
 <tr>
 <td rowspan="1" colSpan="1" >reason</td>
 
-<td rowspan="1" colSpan="1" >[TUICallEndReason](https://cloud.tencent.com/document/product/647/90446#EndReason)</td>
+<td rowspan="1" colSpan="1" >[TUICallEndReason](https://www.tencentcloud.com/document/product/647/54902#TUICallEndReason)</td>
 
-<td rowspan="1" colSpan="1" >通话未连接原因</td>
+<td rowspan="1" colSpan="1" >Call not connected reason</td>
 </tr>
 
 <tr>
@@ -391,34 +391,34 @@ TUICallObserver 是 TUICallEngine 对应的回调事件类，您可以通过此�
 
 <td rowspan="1" colSpan="1" >NSString</td>
 
-<td rowspan="1" colSpan="1" >导致通话未连接的用户 ID</td>
+<td rowspan="1" colSpan="1" >​​Not connected by user ID</td>
 </tr>
 
 <tr>
 <td rowspan="1" colSpan="1" >info</td>
 
-<td rowspan="1" colSpan="1" >[TUICallObserverExtraInfo](https://cloud.tencent.com/document/product/647/90446#ObserverExtraInfo)</td>
+<td rowspan="1" colSpan="1" >[TUICallObserverExtraInfo](https://www.tencentcloud.com/document/product/647/54902#CallObserverExtraInfo)</td>
 
-<td rowspan="1" colSpan="1" >其他信息</td>
+<td rowspan="1" colSpan="1" >Extended information</td>
 </tr>
 </table>
 
 
 ### onUserReject
 
-通话被拒绝的回调，在1v1 通话中，只有主叫方会收到拒绝回调，在群组通话中，所有被邀请者都可以收到该回调。
-``` objectivec
+The call was rejected. In a one-to-one call, only the inviter will receive this callback. In a group call, all invitees will receive this callback.
+``` swift
 - (void)onUserReject:(NSString *)userId;
 ```
 
-参数如下表所示：
+The parameters are described below:
 <table>
 <tr>
-<td rowspan="1" colSpan="1" >参数</td>
+<td rowspan="1" colSpan="1" >Parameter</td>
 
-<td rowspan="1" colSpan="1" >类型</td>
+<td rowspan="1" colSpan="1" >Type</td>
 
-<td rowspan="1" colSpan="1" >含义</td>
+<td rowspan="1" colSpan="1" >Description</td>
 </tr>
 
 <tr>
@@ -426,26 +426,26 @@ TUICallObserver 是 TUICallEngine 对应的回调事件类，您可以通过此�
 
 <td rowspan="1" colSpan="1" >NSString</td>
 
-<td rowspan="1" colSpan="1" >拒绝用户的 ID</td>
+<td rowspan="1" colSpan="1" >The user ID of the invitee who rejected the call.</td>
 </tr>
 </table>
 
 
 ### onUserNoResponse
 
-对方无回应的回调。
-``` objectivec
+A user did not respond.
+``` swift
 - (void)onUserNoResponse:(NSString *)userId;
 ```
 
-参数如下表所示：
+The parameters are described below:
 <table>
 <tr>
-<td rowspan="1" colSpan="1" >参数</td>
+<td rowspan="1" colSpan="1" >Parameter</td>
 
-<td rowspan="1" colSpan="1" >类型</td>
+<td rowspan="1" colSpan="1" >Type</td>
 
-<td rowspan="1" colSpan="1" >含义</td>
+<td rowspan="1" colSpan="1" >Description</td>
 </tr>
 
 <tr>
@@ -453,26 +453,26 @@ TUICallObserver 是 TUICallEngine 对应的回调事件类，您可以通过此�
 
 <td rowspan="1" colSpan="1" >NSString</td>
 
-<td rowspan="1" colSpan="1" >无响应用户的 ID</td>
+<td rowspan="1" colSpan="1" >The user ID of the invitee who did not answer.</td>
 </tr>
 </table>
 
 
 ### onUserLineBusy
 
-通话忙线回调。
-``` objectivec
+A user is busy.
+``` swift
 - (void)onUserLineBusy:(NSString *)userId;
 ```
 
-参数如下表所示：
+The parameters are described below:
 <table>
 <tr>
-<td rowspan="1" colSpan="1" >参数</td>
+<td rowspan="1" colSpan="1" >Parameter</td>
 
-<td rowspan="1" colSpan="1" >类型</td>
+<td rowspan="1" colSpan="1" >Type</td>
 
-<td rowspan="1" colSpan="1" >含义</td>
+<td rowspan="1" colSpan="1" >Description</td>
 </tr>
 
 <tr>
@@ -480,26 +480,26 @@ TUICallObserver 是 TUICallEngine 对应的回调事件类，您可以通过此�
 
 <td rowspan="1" colSpan="1" >NSString</td>
 
-<td rowspan="1" colSpan="1" >忙线用户的 ID</td>
+<td rowspan="1" colSpan="1" >The user ID of the invitee who is busy.</td>
 </tr>
 </table>
 
 
 ### onUserInviting
 
-用户被追加邀请加入通话时的回调。
+A user is invited to join a call.
 ``` objectivec
 - (void)onUserInviting:(NSString *)userId;
 ```
 
-参数如下表所示：
+The parameters are described below:
 <table>
 <tr>
-<td rowspan="1" colSpan="1" >参数</td>
+<td rowspan="1" colSpan="1" >Parameter</td>
 
-<td rowspan="1" colSpan="1" >类型</td>
+<td rowspan="1" colSpan="1" >Type</td>
 
-<td rowspan="1" colSpan="1" >含义</td>
+<td rowspan="1" colSpan="1" >Description</td>
 </tr>
 
 <tr>
@@ -507,26 +507,26 @@ TUICallObserver 是 TUICallEngine 对应的回调事件类，您可以通过此�
 
 <td rowspan="1" colSpan="1" >NSString</td>
 
-<td rowspan="1" colSpan="1" >被追加邀请用户的 ID</td>
+<td rowspan="1" colSpan="1" >The user ID of the invite.</td>
 </tr>
 </table>
 
 
 ### onUserJoin
 
-有用户进入此次通话的回调。
-``` objectivec
+A user joined the call.
+``` swift
 - (void)onUserJoin:(NSString *)userId;
 ```
 
-参数如下表所示：
+The parameters are described below:
 <table>
 <tr>
-<td rowspan="1" colSpan="1" >参数</td>
+<td rowspan="1" colSpan="1" >Parameter</td>
 
-<td rowspan="1" colSpan="1" >类型</td>
+<td rowspan="1" colSpan="1" >Type</td>
 
-<td rowspan="1" colSpan="1" >含义</td>
+<td rowspan="1" colSpan="1" >Description</td>
 </tr>
 
 <tr>
@@ -534,26 +534,26 @@ TUICallObserver 是 TUICallEngine 对应的回调事件类，您可以通过此�
 
 <td rowspan="1" colSpan="1" >NSString</td>
 
-<td rowspan="1" colSpan="1" >加入当前通话的用户 ID</td>
+<td rowspan="1" colSpan="1" >The ID of the user who joined the call.</td>
 </tr>
 </table>
 
 
 ### onUserLeave
 
-有用户离开此次通话的回调。
-``` objectivec
+A user left the call.
+``` swift
 - (void)onUserLeave:(NSString *)userId;
 ```
 
-参数如下表所示：
+The parameters are described below:
 <table>
 <tr>
-<td rowspan="1" colSpan="1" >参数</td>
+<td rowspan="1" colSpan="1" >Parameter</td>
 
-<td rowspan="1" colSpan="1" >类型</td>
+<td rowspan="1" colSpan="1" >Type</td>
 
-<td rowspan="1" colSpan="1" >含义</td>
+<td rowspan="1" colSpan="1" >Description</td>
 </tr>
 
 <tr>
@@ -561,26 +561,26 @@ TUICallObserver 是 TUICallEngine 对应的回调事件类，您可以通过此�
 
 <td rowspan="1" colSpan="1" >NSString</td>
 
-<td rowspan="1" colSpan="1" >离开当前通话的用户 ID</td>
+<td rowspan="1" colSpan="1" >The ID of the user who left the call.</td>
 </tr>
 </table>
 
 
 ### onUserVideoAvailable
 
-用户是否开启视频上行回调。
-``` objectivec
+Whether a user is sending video.
+``` swift
 - (void)onUserVideoAvailable:(NSString *)userId isVideoAvailable:(BOOL)isVideoAvailable;
 ```
 
-参数如下表所示：
+The parameters are described below:
 <table>
 <tr>
-<td rowspan="1" colSpan="1" >参数</td>
+<td rowspan="1" colSpan="1" >Parameter</td>
 
-<td rowspan="1" colSpan="1" >类型</td>
+<td rowspan="1" colSpan="1" >Type</td>
 
-<td rowspan="1" colSpan="1" >含义</td>
+<td rowspan="1" colSpan="1" >Description</td>
 </tr>
 
 <tr>
@@ -588,7 +588,7 @@ TUICallObserver 是 TUICallEngine 对应的回调事件类，您可以通过此�
 
 <td rowspan="1" colSpan="1" >NSString</td>
 
-<td rowspan="1" colSpan="1" >通话用户 ID</td>
+<td rowspan="1" colSpan="1" >The user ID.</td>
 </tr>
 
 <tr>
@@ -596,26 +596,26 @@ TUICallObserver 是 TUICallEngine 对应的回调事件类，您可以通过此�
 
 <td rowspan="1" colSpan="1" >BOOL</td>
 
-<td rowspan="1" colSpan="1" >用户视频是否可用</td>
+<td rowspan="1" colSpan="1" >Whether the user has video.</td>
 </tr>
 </table>
 
 
 ### onUserAudioAvailable
 
-用户是否开启音频上行回调。
-``` objectivec
+Whether a user is sending audio.
+``` swift
 - (void)onUserAudioAvailable:(NSString *)userId isAudioAvailable:(BOOL)isAudioAvailable;
 ```
 
-参数如下表所示：
+The parameters are described below:
 <table>
 <tr>
-<td rowspan="1" colSpan="1" >参数</td>
+<td rowspan="1" colSpan="1" >Parameter</td>
 
-<td rowspan="1" colSpan="1" >类型</td>
+<td rowspan="1" colSpan="1" >Type</td>
 
-<td rowspan="1" colSpan="1" >含义</td>
+<td rowspan="1" colSpan="1" >Description</td>
 </tr>
 
 <tr>
@@ -623,7 +623,7 @@ TUICallObserver 是 TUICallEngine 对应的回调事件类，您可以通过此�
 
 <td rowspan="1" colSpan="1" >NSString</td>
 
-<td rowspan="1" colSpan="1" >通话用户 ID</td>
+<td rowspan="1" colSpan="1" >The user ID.</td>
 </tr>
 
 <tr>
@@ -631,26 +631,26 @@ TUICallObserver 是 TUICallEngine 对应的回调事件类，您可以通过此�
 
 <td rowspan="1" colSpan="1" >BOOL</td>
 
-<td rowspan="1" colSpan="1" >用户音频是否可用</td>
+<td rowspan="1" colSpan="1" >Whether the user has audio.</td>
 </tr>
 </table>
 
 
 ### onUserVoiceVolumeChanged
 
-用户通话音量的回调。
-``` objectivec
+The volumes of all users.
+``` swift
 - (void)onUserVoiceVolumeChanged:(NSDictionary <NSString *, NSNumber *> *)volumeMap;
 ```
 
-参数如下表所示：
+The parameters are described below:
 <table>
 <tr>
-<td rowspan="1" colSpan="1" >参数</td>
+<td rowspan="1" colSpan="1" >Parameter</td>
 
-<td rowspan="1" colSpan="1" >类型</td>
+<td rowspan="1" colSpan="1" >Type</td>
 
-<td rowspan="1" colSpan="1" >含义</td>
+<td rowspan="1" colSpan="1" >Description</td>
 </tr>
 
 <tr>
@@ -658,26 +658,26 @@ TUICallObserver 是 TUICallEngine 对应的回调事件类，您可以通过此�
 
 <td rowspan="1" colSpan="1" >NSDictionary</td>
 
-<td rowspan="1" colSpan="1" >音量表，根据每个 userId 可以获取对应的音量大小，音量最小值为0，音量最大值为100</td>
+<td rowspan="1" colSpan="1" >The volume table, which includes the volume of each user (`userId`). Value range: 0-100.</td>
 </tr>
 </table>
 
 
 ### onUserNetworkQualityChanged
 
-用户网络质量的回调。
-``` objectivec
+The network quality of all users.
+``` swift
 - (void)onUserNetworkQualityChanged:(NSArray<TUINetworkQualityInfo *> *)networkQualityList;
 ```
 
-参数如下表所示：
+The parameters are described below:
 <table>
 <tr>
-<td rowspan="1" colSpan="1" >参数</td>
+<td rowspan="1" colSpan="1" >Parameter</td>
 
-<td rowspan="1" colSpan="1" >类型</td>
+<td rowspan="1" colSpan="1" >Type</td>
 
-<td rowspan="1" colSpan="1" >含义</td>
+<td rowspan="1" colSpan="1" >Description</td>
 </tr>
 
 <tr>
@@ -685,95 +685,97 @@ TUICallObserver 是 TUICallEngine 对应的回调事件类，您可以通过此�
 
 <td rowspan="1" colSpan="1" >NSArray</td>
 
-<td rowspan="1" colSpan="1" >网络状态，根据每个 userId 可以获取对应用户当前的网络质量</td>
+<td rowspan="1" colSpan="1" >The current network conditions for all users (`userId`).</td>
 </tr>
 </table>
 
 
 ### onKickedOffline
 
-当前用户被踢下线：此时可以 UI 提示用户，并重新调用初始化。
+The current user was kicked offline：At this time, you can prompt the user with a UI message and then invoke `init` again.
 ``` objectivec
 - (void)onKickedOffline;
 ```
 
 ### onUserSigExpired
 
-在线时票据过期：此时您需要生成新的 userSig，并重新调用初始化。
+The user sig is expired：At this time, you need to generate a new `userSig`, and then invoke `init` again.
 ``` objectivec
 - (void)onUserSigExpired;
 ```
 
-## 废弃回调
+## Deprecated Interface
 
 ### onCallCancelled
 
-表示此次通话主叫取消、被叫超时、拒接等，涉及多个场景，您可以通过监听这个事件来实现类似未接来电、重置 UI 状态等显示逻辑。
-- 主叫取消：主叫收到该回调（userId 为自己）；被叫收到该回调（userId 为**主叫的 ID）。**
+The call was canceled by the inviter or timed out. This callback is received by an invitee. You can listen for this event to determine whether to show a missed call message.
 
-- 被叫超时：主叫会同时收到 [onUserNoResponse](https://cloud.tencent.com/document/product/647/78755#onUserNoResponse) 和 onCallCancelled 回调（userId 是自己的 ID）；被叫收到 onCallCancelled 回调（userId 是自己的 ID）。
+This indicates that the call was canceled by the caller, timed out by the callee, rejected by the callee, or the callee was busy. There are multiple scenarios involved. You can listen to this event to achieve UI logic such as missed calls and resetting UI status. 
+- Call cancellation by the caller: The caller receives the callback (userId is himself); the callee receives the callback (userId is the ID of the caller) 
 
-- 被叫拒接：主叫会同时收到 [onUserReject](https://cloud.tencent.com/document/product/647/78755#onUserReject) 和 onCallCancelled 回调（userId 是自己的 ID）；被叫收到 onCallCancelled 回调（userId 是自己的 ID）。
+- Callee timeout: the caller will simultaneously receive the [onUserNoResponse](https://www.tencentcloud.com/document/product/647/51013#onUserNoResponse) and onCallCancelled callbacks (userId is his own ID); the callee receives the onCallCancelled callback (userId is his own ID) 
 
-- 被叫忙线：主叫会同时收到 [onUserLineBusy](https://cloud.tencent.com/document/product/647/78755#onUserLineBusy) 和 onCallCancelled 回调（userId 是自己的 ID）。
+- Callee rejection: The caller will simultaneously receive the [onUserReject](https://www.tencentcloud.com/document/product/647/51013#onUserReject) and onCallCancelled callbacks (userId is his own ID); the callee receives the onCallCancelled callback (userId is his own ID) 
 
-- 异常中断：被叫接收通话失败，收到该回调（userId 是自己的 ID）。
+- Callee busy: The caller will simultaneously receive the [onUserLineBusy](https://www.tencentcloud.com/document/product/647/51013#onUserLineBusy) and onCallCancelled callbacks (userId is his own ID); 
 
-   ``` objectivec
-   - (void)onCallCancelled:(NSString *)userId;
+- Abnormal interruption: The callee failed to receive the call ，he receives this callback (userId is his own ID).
+
+   ``` objc
+   - (void)onCallCancelled:(NSString *)callerId;
    ```
 
-   参数如下表所示：
+   The parameters are described below:
 
 <table>
 <tr>
-<td rowspan="1" colSpan="1" >参数</td>
+<td rowspan="1" colSpan="1" >Parameter</td>
 
-<td rowspan="1" colSpan="1" >类型</td>
+<td rowspan="1" colSpan="1" >Type</td>
 
-<td rowspan="1" colSpan="1" >含义</td>
+<td rowspan="1" colSpan="1" >Description</td>
 </tr>
 
 <tr>
-<td rowspan="1" colSpan="1" >userId</td>
+<td rowspan="1" colSpan="1" >callerId</td>
 
 <td rowspan="1" colSpan="1" >NSString</td>
 
-<td rowspan="1" colSpan="1" >用户的 ID</td>
+<td rowspan="1" colSpan="1" >The user ID of the inviter.</td>
 </tr>
 </table>
 
 
 ### onCallMediaTypeChanged
 
-表示通话的媒体类型发生变化。
-``` objectivec
+The call type changed.
+``` swift
 - (void)onCallMediaTypeChanged:(TUICallMediaType)oldCallMediaType newCallMediaType:(TUICallMediaType)newCallMediaType;
 ```
 
-参数如下表所示：
+The parameters are described below:
 <table>
 <tr>
-<td rowspan="1" colSpan="1" >参数</td>
+<td rowspan="1" colSpan="1" >Parameter</td>
 
-<td rowspan="1" colSpan="1" >类型</td>
+<td rowspan="1" colSpan="1" >Type</td>
 
-<td rowspan="1" colSpan="1" >含义</td>
+<td rowspan="1" colSpan="1" >Description</td>
 </tr>
 
 <tr>
 <td rowspan="1" colSpan="1" >oldCallMediaType</td>
 
-<td rowspan="1" colSpan="1" >[TUICallMediaType](https://cloud.tencent.com/document/product/647/90446#MediaType)</td>
+<td rowspan="1" colSpan="1" >[TUICallMediaType](https://www.tencentcloud.com/document/product/647/54902#MediaType)</td>
 
-<td rowspan="1" colSpan="1" >旧的通话类型</td>
+<td rowspan="1" colSpan="1" >The call type before the change.</td>
 </tr>
 
 <tr>
 <td rowspan="1" colSpan="1" >newCallMediaType</td>
 
-<td rowspan="1" colSpan="1" >[TUICallMediaType](https://cloud.tencent.com/document/product/647/90446#MediaType)</td>
+<td rowspan="1" colSpan="1" >[TUICallMediaType](https://www.tencentcloud.com/document/product/647/54902#MediaType)</td>
 
-<td rowspan="1" colSpan="1" >新的通话类型</td>
+<td rowspan="1" colSpan="1" >The call type after the change.</td>
 </tr>
 </table>

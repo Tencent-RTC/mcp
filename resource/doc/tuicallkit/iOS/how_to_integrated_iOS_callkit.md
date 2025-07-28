@@ -1,37 +1,37 @@
-本文将介绍如何快速完成 TUICallKit 组件的接入，您将在 10 分钟内完成以下几个关键步骤，并最终得到一个包含完备 UI 界面的视频通话功能。
+This article will guide you through the quick integration of the TUICallKit component. You will complete several key steps within 10 minutes, ultimately obtaining a video call feature with a complete UI interface.
 <table>
 <tr>
-<td rowspan="1" colSpan="1" >1v1 视频通话</td>
+<td rowspan="1" colSpan="1" >1v1 Video Call</td>
 
-<td rowspan="1" colSpan="1" >群组通话</td>
+<td rowspan="1" colSpan="1" >Group call</td>
 </tr>
 
 <tr>
-<td rowspan="1" colSpan="1" >![](https://write-document-release-1258344699.cos.ap-guangzhou.tencentcos.cn/100027164818/c57111ca182211efae48525400720cb5.png)</td>
+<td rowspan="1" colSpan="1" >![](https://write-document-release-1258344699.cos.ap-guangzhou.tencentcos.cn/100027164818/b8670a89190311ef957f525400f65c2a.png)</td>
 
-<td rowspan="1" colSpan="1" >![](https://write-document-release-1258344699.cos.ap-guangzhou.tencentcos.cn/100027164818/64c04152190311ef87e352540019e87e.png)</td>
+<td rowspan="1" colSpan="1" >![](https://write-document-release-1258344699.cos.ap-guangzhou.tencentcos.cn/100027164818/5866a4f4190311efa1975254005ac0ca.png)</td>
 </tr>
 </table>
 
 
-## 环境准备
-- Xcode 13 及以上。
+## Environment Preparations
+- Xcode 13 or later.
 
-- iOS 13.0 及以上。
+- iOS 13.0 or later.
 
-- CocoaPods 环境安装，单击 [查看](https://guides.cocoapods.org/using/getting-started.html)。
+- CocoaPods environment installation, [Click to view](https://guides.cocoapods.org/using/getting-started.html).
 
-- 如果您的接入和使用中遇到问题，请参见 [常见问题](https://write.woa.com/document/86735803151626240)。
+- If you experience any issues with access or usage, please consult the [FAQs](https://write.woa.com/document/145196720321933312).
 
 
-## 步骤一：开通服务
+## Step 1. Activate the service
 
-请参见 [开通服务](https://write.woa.com/document/139743928960860160)，获取 `SDKAppID、SDKSecretKey`，他们将在 [步骤四：初始化 TUICallKit 组件](https://write.woa.com/document/86735801863974912) 作为**必填参数**使用。
+Refer to [Activate the Service](https://write.woa.com/document/140196392040579072) to obtain `SDKAppID, SDKSecretKey`, which will be used as **Mandatory Parameters in **[Step 4: Log in to the TUICallKit component](https://write.woa.com/document/95734398531444736)**.**
 
-## 步骤二：导入组件
+## Step 2. Import the component
 
-使用 CocoaPods 导入组件，如果您遇到问题，请先参见 [环境准备](https://write.woa.com/document/86735801863974912)。导入组件具体骤如下：
-1. 请在您的 `Podfile` 文件中添加 `pod 'TUICallKit_Swift'` 依赖，建议指定`Subspec`为`Professional`，如果您遇到任何问题，请参见 [Example](https://github.com/Tencent-RTC/TUICallKit/blob/main/iOS/Example/Podfile) 工程。
+Use CocoaPods to import the component. If you encounter any issues, please refer to [Environment Preparation](https://write.woa.com/document/95734398531444736) first. Detailed steps for importing the component are as follows:
+1. Please add the dependency `pod 'TUICallKit_Swift'` to your `Podfile`. If you encounter any problems, please refer to the [Example](https://github.com/Tencent-RTC/TUICallKit/blob/main/iOS/Example/Podfile) project.
 
    ``` bash
    target 'xxxx' do
@@ -40,57 +40,57 @@
    end
    ```   
 
-   > **说明：**
+   > **Note:**
    > 
 
-   > 如果您的项目中缺少`Podfile` 文件，您需要在终端中`cd` 到`xxxx.xcodeproj`目录，然后，通过执行以下命令来创建`Podfile`文件：
+   > If your project lacks a `Podfile`, you need to `cd` into the `xxxx.xcodeproj` directory in Terminal, and then create a `Podfile` by executing the following command:
    > 
    > `pod init`
 
-2. 在终端中，首先`cd`到`Podfile`目录下，然后执行以下命令，安装组件。
+2. In Terminal, first `cd` into the `Podfile` directory and then run the following command to install components.
 
    ``` bash
    pod install
    ```   
 
-   > **说明：**
+   > **Note:**
    > 
 
-   > 如果无法安装 TUICallKit 最新版本，可以先删除 **Podfile.lock **和 **Pods**。然后执行以下命令更新本地的 CocoaPods 仓库列表。
+   > If you cannot install the latest version of TUICallKit, you may first delete **Podfile.lock** and **Pods**. Then run the following command to update the local CocoaPods repository list.
    > 
    > `pod repo update`
 
-   > 之后执行以下命令，更新组件库的 Pod 版本。
+   > Then, run the following command to update the Pod version of the component library.
    > 
    > `pod update`
 
-3. 建议您编译并运行一次。如果遇到问题，可以参见我们的 [常见问题](https://write.woa.com/document/86735803151626240)。如果问题仍未解决，您可以尝试运行我们的 [Example](https://github.com/Tencent-RTC/TUICallKit/tree/main/iOS/Example) 工程。在接入和使用过程中，如果遇到问题，欢迎向我们 [反馈](https://github.com/Tencent-RTC/TUICallKit/issues)。
+3. We suggest you compile and run once. If you encounter any problems, you can refer to our [FAQs](https://write.woa.com/document/145196720321933312). If the problem remains unresolved, you may try running our [Example](https://github.com/Tencent-RTC/TUICallKit/tree/main/iOS/Example) project. If you encounter any issues during integration and use, you are welcome to [provide feedback](https://github.com/Tencent-RTC/TUICallKit/issues) to us.
 
 
-## 步骤三：工程配置
+## Step 3: Configure the Project
 
-使用音视频功能，需要授权摄像头和麦克风的使用权限，请根据实际项目需要，设置项目所需权限。
-1. 在 **Xcode** 中，选择 **TARGETS** > **Info** > **Custom iOS Target Properties **菜单。
+To use audio and video features, you need to authorize the usage of the camera and microphone. Please set the required permissions according to the actual needs of the project.
+1. In **Xcode**, select **TARGETS** > **Info** > **Custom iOS Target Properties** from the menu.
 
 
-   ![](https://write-document-release-1258344699.cos.ap-guangzhou.tencentcos.cn/100027164818/dff319e0169e11ef9c015254002977b6.png)
+   ![](https://write-document-release-1258344699.cos.ap-guangzhou.tencentcos.cn/100027164818/3a48a98618fc11ef8a48525400762795.png)
 
-2. 单击 **+**，添加摄像头和麦克风权限。
+2. Click the **+** button to add camera and microphone permissions.
 
 - `Privacy - Camera Usage Description`
 
 - `Privacy - Microphone Usage Description`
 
 
-   ![](https://write-document-release-1258344699.cos.ap-guangzhou.tencentcos.cn/100027164818/2a4a2246169e11efa66f525400f65c2a.png)
+   ![](https://write-document-release-1258344699.cos.ap-guangzhou.tencentcos.cn/100027164818/3a33284618fc11efa1975254005ac0ca.png)
 
 
    
 
-## 步骤四：登录 TUI 组件
+## Step 4: Log in to the `TUICallKit` component
 
 
-   在您的项目中添加如下代码，它的作用是通过调用 TUICore 中的相关接口完成 TUI 组件的登录。这一步骤至关重要，只有在成功登录之后，您才能正常使用 TUICallKit 提供的各项功能。
+   Add the following code to your project. It works by calling the relevant interfaces in TUICore to complete the login to TUI Component. This step is very important, only after successfully logging in, you can normally use the features offered by TUICallKit.
 
 
    
@@ -103,9 +103,9 @@ import TUICallKit_Swift
 
 func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
-    let userID = "denny"       // 请替换为您的 UserId
-    let sdkAppID: Int32 = 0    // 请替换为第一步在控制台得到的 SDKAppID
-    let secretKey = "****"     // 请替换为第一步在控制台得到的 SecretKey
+    let userID = "denny"       // Please replace with your UserId
+    let sdkAppID: Int32 = 0    // Please replace with the SDKAppID obtained from the console in the step 1
+    let secretKey = "****"     // Please replace with the SecretKey obtained from the console in the step 1
 
     let userSig = GenerateTestUserSig.genTestUserSig(userID: userID, sdkAppID: sdkAppID, secretKey: secretKey)
 
@@ -127,9 +127,9 @@ func application(_ application: UIApplication, didFinishLaunchingWithOptions lau
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
-    NSString *userID = @"denny";     // 请替换为您的 UserId
-    int sdkAppID = 0;                // 请替换为第一步在控制台得到的 SDKAppID
-    NSString *secretKey = @"****";   // 请替换为第一步在控制台得到的 SecretKey
+    NSString *userID = @"denny";     // Please replace with your UserId
+    int sdkAppID = 0;                // Please replace with the SDKAppID obtained from the console in the first step
+    NSString *secretKey = @"****";   // Please replace with the SecretKey obtained from the console in the first step
 
     NSString *userSig = [GenerateTestUserSig genTestUserSigWithUserID:userID sdkAppID:sdkAppID secretKey:secretKey];
 
@@ -148,11 +148,11 @@ func application(_ application: UIApplication, didFinishLaunchingWithOptions lau
 
 <table>
 <tr>
-<td rowspan="1" colSpan="1" >参数</td>
+<td rowspan="1" colSpan="1" >Parameter</td>
 
-<td rowspan="1" colSpan="1" >类型</td>
+<td rowspan="1" colSpan="1" >Type</td>
 
-<td rowspan="1" colSpan="1" >说明</td>
+<td rowspan="1" colSpan="1" >Description</td>
 </tr>
 
 <tr>
@@ -160,7 +160,7 @@ func application(_ application: UIApplication, didFinishLaunchingWithOptions lau
 
 <td rowspan="1" colSpan="1" >String</td>
 
-<td rowspan="1" colSpan="1" >客户根据自己的业务自定义用户 ID，只允许包含大小写英文字母(a-z A-Z)、数字(0-9)及下划线和连词符。</td>
+<td rowspan="1" colSpan="1" >Your own User ID based on your business. It can only include letters (a-z, A-Z), digits (0-9), underscores, and hyphens.</td>
 </tr>
 
 <tr>
@@ -168,7 +168,7 @@ func application(_ application: UIApplication, didFinishLaunchingWithOptions lau
 
 <td rowspan="1" colSpan="1" >Int32</td>
 
-<td rowspan="1" colSpan="1" >在 [实时音视频 TRTC 控制台](https://console.cloud.tencent.com/trtc) 创建的音视频应用的唯一标识 SDKAppID。</td>
+<td rowspan="1" colSpan="1" >The unique identifier SDKAppID for the audio and video application created in [Tencent RTC Console](https://console.trtc.io/).</td>
 </tr>
 
 <tr>
@@ -176,7 +176,7 @@ func application(_ application: UIApplication, didFinishLaunchingWithOptions lau
 
 <td rowspan="1" colSpan="1" >String</td>
 
-<td rowspan="1" colSpan="1" >在 [实时音视频 TRTC 控制台](https://console.cloud.tencent.com/trtc) 创建的音视频应用的 SDKSecretKey。</td>
+<td rowspan="1" colSpan="1" >SDKSecretKey for the audio and video application created in [Tencent RTC Console](https://console.trtc.io/).</td>
 </tr>
 
 <tr>
@@ -184,20 +184,20 @@ func application(_ application: UIApplication, didFinishLaunchingWithOptions lau
 
 <td rowspan="1" colSpan="1" >String</td>
 
-<td rowspan="1" colSpan="1" >一种安全保护签名，用于对用户进行登录鉴权认证，确认用户是否真实，阻止恶意攻击者盗用您的云服务使用权。</td>
+<td rowspan="1" colSpan="1" >A security signature for user login to verify identity and prevent unauthorized access to cloud services.</td>
 </tr>
 </table>
    
 
-   > **注意：**
+   > **Note:**
    > 
->   - **开发环境**：如果您处于本地开发调试阶段，可以使用本地 GenerateTestUserSig.genTestSig 函数生成 userSig。但请注意，该方法中的 secretKey 容易被反编译逆向破解。一旦密钥泄露，攻击者可能盗用您的腾讯云流量。
->   - **生产环境**：如果您的项目要发布上线，请采用 [服务端生成 UserSig](https://write.woa.com/document/86735811695435776) 的方式。
+>   - **Development Environment**: During local development and debugging, use the local GenerateTestUserSig.genTestSig function to create a userSig. But be careful, the SDKSecretKey can be decompiled and reverse-engineered. If leaked, it could allow theft of your Tencent Cloud traffic.
+>   - **Production Environment**:  For project launch, use the [Server-side Generation of UserSig](https://www.tencentcloud.com/zh/document/product/647/35166#.E6.AD.A3.E5.BC.8F.E8.BF.90.E8.A1.8C.E9.98.B6.E6.AE.B5.E5.A6.82.E4.BD.95.E8.AE.A1.E7.AE.97-usersig.EF.BC.9F) method. 
 
 
-## 步骤五：拨打您的第一通电话
+## Step Five: Make your first call
 
-通过调用 TUICallKit 的 [calls](https://write.woa.com/document/86735802543452160) 函数并指定通话类型和被叫方的 userId，就可以发起语音或者视频通话。
+By calling the call function of TUICallKit and specifying the calls type and callee's userId, you can initiate an audio or video call.
 
 
 
@@ -207,11 +207,11 @@ func application(_ application: UIApplication, didFinishLaunchingWithOptions lau
 import TUICallKit_Swift
 import RTCRoomEngine
 
-// 发起1对1语音通话(假设 userId 为 mike)
+// Initiating a 1-to-1 audio call (assuming userId is mike)
 TUICallKit.createInstance().calls(userIdList: ["mike"], callMediaType: .audio, params: nil) {
 
 } fail: { code, message in
- 
+
 }
 ```
 
@@ -221,49 +221,48 @@ TUICallKit.createInstance().calls(userIdList: ["mike"], callMediaType: .audio, p
 #import <TUICallKit_Swift/TUICallKit_Swift-Swift.h>
 #import <RTCRoomEngine/TUICallEngine.h>
 
-// 发起1对1语音通话(假设 userId 为 mike)
+// Initiating a 1-to-1 audio call (assuming userId is mike)
 [[TUICallKit createInstance] calls:@[@"mike"] callMediaType:TUICallMediaTypeAudio params:NULL succ:^{
 } fail:^(int code, NSString * _Nullable errMsg) {
 }];
 ```
 <table>
 <tr>
-<td rowspan="1" colSpan="1" >主叫方</td>
+<td rowspan="1" colSpan="1" >![](https://write-document-release-1258344699.cos.ap-guangzhou.tencentcos.cn/100027164818/4d737a62190011efa1975254005ac0ca.png)</td>
 
-<td rowspan="1" colSpan="1" >被叫方</td>
+<td rowspan="1" colSpan="1" >![](https://write-document-release-1258344699.cos.ap-guangzhou.tencentcos.cn/100027164818/5146bd45190011ef87e352540019e87e.png)</td>
 </tr>
 
 <tr>
-<td rowspan="1" colSpan="1" >![](https://write-document-release-1258344699.cos.ap-guangzhou.tencentcos.cn/100027164818/8f167425190111efac7f5254007bbd8c.png)</td>
+<td rowspan="1" colSpan="1" >Caller</td>
 
-<td rowspan="1" colSpan="1" >![](https://write-document-release-1258344699.cos.ap-guangzhou.tencentcos.cn/100027164818/91efdadf190111efa1975254005ac0ca.png)</td>
+<td rowspan="1" colSpan="1" >Callee</td>
 </tr>
 </table>
 
 
-## 更多特性
-- [界面定制](https://write.woa.com/document/86735802112499712)
+## Additional Features
+- [Setting Nickname, Avatar](https://write.woa.com/document/140283519901868032)
 
-- [离线推送](https://write.woa.com/document/86735802219454464)
+- [Customize Interface](https://write.woa.com/document/95821338112184320)
 
-- [多人通话](https://write.woa.com/document/139754164343910400)
+- [Offline Push](https://write.woa.com/document/95821656031932416)
 
-- [悬浮窗](https://write.woa.com/document/139754329641431040)
+- [Multiplayer Call](https://write.woa.com/document/140196498678116352)
 
-- [美颜特效](https://write.woa.com/document/116004088855900160)
+- [Floating Window](https://write.woa.com/document/140196506800930816)
 
-- [自定义铃声](https://write.woa.com/document/139754577364488192)
+- [Custom Ringtone](https://write.woa.com/document/140196518087802880)
 
-- [监听通话状态](https://write.woa.com/document/139754713712799744)
+- [Call Status Monitoring](https://write.woa.com/document/140196527978475520)
 
-- [云端录制](https://write.woa.com/document/89008877934485504)
+- [Cloud Recording](https://write.woa.com/document/95824491274473472)
 
 
-## 常见问题
+## FAQs
 
-如果您的接入和使用中遇到问题，请参见 [常见问题](https://write.woa.com/document/86735803151626240)。
+If you encounter any issues during integration and use, please refer to [Frequently Asked Questions](https://write.woa.com/document/145196720321933312).
 
-## 交流与反馈
-- 如果您在使用过程中，有什么建议或者意见，可以在这里反馈：[TUICallKit 产品反馈问卷](https://wj.qq.com/s2/10796805/6960/)，感谢您的反馈。
+## Suggestions and Feedback
 
-- 如果您是开发者，也欢迎您加入我们的 TUICallKit 技术交流平台 [zhiliao](https://zhiliao.qq.com/s/cWSPGIIM62CC/cEUPGIIM62CE)，进行技术交流和产品沟通。
+If you have any suggestions or feedback, please contact info_rtc@tencent.com.

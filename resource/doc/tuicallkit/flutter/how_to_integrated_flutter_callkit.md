@@ -1,46 +1,46 @@
-本文将引导您快速地完成 TUICallKit 组件的接入工作。跟随本文档，您可以在10分钟内完成接入，并最终获得一个具备完整用户界面以及音视频通话功能的应用程序。
+This article will guide you through the process of integrating the TUICallKit component quickly. By following this documentation, you can complete the access work in just 10 minutes and ultimately obtain an application with a complete user interface as well as audio and video calling features.
 <table>
 <tr>
-<td rowspan="1" colSpan="1" >视频通话</td>
+<td rowspan="1" colSpan="1" >Video Call</td>
 
-<td rowspan="1" colSpan="1" >群组通话</td>
+<td rowspan="1" colSpan="1" >Group call</td>
 </tr>
 
 <tr>
-<td rowspan="1" colSpan="1" >![](https://write-document-release-1258344699.cos.ap-guangzhou.tencentcos.cn/100027182394/f5820542180c11ef9c015254002977b6.png)</td>
+<td rowspan="1" colSpan="1" >![](https://write-document-release-1258344699.cos.ap-guangzhou.tencentcos.cn/100027182394/1390039d18d011ef9ff4525400f65c2a.png)</td>
 
-<td rowspan="1" colSpan="1" >![](https://write-document-release-1258344699.cos.ap-guangzhou.tencentcos.cn/100027182394/c772c312180c11efa66f525400f65c2a.png)</td>
+<td rowspan="1" colSpan="1" >![](https://write-document-release-1258344699.cos.ap-guangzhou.tencentcos.cn/100027182394/4cd1634b18ce11efb8185254005ac0ca.png)</td>
 </tr>
 </table>
 
 
-## 环境准备
+## Environment Preparations
 
-Flutter 3.0 及更高版本。
+Flutter 3.0 or higher version.
 
-## 步骤一：开通服务
+## Step 1. Activate the service
 
-在使用腾讯云提供的音视频服务前，您需要前往控制台，为应用开通音视频服务，获取 `SDKAppID、SDKSecretKey`，它们将在 [步骤五](https://write.woa.com/document/94733646108913664) 中使用，具体步骤请参见 [开通服务。](https://write.woa.com/document/139743928960860160)
+Before using the audio and video services provided by Tencent Cloud, you need to go to the console to activate the audio and video services for your application, and obtain `SDKAppID, SDKSecretKey`. They will be used in [Step 5](https://write.woa.com/document/113558560409751552). For specific steps, please refer to [activate the Service.](https://write.woa.com/document/140196392040579072)
 
-## 步骤二：导入 TUICallKit 组件
+## Step 2. Import the component
 
-在工程的根目录下，通过命令行执行以下命令安装组件 [tencent_calls_uikit](https://pub.dev/packages/tencent_calls_uikit) 插件。
+Execute the following command in the command line to install the [tencent_calls_uikit](https://pub.dev/packages/tencent_calls_uikit) plugin.
 ``` bash
 flutter pub add tencent_calls_uikit
 ```
 
-## 步骤三：完成工程配置
+## Step 3. Configure the project
 
 
 
 【Android】
-1. 如果您需要编译运行在 Android 平台，由于我们在 SDK 内部使用了Java 的反射特性，需要将 SDK 中的部分类加入不混淆名单。
+1. If you need to compile and run on the Android platform, since the SDK uses Java's reflection feature internally, certain classes in the SDK must be added to the non-aliasing list.
 
-  - 首先，需要在工程的 `android/app/build.gradle` 文件中配置并开启混淆规则：
+  - First, configure and enable obfuscation rules in the `android/app/build.gradle` file of the project:
 
 ``` java
   android {
-    ......
+    ......    
     buildTypes {  
         release {  
             ......
@@ -50,12 +50,12 @@ flutter pub add tencent_calls_uikit
     }
 }
 ```
-  - 在工程的 `android/app` 目录下创建 `proguard-rules.pro` 文件，并 `proguard-rules.pro` 文件中添加如下代码：
+  - Create a `proguard-rules.pro` file in the `android/app` directory of the project, and add the following code in the `proguard-rules.pro` file:
 
 ``` java
 -keep class com.tencent.** { *; }
 ```
-2. 在工程的 `android/app/build.gradle `文件中配置开启 Multidex 支持。
+2. Configure to enable Multidex support in the `android/app/build.gradle` file of your project.
 
 ``` java
   android {  
@@ -69,48 +69,48 @@ flutter pub add tencent_calls_uikit
 
 【iOS】
 
-由于 TUICallKit 会使用 iOS 的音视频功能，您需要授权麦克风和摄像头的使用权限。
+Since TUICallKit uses iOS's audio and video features, you need to grant permissions for the use of the microphone and camera.
 
-授权操作方法：在您的 iOS 工程的 `Info.plist` 的第一级`<dict>`目录下添加以下两项，分别对应麦克风和摄像头在系统弹出授权对话框时的提示信息。
+Authorization Operation Method: In your iOS project's `Info.plist`, under the first-level `<dict>` directory, add the following two items. They correspond to the system's prompt messages when asking for microphone and camera permissions.
 ``` java
 <key>NSCameraUsageDescription</key>
-<string>CallingApp需要访问您的相机权限，开启后录制的视频才会有画面</string>
+<string>CallingApp needs to access your camera to capture video.</string>
 <key>NSMicrophoneUsageDescription</key>
-<string>CallingApp需要访问您的麦克风权限，开启后录制的视频才会有声音</string>
+<string>CallingApp needs to access your microphone to capture audio.</string>
 ```
 
-## 步骤四：设置 navigatorObservers
+## Step 4: Set up navigatorObservers
+1. In the Flutter application framework, add TUICallKit.navigatorObserver to navigatorObservers. For example, using the MaterialApp framework, the code is as follows:
 
-在 Flutter 应用框架的 navigatorObservers 中添加 TUICallKit.navigatorObserver，以 MateriaApp 框架为例，代码如下：
-``` java
-import 'package:tencent_calls_uikit/tencent_calls_uikit.dart';
+   ``` java
+   import 'package:tencent_calls_uikit/tencent_calls_uikit.dart';
+   
+    ......
+   
+   class XXX extends StatelessWidget {
+     const XXX({super.key});
+   
+    @override
+     Widget build(BuildContext context) {
+       return MaterialApp(
+         navigatorObservers: [TUICallKit.navigatorObserver],
+         ......
+       );
+     }
+   }
+   ```
 
- ......
+## Step 5: Log in to the TUICallKit Component
 
-class XXX extends StatelessWidget {
-  const XXX({super.key});
-
- @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      navigatorObservers: [TUICallKit.navigatorObserver],
-      ......
-    );
-  }
-}
-```
-
-## 步骤五：登录 TUICallKit 组件
-
-使用 [login](https://write.woa.com/document/94733520019521536) 接口完成登录，具体使用可参考如下代码：
+Use the [login](https://write.woa.com/document/114033067004104704) interface to complete the log-in. For specific usage, refer to the following code:
 ``` java
 import 'package:tencent_calls_uikit/tencent_calls_uikit.dart';
 import 'package:tencent_calls_uikit/debug/generate_test_user_sig.dart';
 ......
 
-final String userID    = 'xxxxx';  // 请替换为您的UserId
-final int    sdkAppID  = 0;        // 请替换为第一步在控制台得到的SDKAppID
-final String secretKey = 'xxxx';   // 请替换为第一步在控制台得到的SecretKey
+final String userID    = 'xxxxx'; // Please replace with your UserId
+final int    sdkAppID  = 0;       // Please replace with the SDKAppID you got from the console in step 1
+final String secretKey = 'xxxx';  // Please replace with the SecretKey you got from the console in step 1
 
 void login() async {
     String userSig  = GenerateTestUserSig.genTestSig(userID, sdkAppID, secretKey);
@@ -124,11 +124,11 @@ void login() async {
 ```
 <table>
 <tr>
-<td rowspan="1" colSpan="1" >参数</td>
+<td rowspan="1" colSpan="1" >Parameter</td>
 
-<td rowspan="1" colSpan="1" >类型</td>
+<td rowspan="1" colSpan="1" >Type</td>
 
-<td rowspan="1" colSpan="1" >说明</td>
+<td rowspan="1" colSpan="1" >Description</td>
 </tr>
 
 <tr>
@@ -136,7 +136,7 @@ void login() async {
 
 <td rowspan="1" colSpan="1" >String</td>
 
-<td rowspan="1" colSpan="1" >客户根据自己的业务自定义用户 ID，只允许包含大小写英文字母(a-z A-Z)、数字(0-9)及下划线和连词符。</td>
+<td rowspan="1" colSpan="1" >Customers define their own User ID based on their business. You can only include letters (a-z, A-Z), digits (0-9), underscores, and hyphens.</td>
 </tr>
 
 <tr>
@@ -144,7 +144,7 @@ void login() async {
 
 <td rowspan="1" colSpan="1" >int</td>
 
-<td rowspan="1" colSpan="1" >在 [实时音视频 TRTC 控制台](https://console.cloud.tencent.com/trtc) 创建的音视频应用的唯一标识。</td>
+<td rowspan="1" colSpan="1" >The unique identifier of the audio and video application created in the [Tencent RTC Console](https://console.trtc.io/).</td>
 </tr>
 
 <tr>
@@ -152,7 +152,7 @@ void login() async {
 
 <td rowspan="1" colSpan="1" >String</td>
 
-<td rowspan="1" colSpan="1" >在 [实时音视频 TRTC 控制台](https://console.cloud.tencent.com/trtc) 创建的音视频应用的 SDKSecretKey。</td>
+<td rowspan="1" colSpan="1" >SDKSecretKey for the audio and video application created in [Tencent RTC Console](https://console.trtc.io/).</td>
 </tr>
 
 <tr>
@@ -160,67 +160,67 @@ void login() async {
 
 <td rowspan="1" colSpan="1" >String</td>
 
-<td rowspan="1" colSpan="1" >一种安全保护签名，用于对用户进行登录鉴权认证，确认用户是否真实，阻止恶意攻击者盗用您的云服务使用权。</td>
+<td rowspan="1" colSpan="1" >A security protection signature used for user log in authentication to confirm the user's identity and prevent malicious attackers from stealing your cloud service usage rights.</td>
 </tr>
 </table>
 
 
-> **注意：**
+> **Note:**
 > 
-> - **开发环境**：如果您正在本地开发调试阶段，可以采用本地 `GenerateTestUserSig.genTestSig`函数生成 userSig。该方法中 SDKSecretKey 很容易被反编译逆向破解，一旦您的密钥泄露，攻击者就可以盗用您的腾讯云流量。
-> - **生产环境**：如果您的项目要发布上线，请采用 [服务端生成 UserSig](https://write.woa.com/document/86735811695435776) 的方式。
+> - **Development Environment**: If you are in the local development and debugging stage, you can use the local `GenerateTestUserSig.genTestSig` function to generate userSig. In this method, the SDKSecretKey is vulnerable to decompilation and reverse engineering, and once your key is leaked, attackers can steal your Tencent Cloud traffic.
+> - **Production Environment**: If your project is going to be launched, please adopt the method of [Server-side Generation of UserSig](https://www.tencentcloud.com/document/product/647/35166?lang=en&pg=#how-do-i-calculate-.60usersig.60-in-a-production-environment.3F).
 
 
-## 步骤六：拨打您的第一通电话
+## Step 6. Make your first phone call
 
-主叫方与被叫方登录成功后，主叫方通过调用 TUICallKit 的 calls 方法并指定通话类型和被叫方的 userId，就可以发起语音或者视频通话，被叫方此时就可接受到来电邀请。
+After both the caller and callee have successfully signed in, the caller can initiate an audio or video call by calling the TUICallKit's call method and specifying the call type and the callee's userId. At this point, the callee will receive an incoming call invitation.
 ``` java
+
 import 'package:tencent_calls_uikit/tencent_calls_uikit.dart';
 ......
 
 void call() {
-    List<String> userIdList = ['vince'];
+    List<String> userIdList = ['Android'];
     TUICallKit.instance.calls(userIdList, TUICallMediaType.audio);
 }
 ```
 <table>
 <tr>
-<td rowspan="1" colSpan="1" >![](https://write-document-release-1258344699.cos.ap-guangzhou.tencentcos.cn/100027182394/5bc23051ec0a11eea93552540076ba55.png)</td>
+<td rowspan="1" colSpan="1" >![](https://write-document-release-1258344699.cos.ap-guangzhou.tencentcos.cn/100027182394/9a7977f7ec0f11ee896d5254005cb287.png)</td>
 
-<td rowspan="1" colSpan="1" >![](https://write-document-release-1258344699.cos.ap-guangzhou.tencentcos.cn/100027182394/585e90f5ec0a11eeb5dc525400aa857d.png)</td>
+<td rowspan="1" colSpan="1" >![](https://write-document-release-1258344699.cos.ap-guangzhou.tencentcos.cn/100027182394/96d0cc00ec0f11eeb5dc525400aa857d.png)</td>
 </tr>
 
 <tr>
-<td rowspan="1" colSpan="1" >主叫方</td>
+<td rowspan="1" colSpan="1" >Caller</td>
 
-<td rowspan="1" colSpan="1" >被叫方</td>
+<td rowspan="1" colSpan="1" >Callee</td>
 </tr>
 </table>
 
 
-## 更多特性
-- [界面定制](https://write.woa.com/document/119102241864011776)
+## Additional Features
+- [Customize Interface](https://write.woa.com/document/119356800679190528)
 
-- [离线推送](https://write.woa.com/document/105314040792334336)
+- [Offline Push](https://write.woa.com/document/142911918280658944)
 
-- [群组通话](https://write.woa.com/document/139754164343910400)
+- [Group Call](https://write.woa.com/document/140196498678116352)
 
-- [悬浮窗](https://write.woa.com/document/139754329641431040)
+- [Floating Window](https://write.woa.com/document/140196506800930816)
 
-- [美颜特效](https://write.woa.com/document/116004083654770688)
+- [Custom Ringtone](https://write.woa.com/document/140196510742061056)
 
-- [自定义铃声](https://write.woa.com/document/139754559410786304)
+- [Call Status Monitoring](https://write.woa.com/document/140196527978475520)
 
-- [监听通话状态](https://write.woa.com/document/139754713712799744)
+- [Cloud Recording](https://write.woa.com/document/95824491274473472)
 
-- [云端录制](https://write.woa.com/document/89008877934485504)
+- [Beauty Effects](https://write.woa.com/document/133965491956793344)
 
 
-## 常见问题
+## FAQs
 
-如果您的接入和使用中遇到问题，请参见 [常见问题](https://write.woa.com/document/98788861869330432)。
+If you encounter any issues during integration and use, please refer to [Frequently Asked Questions](https://write.woa.com/document/121896145600688128).
 
-## 交流与反馈
-- 如果您在使用过程中，有什么建议或者意见，可以在这里反馈：[TUICallKit 产品反馈问卷](https://wj.qq.com/s2/10622244/b9ae)，感谢您的反馈。
+## Suggestions and Feedback
 
-- 如果您是开发者，也欢迎您加入我们的 TUICallKit 技术交流平台 [zhiliao](https://zhiliao.qq.com/s/cWSPGIIM62CC/cEUPGIIM62CE)，进行技术交流和产品沟通。
+If you have any suggestions or feedback, please contact info_rtc@tencent.com.

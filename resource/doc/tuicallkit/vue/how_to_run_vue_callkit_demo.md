@@ -1,93 +1,61 @@
-本文将介绍如何快速实现音视频通话演示。您将在10分钟内完成以下关键步骤，并最终获得一个具有全面用户界面的视频通话功能。
+This article will guide you on how to quickly run through the Audio and Video Call Demo. By following this document, you can have the Demo up and running in 10 minutes, and ultimately experience an Audio and Video Call feature with a complete UI interface.
+<table>
+<tr>
+<td rowspan="1" colSpan="1" >1v1 Video Call</td>
 
-![](https://write-document-release-1258344699.cos.ap-guangzhou.tencentcos.cn/100029836296/be8d9e591bd211efa1975254005ac0ca.png)
+<td rowspan="1" colSpan="1" >Group call</td>
+</tr>
 
-## 环境准备
-- Node.js, 如果没有，[请点击下载。](https://nodejs.org/en)
+<tr>
+<td rowspan="1" colSpan="1" >![](https://write-document-release-1258344699.cos.ap-guangzhou.tencentcos.cn/100029836296/cf76ae94b6d911ef916f525400f69702.png)</td>
 
-- Modern browser, supporting WebRTC API.
-
-
-## 步骤一：下载 Demo
-1. 打开终端，克隆仓库。
-
-   ``` bash
-   git clone 
-   ```
-2. 安装依赖。
+<td rowspan="1" colSpan="1" >![](https://write-document-release-1258344699.cos.ap-guangzhou.tencentcos.cn/100029836296/cf6073deb6d911efbb92525400329841.png)</td>
+</tr>
+</table>
 
 
-   
-
-
-【React】
-``` bash
- cd ./TUICallKit/Web/basic-react
-```
-
-
-【Vue3】
-``` bash
- cd ./TUICallKit/Web/basic-vue3
-```
+## Step 1: Download the demo
+1. Open the terminal and clone the repository.
 
    ``` bash
-    npm install
+   git clone https://github.com/Tencent-RTC/TUICallKit.git
+   ```
+2. Install dependencies.
+
+   ``` bash
+   cd ./TUICallKit/ReactNative
+   yarn install
    ```
 
-## 步骤二：配置 Demo
-1. [点击进入开通服务页面](https://trtc.io/document/59832?platform=android&product=call)，获取`SDKAppID、SecretKey`**。**
+## Step 2: Configure the demo
+1. [Go to the Activate Service page](https://trtc.io/document/59832?platform=web&product=call&menulabel=web) and get `the SDKAppID and SDKSecretKey`![](https://write-document-release-1258344699.cos.ap-guangzhou.tencentcos.cn/100029836296/f829ea3fb6e711ef9cb452540075b605.png)
 
-2. 填写 `SDKAPPID、SecretKey`。
-
-
-   
-
-【React】
-
-文件路径：`TUICallKit/Web/basic-react/src/debug/GenerateTestUserSig-es.js`
-
-![](https://write-document-release-1258344699.cos.ap-guangzhou.tencentcos.cn/100029836296/1b9fc890668411ef989d52540055f650.png)
-
-【Vue3】
-
-文件路径：`TUICallKit/Web/basic-vue3/src/debug/GenerateTestUserSig-es.js`
-
-![](https://write-document-release-1258344699.cos.ap-guangzhou.tencentcos.cn/100029836296/3634302a668411efbd54525400f69702.png)
+2. Fill them in the `TUICallKit/ReactNative/src/debug/GenerateTestUserSig-es.js` file.
 
 
-## 步骤三：运行 Demo
-
-打开终端，复制示例命令运行 Demo。
+   ![](https://write-document-release-1258344699.cos.ap-guangzhou.tencentcos.cn/100029836296/1806fd5fb6db11ef9448525400fdb830.png)
 
 
-
-
-【TUICallKit/Web/basic-react】
+## Step 3: Run the demo
 ``` bash
-npm run dev
+# TUICallKit/ReactNative
+yarn start
 ```
 
+## Step 4: Make the first call
 
-【TUICallKit/Web/basic-vue3】
-``` bash
-npm run dev
-```
-
-> **警告：**
+> **Note:**
 > 
 
-> **本地环境请在 localhost 协议下访问，公网体验请在 HTTPS 协议下访问，具体参见 **[网络访问协议说明](https://web.sdk.qcloud.com/trtc/webrtc/doc/en/tutorial-05-info-browser.html#h2-3)**。**
+> To experience the complete audio and video calling process, please log into the Demo on two devices as two different users, with one acting as the caller and the other as the callee.
 > 
 
-
-## 步骤四：拨打您的第一通电话
-1. 打开浏览器页面，输入项目运行地址，登录 userID（由您定义）。
+- log in to userID (defined by you).
 
 
-   ![](https://write-document-release-1258344699.cos.ap-guangzhou.tencentcos.cn/100029836296/52631700668411ef9664525400d5f8ef.png)
+   ![](https://write-document-release-1258344699.cos.ap-guangzhou.tencentcos.cn/100029836296/6528eb62b6e911ef9cb452540075b605.png)
 
-2. 输入被叫方的 userID，单击 `发起通话` 体验您的第一通话。
+- Input the callee's userID and click all to experience your first call.
 
 
-   ![](https://write-document-release-1258344699.cos.ap-guangzhou.tencentcos.cn/100029836296/58624476668411efb0e2525400a9236a.png)
+   ![](https://write-document-release-1258344699.cos.ap-guangzhou.tencentcos.cn/100029836296/100d4889b6ec11ef9cb452540075b605.png)

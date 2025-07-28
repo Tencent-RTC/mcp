@@ -1,29 +1,39 @@
-本文将介绍如何快速完成 TUICallKit 组件的接入，您将在10分钟内完成以下几个关键步骤，并最终得到一个包含完备 UI 界面的视频通话功能。
+This article will guide you through the process of integrating the TUICallKit component quickly. By following this documentation, you can complete the access work in just 10 minutes and ultimately obtain an application with a complete user interface as well as audio and video calling features.
+<table>
+<tr>
+<td rowspan="1" colSpan="1" >Video Call</td>
 
-![](https://write-document-release-1258344699.cos.ap-guangzhou.tencentcos.cn/100029836296/ace7b80f181f11ef9c015254002977b6.png)
+<td rowspan="1" colSpan="1" >Group call</td>
+</tr>
 
-## 环境准备
-- React version 18+。
+<tr>
+<td rowspan="1" colSpan="1" >![](https://write-document-release-1258344699.cos.ap-guangzhou.tencentcos.cn/100027182394/1390039d18d011ef9ff4525400f65c2a.png)</td>
 
-- [Node.js](https://nodejs.org/en/) version 16+。
+<td rowspan="1" colSpan="1" >![](https://write-document-release-1258344699.cos.ap-guangzhou.tencentcos.cn/100027182394/4cd1634b18ce11efb8185254005ac0ca.png)</td>
+</tr>
+</table>
 
-- Modern browser, supporting WebRTC APIs。
+
+## Environment Preparations
+- [Node.js](https://nodejs.org/en/) version 16+.
+
+- two Mobile phone.
 
 
-## 步骤一：开通服务
+## Step 1. Activate the service
 
-请参见 [开通服务](https://write.woa.com/document/139743928960860160)，获取 `SDKAppID、SecretKey`，它们将在 [初始化 TUICallKit 组件](https://write.woa.com/document/130513425899630592) 作为**必填参数**使用。
+Refer to [Activate the Service](https://trtc.io/document/59832?platform=web&product=call) to obtain `SDKAppID, SDKSecretKey`, which will be used as **Mandatory Parameters in **[Initialize the TUICallKit](https://write.woa.com/document/133160392291844096)**.**
 
-## 步骤二：下载 TUICallKit 组件
-1. 下载 [@tencentcloud/call-uikit-react](https://www.npmjs.com/package/@tencentcloud/call-uikit-react) 组件。
+## Step 2. Download the TUICallKit
+1. Download the [@tencentcloud/call-uikit-react-native](https://www.npmjs.com/package/@tencentcloud/call-uikit-react) component.
 
    
    
    【shell】
    ``` bash
-   npm install @tencentcloud/call-uikit-react
+   yarn add @tencentcloud/call-uikit-react-native
    ```
-2. 将`debug`目录复制到您的项目目录`src/debug`，本地生成 userSig 时需要使用。
+2. Copy the `debug` directory to your project directory `src/debug`, it is necessary when generating userSig locally.
 
 
    
@@ -31,82 +41,61 @@
 
 【MacOS】
 ``` bash
-cp -r node_modules/@tencentcloud/call-uikit-react/debug ./src
+cp -r node_modules/@tencentcloud/call-uikit-react-native/src/debug ./src
 ```
 
 
 【Windows】
 ``` bash
-xcopy node_modules\@tencentcloud\call-uikit-react\debug .\src\debug /i /e
+xcopy node_modules\@tencentcloud\call-uikit-react\src\debug .\src\debug /i /e
 ```
 
 
-## 步骤三：初始化 TUICallKit 组件
+## Step 3. Login the TUICallKit
 
-您可以选择在 `/src/App.tsx` 文件引入示例代码。
-1. 引入 call-uikit 相关 API 对象。
-
-   ``` tsx
-   import { useState } from 'react';
-   import { TUICallKit, TUICallKitServer, TUICallType } from "@tencentcloud/call-uikit-react";
-   import * as GenerateTestUserSig from "./debug/GenerateTestUserSig-es"; // Refer to Step 3
-   ```
-2. 引入[<TUICallKit />](https://cloud.tencent.com/document/product/647/81015#tuicallkit)，该组件包含通话时的完整 UI 交互。
+You can choose to import the sample code in the `/src/App.tsx` file.
+1. Import the call uikit.
 
    ``` javascript
-   return (
-     <>
-       <span> caller's ID: </span>
-       <input type="text" placeholder='input caller userID' value={callerUserID} onChange={(event) => setCallerUserID(event.target.value)} />
-       <button onClick={init}> step1. init </button> <br />
-       <span> callee's ID: </span>
-       <input type="text" placeholder='input callee userID' value={calleeUserID} onChange={(event) => setCalleeUserID(event.target.value)} />
-       <button onClick={call}> step2. call </button>
-   
-       {/* 【1】Import the TUICallKit component: Call interface UI */}
-       <TUICallKit />
-     </>
-   );
+   import { TUICallKit, MediaType } from '@tencentcloud/call-uikit-react-native';
+   import * as GenerateTestUserSig from "./debug/GenerateTestUserSig-es"; // Refer to Step 2.2
    ```
-3. 调用 [TUICallKitServer.init](https://cloud.tencent.com/document/product/647/81015#init) API 登录组件，需要在代码中**填写 **`SDKAppID、SecretKey`** 两个参数。**
+2. using the [TUICallKit.login](https://write.woa.com/document/162412491425603584) API to log in to the component, you need to `fill in``SDKAppID, SDKSecretKey `as two parameters in the code.
 
    ``` javascript
-   const SDKAppID = 0;        // TODO: Replace with your SDKAppID (Notice: SDKAppID is of type number）
-   const SDKSecretKey = '';   // TODO: Replace with your SDKSecretKey
+     const handleLogin = async () => {
+       const userId = "denny";     // Please replace with your userId
+       const SDKAppID = 0;         // Please replace with the SDKAppID obtained from step 1
+       const SecretKey = "****";   // Please replace with the SDKSecretKey obtained from step 1
+       
+       const { userSig } = genTestUserSig({ userID: userId, SDKAppID, SecretKey });
    
-   const [callerUserID, setCallerUserID] = useState('');
-   const [calleeUserID, setCalleeUserID] = useState('');
-   
-   //【2】Initialize the TUICallKit component
-   const init = async () => {
-     const { userSig } = GenerateTestUserSig.genTestUserSig({ 
-       userID: callerUserID,
-       SDKAppID,
-       SecretKey: SDKSecretKey,
-     });
-     await TUICallKitServer.init({
-       userID: callerUserID,
-       userSig,
-       SDKAppID,
-     });
-     alert('TUICallKit init succeed');
-   }
+       TUICallKit.login(
+         {
+           sdkAppId: SDKAppID,
+           userId,
+           userSig,
+         },
+         (res) => {},
+         (errCode, errMsg) => {}
+       );
+     };
    ```
 <table>
 <tr>
-<td rowspan="1" colSpan="1" >**参数**</td>
+<td rowspan="1" colSpan="1" >**Parameter**</td>
 
-<td rowspan="1" colSpan="1" >**类型**</td>
+<td rowspan="1" colSpan="1" >**Type**</td>
 
-<td rowspan="1" colSpan="1" >**说明**</td>
+<td rowspan="1" colSpan="1" >**Note**</td>
 </tr>
 
 <tr>
-<td rowspan="1" colSpan="1" >userID</td>
+<td rowspan="1" colSpan="1" >userId</td>
 
 <td rowspan="1" colSpan="1" >String</td>
 
-<td rowspan="1" colSpan="1" >**用户的唯一标识符**，由您定义，只允许包含大小写英文字母(a-z A-Z)、数字(0-9)及下划线和连词符。</td>
+<td rowspan="1" colSpan="1" >**Unique identifier of the user, **`defined by you`**, **it is allowed to contain only upper and lower case letters (a-z, A-Z), numbers (0-9), underscores, and hyphens.</td>
 </tr>
 
 <tr>
@@ -114,15 +103,15 @@ xcopy node_modules\@tencentcloud\call-uikit-react\debug .\src\debug /i /e
 
 <td rowspan="1" colSpan="1" >Number</td>
 
-<td rowspan="1" colSpan="1" >在 [Tencent RTC 控制台](https://console.cloud.tencent.com/trtc) 创建的音视频应用的唯一标识。</td>
+<td rowspan="1" colSpan="1" >The unique identifier for the audio and video application created in the [Tencent RTC Console](https://console.trtc.io/).</td>
 </tr>
 
 <tr>
-<td rowspan="1" colSpan="1" >SDKSecretKey</td>
+<td rowspan="1" colSpan="1" >SecretKey</td>
 
 <td rowspan="1" colSpan="1" >String</td>
 
-<td rowspan="1" colSpan="1" >在 [Tencent RTC 控制台](https://console.cloud.tencent.com/trtc) 创建的音视频应用的 SecretKey。</td>
+<td rowspan="1" colSpan="1" >The SDKSecretKey of the audio and video application created in the [Tencent RTC Console](https://console.trtc.io/).</td>
 </tr>
 
 <tr>
@@ -130,66 +119,48 @@ xcopy node_modules\@tencentcloud\call-uikit-react\debug .\src\debug /i /e
 
 <td rowspan="1" colSpan="1" >String</td>
 
-<td rowspan="1" colSpan="1" >一种安全保护签名，用于对用户进行登录鉴权认证，确认用户是否真实，阻止恶意攻击者盗用您的云服务使用权。</td>
+<td rowspan="1" colSpan="1" >A security protection signature used for user log in authentication to confirm the user's identity and prevent malicious attackers from stealing your cloud service usage rights.</td>
 </tr>
 </table>
    
 
-   > **userSig 说明：**
+   > **Explanation of userSig:**
    > 
->   - **开发环境**：如果您正在本地跑通 Demo、开发调试，可以采用 `debug` 文件中的 `genTestUserSig`（参考步骤3.2）函数生成 userSig。该方法中 SDKSecretKey 很容易被反编译逆向破解，一旦您的密钥泄露，攻击者就可以盗用您的腾讯云流量。
->   - **生产环境**：如果您的项目要发布上线，请采用 [服务端生成 UserSig](https://trtc.io/document/35166) 的方式。
+>   - **Development environment:** If you are running a demo locally and developing debugging, you can use the `genTestUserSig` (Refer to Step 3.2) function in the debug file to generate a `userSig`. In this method, SDKSecretKey is vulnerable to decompilation and reverse engineering. Once your key is leaked, attackers can steal your Tencent Cloud traffic.
+>   - **Production environment: **If your project is going live, please use the [Server-side Generation of UserSig](https://trtc.io/document/35166) method.
 
 
-## 步骤四：拨打您的第一通电话
-1. 调用 [TUICallKitServer.calls API](https://cloud.tencent.com/document/product/647/81015#calls) 拨打通话。
+## Step 4. Make your first call
+1. using the [TUICallKit.call API](https://write.woa.com/document/162412580951224320) to make a call.
 
    ``` javascript
    //【3】Make a 1v1 video call
+   const users: string[] = ["mike"];
    const call = async () => {
-     await TUICallKitServer.calls({
-       userIDList: [calleeUserID],
-       type: TUICallType.VIDEO_CALL,
+     await TUICallKit.calls({
+       userID: users,
+       mediaType: MediaType.Video,
      });
    };
    ```
-2. 运行项目。
-   
+2. **After both userID login to successfully**,  make a call..
 
-   > **警告：**
-   > 
+<table>
+<tr>
+<td rowspan="1" colSpan="1" >Caller initiates an audio call</td>
 
-   > **本地环境请在 localhost 协议下访问，公网体验请在 HTTPS 协议下访问，具体参见 **[网络访问协议说明](https://web.sdk.qcloud.com/trtc/webrtc/doc/zh-cn/tutorial-05-info-browser.html#h2-3)**。**
-   > 
+<td rowspan="1" colSpan="1" >Callee receives an audio call request</td>
+</tr>
 
-3. 打开两个浏览器页面，输入不同的 userID(由您定义) 单击`step1. init`登录（主叫方和被叫方）。
+<tr>
+<td rowspan="1" colSpan="1" >![](https://write-document-release-1258344699.cos.ap-guangzhou.tencentcos.cn/100027119876/078b6eea190411ef8a48525400762795.png)<br></td>
 
-
-   ![](https://write-document-release-1258344699.cos.ap-guangzhou.tencentcos.cn/100029836296/607e29cf2c8511efa4f552540077de32.png)
-
-4. 两个 userID 都登录成功后，单击`step2. call `拨打通话，如果您有通话问题，参见 [常见问题](https://cloud.tencent.com/document/product/647/78769)。
-
-
-   ![](https://write-document-release-1258344699.cos.ap-guangzhou.tencentcos.cn/100029836296/649bb2192c8511efa01d5254005235d8.png)
+<td rowspan="1" colSpan="1" >![](https://write-document-release-1258344699.cos.ap-guangzhou.tencentcos.cn/100027119876/077a2a05190411ef88ad5254002977b6.png)</td>
+</tr>
+</table>
 
 
-## 更多特性
-- [设置昵称、头像](https://write.woa.com/document/140283367112228864)
+## FAQs
+- If you encounter any problems with access and use, please refer to [FAQs](https://trtc.io/document/51024?platform=web&product=call).
 
-- [群组通话](https://write.woa.com/document/139754159113613312)
-
-- [悬浮窗](https://write.woa.com/document/139754324095582208)
-
-- [自定义铃声](https://write.woa.com/document/139754575448756224)
-
-- [监听通话状态、组件回调事件](https://write.woa.com/document/139754708026372096)
-
-- [设置分辨率、填充模式](https://write.woa.com/document/140283358174851072)
-
-- [界面定制](https://write.woa.com/document/90292932030300160)
-
-
-## 常见问题
-- 如果您的接入和使用中遇到问题，请参见 [常见问题](https://cloud.tencent.com/document/product/647/78769)。
-
-- 了解更多详情您可 [腾讯云通信官方社群](https://zhiliao.qq.com/) 进行咨询和反馈。
+- If you have any requirements or feedback, you can contact: info_rtc@tencent.com.

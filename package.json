@@ -1,7 +1,7 @@
 {
-  "name": "@tencentcloud/rtc-mcp",
-  "version": "0.1.0",
-  "description": "Tencent RTC SDK MCP Server",
+  "name": "@tencent-rtc/mcp",
+  "version": "1.0.1",
+  "description": "Tencent Cloud MCP Server for SDK",
   "main": "index.js",
   "bin": "index.js",
   "repository": {
@@ -9,13 +9,23 @@
     "url": "xx"
   },
   "dependencies": {
+    "@grpc/grpc-js": "^1.5.1",
+    "@grpc/proto-loader": "^0.6.6",
     "@modelcontextprotocol/sdk": "^1.10.1",
+    "@tencentcloud/sdk-mcp": "^1.0.3",
     "@types/express": "^5.0.1",
+    "@types/hashring": "^3.2.1",
     "@types/node": "^22.15.32",
-    "aegis-web-sdk": "^1.40.2",
+    "agentkeepalive": "^4.1.4",
+    "axios": "^0.25.0",
+    "debug": "^4.3.1",
     "express": "^5.1.0",
+    "hashring": "^3.2.0",
+    "protobufjs": "^6.11.2",
+    "semver": "^7.3.5",
     "shx": "^0.3.4",
     "typescript": "^5.8.2",
+    "uuid": "^8.3.2",
     "zod": "^3.24.2"
 },
   "author": "Tencent Cloud Terminal R&D Center",

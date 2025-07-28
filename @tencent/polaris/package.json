@@ -1,0 +1,114 @@
+{
+  "name": "@tencent/polaris",
+  "version": "0.4.5",
+  "description": "Polaris（北极星）名字服务 SDK",
+  "author": "superzheng <superzheng@tencent.com>",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "http://git.woa.com/polaris/polaris-nodejs.git"
+  },
+  "funding": "wxwork://message?username=superzheng",
+  "bugs": "https://git.woa.com/polaris/polaris-nodejs/issues",
+  "homepage": "https://git.woa.com/polaris/polaris-nodejs",
+  "keywords": [
+    "polaris"
+  ],
+  "scripts": {
+    "build": "npm run lint && npm run clean && npm run build:src && npm run build:scripts && npm run pb:ts && npm run pb:dist:base && npm run pb:dist:grpc",
+    "build:src": "tsc -p tsconfig.json",
+    "build:scripts": "tsc -p tsconfig.scripts.json",
+    "coverage": "cross-env NODE_ENV=test nyc ava",
+    "clean": "shx rm -rf .nyc-output coverage dist",
+    "lint": "eslint --max-warnings=0 \"@(src|test|tools)/**/*.@(js|ts)\"",
+    "check": "npm run build",
+    "test": "cross-env NODE_ENV=test ava",
+    "pb:ts": "ts-node ./tools/pb2ts.ts src/plugins/naming/polaris-server/discover-pb src/plugins/naming/polaris-server/monitor-pb src/plugins/naming/polaris-server/ratelimit-pb",
+    "pb:dist:base": "shx cp -r src/plugins/naming/polaris-server/discover-pb src/plugins/naming/polaris-server/monitor-pb src/plugins/naming/polaris-server/ratelimit-pb dist/plugins/naming/polaris-server/",
+    "pb:dist:grpc": "shx cp -r src/plugins/naming/polaris-server/connector/grpc/pb dist/plugins/naming/polaris-server/connector/grpc/pb",
+    "lines": "bash -c \"find . -name \\*.ts | grep -v -E tools\\|test\\|node_modules\\|.d.ts | xargs cat | wc -l\"",
+    "postinstall": "node -e \"try{require('./dist/scripts/postinstall')}catch(e){}\""
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^16.1.0",
+    "@commitlint/config-conventional": "^16.0.0",
+    "@hjkcai/eslint-config-halo": "^8.6.3",
+    "@types/debug": "^4.1.5",
+    "@types/node": "^17.0.10",
+    "@types/semver": "^7.3.9",
+    "@types/sinon": "^10.0.6",
+    "@types/uuid": "^8.3.4",
+    "ava": "^4.0.1",
+    "cross-env": "^7.0.3",
+    "eslint": "^8.7.0",
+    "husky": "^7.0.4",
+    "nyc": "^15.1.0",
+    "shx": "^0.3.4",
+    "sinon": "^12.0.1",
+    "tmp-promise": "^3.0.3",
+    "ts-node": "^10.4.0",
+    "typescript": "^4.4.5"
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -e .git/COMMIT_EDITMSG",
+      "pre-push": "npm run check"
+    }
+  },
+  "nyc": {
+    "extension": [
+      ".ts"
+    ],
+    "include": [
+      "src/**/*.ts"
+    ],
+    "exclude": [
+      "**/*.d.ts"
+    ],
+    "reporter": [
+      "lcov",
+      "text",
+      "text-summary"
+    ]
+  },
+  "ava": {
+    "extensions": [
+      "ts"
+    ],
+    "require": [
+      "ts-node/register"
+    ],
+    "files": [
+      "test/**/*.test.ts"
+    ],
+    "ignoredByWatcher": [
+      "!src/**/*.ts"
+    ]
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ],
+    "rules": {
+      "subject-case": [
+        0
+      ]
+    }
+  },
+  "dependencies": {
+    "@grpc/grpc-js": "^1.5.1",
+    "@grpc/proto-loader": "^0.6.6",
+    "@types/hashring": "^3.2.1",
+    "axios": "^0.25.0",
+    "debug": "^4.3.1",
+    "hashring": "^3.2.0",
+    "protobufjs": "^6.11.2",
+    "semver": "^7.3.5",
+    "uuid": "^8.3.2"
+  }
+}

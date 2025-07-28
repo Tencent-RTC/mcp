@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package v1;
+
+import "request.proto";
+import "response.proto";
+import "sdkconfiguration.proto";
+import "sdkcache.proto";
+import "circuitbreak.proto";
+
+service MonitorApi {
+  rpc CollectServerStatistics(stream ServerStatistics) returns(stream StatResponse) {}
+  rpc CollectSdkapiStatistics(stream SDKAPIStatistics) returns(stream StatResponse) {}
+  rpc CollectServiceStatistics(stream ServiceStatistics) returns(stream StatResponse) {}
+  rpc CollectSdkConfiguration(SDKConfig) returns(StatResponse) {}
+  rpc CollectSdkCache(stream ServiceInfo) returns(stream StatResponse) {}
+  rpc CollectCircuitBreak(stream ServiceCircuitbreak) returns(stream StatResponse) {}
+}

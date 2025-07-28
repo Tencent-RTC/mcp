@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package v1;
+
+import "service.proto";
+
+message DiscoverRequest {
+	enum DiscoverRequestType {
+		UNKNOWN = 0;
+		INSTANCE = 1;
+		CLUSTER = 2;
+		ROUTING = 3;
+    RATE_LIMIT = 4;
+	}
+
+	DiscoverRequestType type = 1;
+	Service service = 2;
+}

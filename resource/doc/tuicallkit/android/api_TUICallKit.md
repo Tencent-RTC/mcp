@@ -1,82 +1,70 @@
-## TUICallKit API 简介
+## TUICallKit APIs
 
-TUICallKit API 是音视频通话组件的**含 UI 接口**，使用 TUICallKit API，您可以通过简单接口快速实现一个类微信的音视频通话场景，更详细的接入步骤，详情请参见 [快速接入TUICallKit](https://cloud.tencent.com/document/product/647/78729)。
+`TUICallKit` is an audio/video call component that **includes UI elements**. You can use its APIs to quickly implement an audio/video call application similar to WeChat. For directions on integration, see [Integrating TUICallKit](https://www.tencentcloud.com/document/product/647/50991).
 
-## API 概览
+## API Overview
 <table>
 <tr>
 <td rowspan="1" colSpan="1" >API</td>
 
-<td rowspan="1" colSpan="1" >描述</td>
+<td rowspan="1" colSpan="1" >Description</td>
 </tr>
 
 <tr>
-<td rowspan="1" colSpan="1" >[createInstance](https://cloud.tencent.com/document/product/647/78750#createInstance)</td>
+<td rowspan="1" colSpan="1" >[createInstance](https://write.woa.com/document/95824745037205504)</td>
 
-<td rowspan="1" colSpan="1" >创建 TUICallKit 实例（单例模式）</td>
+<td rowspan="1" colSpan="1" >Creates a `TUICallKit` instance (singleton mode).</td>
 </tr>
 
 <tr>
-<td rowspan="1" colSpan="1" >[setSelfInfo](https://cloud.tencent.com/document/product/647/78750#setSelfInfo)</td>
+<td rowspan="1" colSpan="1" >[setSelfInfo](https://write.woa.com/document/95824745037205504)</td>
 
-<td rowspan="1" colSpan="1" >设置用户的头像、昵称</td>
+<td rowspan="1" colSpan="1" >Sets the alias and profile photo.</td>
 </tr>
 
 <tr>
-<td rowspan="1" colSpan="1" >[calls](https://cloud.tencent.com/document/product/647/78750#calls)</td>
+<td rowspan="1" colSpan="1" >[calls](https://write.woa.com/document/95824745037205504)</td>
 
-<td rowspan="1" colSpan="1" >发起单人或多人通话</td>
+<td rowspan="1" colSpan="1" >Initiate a one-to-one or multi-person call.</td>
 </tr>
 
 <tr>
-<td rowspan="1" colSpan="1" >[join](https://cloud.tencent.com/document/product/647/78750#join)</td>
+<td rowspan="1" colSpan="1" >[join](https://write.woa.com/document/95824745037205504)</td>
 
-<td rowspan="1" colSpan="1" >主动加入通话</td>
+<td rowspan="1" colSpan="1" >Proactively join a call.</td>
 </tr>
 
 <tr>
-<td rowspan="1" colSpan="1" >[setCallingBell](https://cloud.tencent.com/document/product/647/78750#setCallingBell)</td>
+<td rowspan="1" colSpan="1" >[setCallingBell](https://write.woa.com/document/95824745037205504)</td>
 
-<td rowspan="1" colSpan="1" >设置自定义来电铃音</td>
+<td rowspan="1" colSpan="1" >Sets the ringtone.</td>
 </tr>
 
 <tr>
-<td rowspan="1" colSpan="1" >[enableMuteMode](https://cloud.tencent.com/document/product/647/78750#enableMuteMode)</td>
+<td rowspan="1" colSpan="1" >[enableMuteMode](https://write.woa.com/document/95824745037205504)</td>
 
-<td rowspan="1" colSpan="1" >开启/关闭静音模式</td>
+<td rowspan="1" colSpan="1" >Sets whether to turn on the mute mode.</td>
 </tr>
 
 <tr>
-<td rowspan="1" colSpan="1" >[enableFloatWindow](https://cloud.tencent.com/document/product/647/78750#enableFloatWindow)</td>
+<td rowspan="1" colSpan="1" >[enableFloatWindow](https://write.woa.com/document/95824745037205504)</td>
 
-<td rowspan="1" colSpan="1" >开启/关闭悬浮窗功能</td>
+<td rowspan="1" colSpan="1" >Sets whether to enable floating windows.</td>
 </tr>
 
 <tr>
-<td rowspan="1" colSpan="1" >[enableIncomingBanner](https://cloud.tencent.com/document/product/647/78750#enableIncomingBanner)</td>
+<td rowspan="1" colSpan="1" >[enableIncomingBanner](https://write.woa.com/document/95824745037205504)</td>
 
-<td rowspan="1" colSpan="1" >开启/关闭来电横幅显示</td>
-</tr>
-
-<tr>
-<td rowspan="1" colSpan="1" >[setScreenOrientation](https://cloud.tencent.com/document/product/647/78750#setScreenOrientation)</td>
-
-<td rowspan="1" colSpan="1" >设置通话界面显示方向</td>
-</tr>
-
-<tr>
-<td rowspan="1" colSpan="1" >[enableVirtualBackground](https://cloud.tencent.com/document/product/647/78750#enableVirtualBackground)</td>
-
-<td rowspan="1" colSpan="1" >设置模糊背景</td>
+<td rowspan="1" colSpan="1" >Sets whether to display incoming banner.</td>
 </tr>
 </table>
 
 
-## API 详情
+## Details
 
 ### createInstance
 
-创建 TUICallKit 的单例。
+This API is used to create a `TUICallKit` singleton.
 
 
 
@@ -94,7 +82,7 @@ TUICallKit createInstance(Context context)
 
 ### setSelfInfo
 
-设置用户昵称、头像。用户昵称不能超过500字节，用户头像必须是 URL 格式。
+This API is used to set the alias and profile photo. The alias cannot exceed 500 bytes, and the profile photo is specified by a URL.
 
 
 
@@ -110,39 +98,45 @@ fun setSelfInfo(nickname: String?, avatar: String?, callback: TUICommonDefine.Ca
 void setSelfInfo(String nickname, String avatar, TUICommonDefine.Callback callback)
 ```
 
-参数如下表所示：
+The parameters are described below:
 <table>
 <tr>
-<td rowspan="1" colSpan="1" >参数</td>
+<td rowspan="1" colSpan="1" >Parameter</td>
 
-<td rowspan="1" colSpan="1" >类型</td>
+<td rowspan="1" colSpan="1" >Type</td>
 
-<td rowspan="1" colSpan="1" >含义</td>
+<td rowspan="1" colSpan="1" >Description</td>
 </tr>
 
 <tr>
-<td rowspan="1" colSpan="1" >nickname</td>
+<td rowspan="1" colSpan="1" >userIdList</td>
 
-<td rowspan="1" colSpan="1" >String</td>
+<td rowspan="1" colSpan="1" >List<String></td>
 
-<td rowspan="1" colSpan="1" >目标用户的昵称</td>
+<td rowspan="1" colSpan="1" >The target user IDs.</td>
 </tr>
 
 <tr>
-<td rowspan="1" colSpan="1" >avatar</td>
+<td rowspan="1" colSpan="1" >callMediaType</td>
 
-<td rowspan="1" colSpan="1" >String</td>
+<td rowspan="1" colSpan="1" >[TUICallDefine.MediaType](https://write.woa.com/document/114029061195374592)</td>
 
-<td rowspan="1" colSpan="1" >目标用户的头像</td>
+<td rowspan="1" colSpan="1" >The call type, which can be video or audio.</td>
+</tr>
+
+<tr>
+<td rowspan="1" colSpan="1" >params</td>
+
+<td rowspan="1" colSpan="1" >[TUICallDefine.CallParams](https://write.woa.com/document/114029061195374592)</td>
+
+<td rowspan="1" colSpan="1" >An additional parameter. such as roomID, call timeout, offline push info,etc</td>
 </tr>
 </table>
 
 
 ### calls
 
-
-
-发起单人或多人通话。
+Initiate a one-to-one or multi-person call.
 
 
 
@@ -162,14 +156,14 @@ void setSelfInfo(String nickname, String avatar, TUICommonDefine.Callback callba
             TUICallDefine.CallParams params, TUICommonDefine.Callback callback)
 ```
 
-参数如下表所示：
+The parameters are described below:
 <table>
 <tr>
-<td rowspan="1" colSpan="1" >参数</td>
+<td rowspan="1" colSpan="1" >Parameter</td>
 
-<td rowspan="1" colSpan="1" >类型</td>
+<td rowspan="1" colSpan="1" >Type</td>
 
-<td rowspan="1" colSpan="1" >含义</td>
+<td rowspan="1" colSpan="1" >Description</td>
 </tr>
 
 <tr>
@@ -177,32 +171,30 @@ void setSelfInfo(String nickname, String avatar, TUICommonDefine.Callback callba
 
 <td rowspan="1" colSpan="1" >List<String></td>
 
-<td rowspan="1" colSpan="1" >目标用户的 userId 列表</td>
+<td rowspan="1" colSpan="1" >The target user IDs.</td>
 </tr>
 
 <tr>
-<td rowspan="1" colSpan="1" >mediaType</td>
+<td rowspan="1" colSpan="1" >callMediaType</td>
 
-<td rowspan="1" colSpan="1" >[TUICallDefine.MediaType](https://cloud.tencent.com/document/product/647/90338#MediaType)</td>
+<td rowspan="1" colSpan="1" >[TUICallDefine.MediaType](https://write.woa.com/document/114029061195374592)</td>
 
-<td rowspan="1" colSpan="1" >通话的媒体类型，比如视频通话、语音通话</td>
+<td rowspan="1" colSpan="1" >The call type, which can be video or audio.</td>
 </tr>
 
 <tr>
 <td rowspan="1" colSpan="1" >params</td>
 
-<td rowspan="1" colSpan="1" >[TUICallDefine.CallParams](https://cloud.tencent.com/document/product/647/90338#CallParams)</td>
+<td rowspan="1" colSpan="1" >[TUICallDefine.CallParams](https://write.woa.com/document/114029061195374592)</td>
 
-<td rowspan="1" colSpan="1" >通话扩展参数，例如：房间号、通话邀请超时时间，离线推送自定义内容等</td>
+<td rowspan="1" colSpan="1" >An additional parameter. such as roomID, call timeout, offline push info,etc</td>
 </tr>
 </table>
 
 
 ### join
 
-
-
-主动加入通话。
+Proactively join a call.
 
 
 
@@ -218,14 +210,14 @@ void setSelfInfo(String nickname, String avatar, TUICommonDefine.Callback callba
 void join(String callId, TUICommonDefine.Callback callback)
 ```
 
-参数如下表所示：
+The parameters are described below:
 <table>
 <tr>
-<td rowspan="1" colSpan="1" >参数</td>
+<td rowspan="1" colSpan="1" >Parameter</td>
 
-<td rowspan="1" colSpan="1" >类型</td>
+<td rowspan="1" colSpan="1" >Type</td>
 
-<td rowspan="1" colSpan="1" >含义</td>
+<td rowspan="1" colSpan="1" >Description</td>
 </tr>
 
 <tr>
@@ -233,21 +225,20 @@ void join(String callId, TUICommonDefine.Callback callback)
 
 <td rowspan="1" colSpan="1" >String</td>
 
-<td rowspan="1" colSpan="1" >此次通话的唯一 ID</td>
+<td rowspan="1" colSpan="1" >Unique ID for this call</td>
 </tr>
 </table>
 
 
 ### setCallingBell
 
-设置自定义来电铃音。
-这里仅限传入本地文件地址，需要确保该文件目录是应用可以访问的。
-- 铃声设置后与设备绑定，更换用户，铃声依旧会生效。
+This API is used to set the ringtone. `filePath` must be an accessible local file URL.
 
-- 如需恢复默认铃声，`filePath`传空即可。
+The ringtone set is associated with the device and does not change with user.
+
+To reset the ringtone, pass in an empty string for `filePath`.
 
 
-   
 
 
 【Kotlin】
@@ -261,12 +252,9 @@ fun setCallingBell(filePath: String?)
 void setCallingBell(String filePath);
 ```
 
-
 ### enableMuteMode
 
-开启/关闭静音模式。
-
-开启后，收到通话请求，不会播放来电铃声。
+This API is used to set whether to play the music when user received a call. 
 
 
 
@@ -284,9 +272,9 @@ void enableMuteMode(boolean enable);
 
 ### enableFloatWindow
 
-开启/关闭悬浮窗功能。
+This API is used to set whether to enable floating windows.
 
-默认为`false`，通话界面左上角的悬浮窗按钮隐藏，设置为 true 后显示。
+The default value is `false`, and the floating window button in the top left corner of the call view is hidden. If it is set to `true`, the button will become visible.
 
 
 
@@ -304,83 +292,41 @@ void enableFloatWindow(boolean enable);
 
 ### enableIncomingBanner
 
-开启/关闭来电横幅显示。
+The API is used to set whether show incoming banner when user received a new call invitation.
 
-默认为`false`，被叫端收到邀请后默认弹出全屏通话等待界面。开启后先展示一个横幅，然后根据需要拉起全屏通话界面。
-
-
-
-
-
-
-【Kotlin】
+The default value is `false`, The callee will pop up a full-screen call view by default when receiving the invitation. If it is set to `true`, the callee will display a banner first.
 ``` java
 fun enableIncomingBanner(enable: Boolean)
 ```
 
-
-【Java】
-``` java
-void enableIncomingBanner(boolean enable);
-```
-
-### setScreenOrientation
-
-设置通话界面显示方向。
-
-默认为竖屏，orientation：0-Portrait、1-LandScape、2-Auto。
-
-
-
-
-【Kotlin】
-``` java
-fun setScreenOrientation(orientation: Int) 
-```
-
-
-【Java】
-``` java
-void setScreenOrientation(int orientation);
-```
-
-### enableVirtualBackground
-
-设置模糊背景。
-
-默认值为：false。
-``` java
-fun enableVirtualBackground(enable: Boolean)
-```
-
-## 废弃接口
+## Deprecated Interface
 
 ### call
 
-拨打电话（1v1通话）。**注意：v2.9+版本废弃，建议使用 calls 接口。**
+This API is used to make a (one-to-one) call. **Note:  it is recommended to use the calls API.**
 
 
 
 
 【Kotlin】
 ``` java
-fun call(userId: String, mediaType: TUICallDefine.MediaType)
+fun call(userId: String, callMediaType: TUICallDefine.MediaType)
 ```
 
 
 【Java】
 ``` java
- void call(String userId, TUICallDefine.MediaType mediaType)
+ void call(String userId, TUICallDefine.MediaType callMediaType)
 ```
 
-参数如下表所示：
+The parameters are described below:
 <table>
 <tr>
-<td rowspan="1" colSpan="1" >参数</td>
+<td rowspan="1" colSpan="1" >Parameter</td>
 
-<td rowspan="1" colSpan="1" >类型</td>
+<td rowspan="1" colSpan="1" >Type</td>
 
-<td rowspan="1" colSpan="1" >含义</td>
+<td rowspan="1" colSpan="1" >Description</td>
 </tr>
 
 <tr>
@@ -388,22 +334,22 @@ fun call(userId: String, mediaType: TUICallDefine.MediaType)
 
 <td rowspan="1" colSpan="1" >String</td>
 
-<td rowspan="1" colSpan="1" >目标用户的 userId</td>
+<td rowspan="1" colSpan="1" >The target user ID.</td>
 </tr>
 
 <tr>
-<td rowspan="1" colSpan="1" >mediaType</td>
+<td rowspan="1" colSpan="1" >callMediaType</td>
 
-<td rowspan="1" colSpan="1" >[TUICallDefine.MediaType](https://cloud.tencent.com/document/product/647/90338#MediaType)</td>
+<td rowspan="1" colSpan="1" >[TUICallDefine.MediaType](https://write.woa.com/document/114029061195374592)</td>
 
-<td rowspan="1" colSpan="1" >通话的媒体类型，比如视频通话、语音通话</td>
+<td rowspan="1" colSpan="1" >The call type, which can be video or audio.</td>
 </tr>
 </table>
 
 
 ### call
 
-拨打电话（1v1通话），支持自定义房间号、通话邀请超时时间，离线推送内容等。**注意：v2.9+版本废弃，建议使用 calls 接口。**
+This API is used to make a (one-to-one) call, Support for custom room ID, call timeout, offline push content, etc. **Note:  it is recommended to use the calls API.**
 
 
 
@@ -411,7 +357,7 @@ fun call(userId: String, mediaType: TUICallDefine.MediaType)
 【Kotlin】
 ``` java
 fun call(
-    userId: String, mediaType: TUICallDefine.MediaType,
+    userId: String, callMediaType: TUICallDefine.MediaType,
     params: CallParams?, callback: TUICommonDefine.Callback?
 )
 ```
@@ -419,18 +365,18 @@ fun call(
 
 【Java】
 ``` java
- void call(String userId, TUICallDefine.MediaType mediaType, 
+ void call(String userId, TUICallDefine.MediaType callMediaType, 
            TUICallDefine.CallParams params, TUICommonDefine.Callback callback)
 ```
 
-参数如下表所示：
+The parameters are described below:
 <table>
 <tr>
-<td rowspan="1" colSpan="1" >参数</td>
+<td rowspan="1" colSpan="1" >Parameter</td>
 
-<td rowspan="1" colSpan="1" >类型</td>
+<td rowspan="1" colSpan="1" >Type</td>
 
-<td rowspan="1" colSpan="1" >含义</td>
+<td rowspan="1" colSpan="1" >Description</td>
 </tr>
 
 <tr>
@@ -438,38 +384,38 @@ fun call(
 
 <td rowspan="1" colSpan="1" >String</td>
 
-<td rowspan="1" colSpan="1" >目标用户的 userId</td>
+<td rowspan="1" colSpan="1" >The target user ID.</td>
 </tr>
 
 <tr>
-<td rowspan="1" colSpan="1" >mediaType</td>
+<td rowspan="1" colSpan="1" >callMediaType</td>
 
-<td rowspan="1" colSpan="1" >[TUICallDefine.MediaType](https://cloud.tencent.com/document/product/647/90338#MediaType)</td>
+<td rowspan="1" colSpan="1" >[TUICallDefine.MediaType](https://write.woa.com/document/114029061195374592)</td>
 
-<td rowspan="1" colSpan="1" >通话的媒体类型，比如视频通话、语音通话</td>
+<td rowspan="1" colSpan="1" >The call type, which can be video or audio.</td>
 </tr>
 
 <tr>
 <td rowspan="1" colSpan="1" >params</td>
 
-<td rowspan="1" colSpan="1" >[TUICallDefine.CallParams](https://cloud.tencent.com/document/product/647/90338#CallParams)</td>
+<td rowspan="1" colSpan="1" >[TUICallDefine.CallParams](https://write.woa.com/document/114029061195374592)</td>
 
-<td rowspan="1" colSpan="1" >通话扩展参数，例如：房间号、通话邀请超时时间，离线推送自定义内容等</td>
+<td rowspan="1" colSpan="1" >Call extension parameters, such as roomID, call timeout, offline push info,etc</td>
 </tr>
 </table>
 
 
 ### groupCall
 
-发起群组通话。**注意：v2.9+版本废弃，建议使用 calls 接口。**
+This API is used to make a group call. **Note:  it is recommended to use the calls API.**
 
-> **注意：**
+> **Note:**
 > 
 
-> 使用群组通话前需要创建 IM 群组，如果已经创建，请忽略。
+> Before making a group call, you need to create an Chat group first.
 > 
 
-> 群组的创建详见：[IM 群组管理](https://cloud.tencent.com/document/product/269/75394) ，或者您也可以直接使用 [IM TUIKit](https://cloud.tencent.com/document/product/269/37059)，一站式集成聊天、通话等场景。
+> For details about how to create a group, see [Chat Group Management](https://www.tencentcloud.com/zh/document/product/1047/48466#.E5.88.9B.E5.BB.BA.E7.BE.A4.E7.BB.84), or you can use [Chat UIKit](https://www.tencentcloud.com/zh/document/product/1047/60520) to integrate chat, call and other scenarios.
 > 
 
 
@@ -478,23 +424,23 @@ fun call(
 
 【Kotlin】
 ``` java
-fun groupCall(groupId: String, userIdList: List<String?>?, mediaType: TUICallDefine.MediaType)
+fun groupCall(groupId: String, userIdList: List<String?>?, callMediaType: TUICallDefine.MediaType)
 ```
 
 
 【Java】
 ``` java
-void groupCall(String groupId, List<String> userIdList, TUICallDefine.MediaType mediaType);
+void groupCall(String groupId, List<String> userIdList, TUICallDefine.MediaType callMediaType);
 ```
 
-参数如下表所示：
+The parameters are described below:
 <table>
 <tr>
-<td rowspan="1" colSpan="1" >参数</td>
+<td rowspan="1" colSpan="1" >Parameter</td>
 
-<td rowspan="1" colSpan="1" >类型</td>
+<td rowspan="1" colSpan="1" >Type</td>
 
-<td rowspan="1" colSpan="1" >含义</td>
+<td rowspan="1" colSpan="1" >Description</td>
 </tr>
 
 <tr>
@@ -502,7 +448,7 @@ void groupCall(String groupId, List<String> userIdList, TUICallDefine.MediaType 
 
 <td rowspan="1" colSpan="1" >String</td>
 
-<td rowspan="1" colSpan="1" >此次群组通话的群 ID</td>
+<td rowspan="1" colSpan="1" >The group ID.</td>
 </tr>
 
 <tr>
@@ -510,30 +456,30 @@ void groupCall(String groupId, List<String> userIdList, TUICallDefine.MediaType 
 
 <td rowspan="1" colSpan="1" >List</td>
 
-<td rowspan="1" colSpan="1" >目标用户的 userId 列表</td>
+<td rowspan="1" colSpan="1" >The target user IDs.</td>
 </tr>
 
 <tr>
-<td rowspan="1" colSpan="1" >mediaType</td>
+<td rowspan="1" colSpan="1" >callMediaType</td>
 
-<td rowspan="1" colSpan="1" >[TUICallDefine.MediaType](https://cloud.tencent.com/document/product/647/90338#MediaType)</td>
+<td rowspan="1" colSpan="1" >[TUICallDefine.MediaType](https://write.woa.com/document/114029061195374592)</td>
 
-<td rowspan="1" colSpan="1" >通话的媒体类型，比如视频通话、语音通话</td>
+<td rowspan="1" colSpan="1" >The call type, which can be video or audio.</td>
 </tr>
 </table>
 
 
 ### groupCall
 
-发起群组通话，支持自定义房间号、通话邀请超时时间，离线推送内容等。**注意：v2.9+版本废弃，建议使用 calls 接口。**
+This API is used to make a group call, Support for custom room ID, call timeout, offline push content, etc. **Note:  it is recommended to use the calls API.**
 
-> **注意：**
+> **Note:**
 > 
 
-> 使用群组通话前需要创建 IM 群组，如果已经创建，请忽略。
+> Before making a group call, you need to create an Chat group first.
 > 
 
-> 群组的创建详见：[IM 群组管理](https://cloud.tencent.com/document/product/269/75394) ，或者您也可以直接使用 [IM TUIKit](https://cloud.tencent.com/document/product/269/37059)，一站式集成聊天、通话等场景。
+> For details about how to create a group, see [Chat Group Management](https://www.tencentcloud.com/zh/document/product/1047/48466#.E5.88.9B.E5.BB.BA.E7.BE.A4.E7.BB.84), or you can use [Chat UIKit](https://www.tencentcloud.com/zh/document/product/1047/60520) to integrate chat, call and other scenarios.
 > 
 
 
@@ -543,26 +489,27 @@ void groupCall(String groupId, List<String> userIdList, TUICallDefine.MediaType 
 【Kotlin】
 ``` java
 fun groupCall(
-    groupId: String, userIdList: List<String?>?, mediaType: TUICallDefine.MediaType, 
-    params: CallParams?, callback: TUICommonDefine.Callback?
+    groupId: String, userIdList: List<String?>?,
+    callMediaType: TUICallDefine.MediaType, params: CallParams?,
+    callback: TUICommonDefine.Callback?
 )
 ```
 
 
 【Java】
 ``` java
-void groupCall(String groupId, List<String> userIdList, TUICallDefine.MediaType mediaType, 
+void groupCall(String groupId, List<String> userIdList, TUICallDefine.MediaType callMediaType, 
                TUICallDefine.CallParams params, TUICommonDefine.Callback callback);
 ```
 
-参数如下表所示：
+The parameters are described below:
 <table>
 <tr>
-<td rowspan="1" colSpan="1" >参数</td>
+<td rowspan="1" colSpan="1" >Parameter</td>
 
-<td rowspan="1" colSpan="1" >类型</td>
+<td rowspan="1" colSpan="1" >Type</td>
 
-<td rowspan="1" colSpan="1" >含义</td>
+<td rowspan="1" colSpan="1" >Description</td>
 </tr>
 
 <tr>
@@ -570,7 +517,7 @@ void groupCall(String groupId, List<String> userIdList, TUICallDefine.MediaType 
 
 <td rowspan="1" colSpan="1" >String</td>
 
-<td rowspan="1" colSpan="1" >此次群组通话的群 ID</td>
+<td rowspan="1" colSpan="1" >The group ID.</td>
 </tr>
 
 <tr>
@@ -578,38 +525,38 @@ void groupCall(String groupId, List<String> userIdList, TUICallDefine.MediaType 
 
 <td rowspan="1" colSpan="1" >List</td>
 
-<td rowspan="1" colSpan="1" >目标用户的 userId 列表</td>
+<td rowspan="1" colSpan="1" >The target user IDs.</td>
 </tr>
 
 <tr>
-<td rowspan="1" colSpan="1" >mediaType</td>
+<td rowspan="1" colSpan="1" >callMediaType</td>
 
-<td rowspan="1" colSpan="1" >[TUICallDefine.MediaType](https://cloud.tencent.com/document/product/647/90338#MediaType)</td>
+<td rowspan="1" colSpan="1" >[TUICallDefine.MediaType](https://write.woa.com/document/114029061195374592)</td>
 
-<td rowspan="1" colSpan="1" >通话的媒体类型，比如视频通话、语音通话</td>
+<td rowspan="1" colSpan="1" >The call type, which can be video or audio.</td>
 </tr>
 
 <tr>
 <td rowspan="1" colSpan="1" >params</td>
 
-<td rowspan="1" colSpan="1" >[TUICallDefine.CallParams](https://cloud.tencent.com/document/product/647/90338#CallParams)</td>
+<td rowspan="1" colSpan="1" >[TUICallDefine.CallParams](https://write.woa.com/document/114029061195374592)</td>
 
-<td rowspan="1" colSpan="1" >通话扩展参数，例如：房间号、通话邀请超时时间，离线推送自定义内容等</td>
+<td rowspan="1" colSpan="1" >Call extension parameters, such as roomID, call timeout, offline push info,etc</td>
 </tr>
 </table>
 
 
 ### joinInGroupCall
 
-加入群组中已有的音视频通话。**注意：v2.9+版本废弃，建议使用 join 接口。**
+This API is used to join a group call. **Note:  it is recommended to use the join API.**
 
-> **注意：**
+> **Note:**
 > 
 
-> 加入群组中已有的音视频通话前，需要提前创建或加入 IM 群组，并且群组中已有用户在通话中，如果已经创建，请忽略。
+> Before joining a group call, you need to create or join an Chat group in advance, and there are already users in the group who are in the call.
 > 
 
-> 群组的创建详见：[IM 群组管理](https://cloud.tencent.com/document/product/269/75394) ，或者您也可以直接使用 [IM TUIKit](https://cloud.tencent.com/document/product/269/37059)，一站式集成聊天、通话等场景。
+> For details about how to create a group, see [Chat Group Management](https://www.tencentcloud.com/zh/document/product/1047/48466#.E5.88.9B.E5.BB.BA.E7.BE.A4.E7.BB.84), or you can use [Chat UIKit](https://www.tencentcloud.com/zh/document/product/1047/60520) to integrate chat, call and other scenarios.
 > 
 
 
@@ -618,7 +565,7 @@ void groupCall(String groupId, List<String> userIdList, TUICallDefine.MediaType 
 
 【Kotlin】
 ``` java
-fun joinInGroupCall(roomId: RoomId?, groupId: String?, mediaType: TUICallDefine.MediaType?) 
+fun joinInGroupCall(roomId: RoomId?, groupId: String?, callMediaType: TUICallDefine.MediaType?) 
 ```
 
 
@@ -627,22 +574,22 @@ fun joinInGroupCall(roomId: RoomId?, groupId: String?, mediaType: TUICallDefine.
 void joinInGroupCall(TUICommonDefine.RoomId roomId, String groupId, TUICallDefine.MediaType callMediaType);
 ```
 
-参数如下表所示：
+The parameters are described below:
 <table>
 <tr>
-<td rowspan="1" colSpan="1" >参数</td>
+<td rowspan="1" colSpan="1" >Parameter</td>
 
-<td rowspan="1" colSpan="1" >类型</td>
+<td rowspan="1" colSpan="1" >Type</td>
 
-<td rowspan="1" colSpan="1" >含义</td>
+<td rowspan="1" colSpan="1" >Description</td>
 </tr>
 
 <tr>
 <td rowspan="1" colSpan="1" >roomId</td>
 
-<td rowspan="1" colSpan="1" >[TUICommonDefine.RoomId](https://cloud.tencent.com/document/product/647/90338#RoomId)</td>
+<td rowspan="1" colSpan="1" >[TUICommonDefine.RoomId](https://write.woa.com/document/114029061195374592)</td>
 
-<td rowspan="1" colSpan="1" >此次通话的音视频房间 ID</td>
+<td rowspan="1" colSpan="1" >The room ID.</td>
 </tr>
 
 <tr>
@@ -650,14 +597,14 @@ void joinInGroupCall(TUICommonDefine.RoomId roomId, String groupId, TUICallDefin
 
 <td rowspan="1" colSpan="1" >String</td>
 
-<td rowspan="1" colSpan="1" >此次群组通话的群 ID</td>
+<td rowspan="1" colSpan="1" >The group ID.</td>
 </tr>
 
 <tr>
-<td rowspan="1" colSpan="1" >mediaType</td>
+<td rowspan="1" colSpan="1" >callMediaType</td>
 
-<td rowspan="1" colSpan="1" >[TUICallDefine.MediaType](https://cloud.tencent.com/document/product/647/90338#MediaType)</td>
+<td rowspan="1" colSpan="1" >[TUICallDefine.MediaType](https://write.woa.com/document/114029061195374592)</td>
 
-<td rowspan="1" colSpan="1" >通话的媒体类型，比如视频通话、语音通话</td>
+<td rowspan="1" colSpan="1" >The call type, which can be video or audio.</td>
 </tr>
 </table>

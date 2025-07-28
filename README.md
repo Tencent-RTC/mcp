@@ -1,3 +1,5 @@
+_English | [简体中文](README-zh_CN.md)_
+
 # Tencent RTC MCP Server User Guide
 
 This repository provides a Model Context Protocol (MCP) server based on the Command Line Interface (CLI). It delivers Tencent Cloud SDK documentation and API resources to Large Language Model (LLM) based tools. This enhances the ability of LLM AI agents to understand and interact with Tencent Cloud SDKs and APIs, facilitating seamless integration of Tencent Cloud services into applications.
@@ -17,7 +19,7 @@ This repository provides a Model Context Protocol (MCP) server based on the Comm
 
 ## Prerequisites
 
-- Node.js (version >= 18) and npm (https://nodejs.org/)
+- Node.js (version >= 18) and [npm](https://nodejs.org/)
 - Cursor IDE with MCP support
 
 ## Installation
@@ -25,7 +27,7 @@ This repository provides a Model Context Protocol (MCP) server based on the Comm
 To run the Tencent Cloud MCP server locally or add it to Cursor IDE via npx:
 
 ```
-npx -y @tencentcloud/sdk-mcp
+npx -y @tencent-rtc/mcp
 ```
 
 ## Cursor Configuration
@@ -41,7 +43,7 @@ Edit or create the file ~/.cursor/mcp.json:
   "mcpServers": {
     "tencent-rtc": {
       "command": "npx",
-      "args": ["-y", "@tencentcloud/sdk-mcp"],
+      "args": ["-y", "@tencent-rtc/mcp"],
     }
   }
 }
@@ -56,7 +58,7 @@ In the project directory, create .cursor/mcp.json:
   "mcpServers": {
     "tencent-rtc": {
       "command": "npx",
-      "args": ["-y", "@tencentcloud/sdk-mcp"],
+      "args": ["-y", "@tencent-rtc/mcp"],
     }
   }
 }

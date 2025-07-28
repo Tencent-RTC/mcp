@@ -1,0 +1,14 @@
+import { Config } from '../interface';
+export declare const REPORT_TIMEOUT = 5000;
+export declare const MAX_FAIL_REQUEST_NUM = 60;
+export declare const MAX_LOG_LENGTH: number;
+export declare const MAX_FROM_LENGTH: number;
+export declare const TIMESTAMP_REG: RegExp;
+export declare const MAX_REPEAT_TIMES = 60;
+export declare const CLEAR_REPEAT_CACHE_TIMEOUT = 60000;
+export declare const MAX_CUSTOM_TIME = 2147483646;
+export declare const MAX_ERROR_COUNT = 5;
+export declare const FORBIDDEN_RESPONSE_DATA = "403 forbidden";
+export declare const MAX_PROMISE_ERROR_MSG_LENGTH = 150;
+export declare const getDefaultConfig: () => Config;
+export declare const setConfigUrl: (config: Config, hostUrl?: string) => Config;
