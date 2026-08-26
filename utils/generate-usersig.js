@@ -9,4 +9,3 @@ function generateUserSig(userID) {
     return { SDKAppID, userID, userSig };
 }
 export { generateUserSig };
-//# sourceMappingURL=generate-usersig.js.map

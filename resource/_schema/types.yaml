@@ -1,0 +1,43 @@
+integration:
+  globs:
+    - integration/**/*
+component:
+  globs:
+    - knowledge/**/components/*.md
+    - knowledge/chat/preset/vue/features/*.md
+    - knowledge/chat/preset/react/features/*.md
+    - knowledge/chat/preset/react/components/*.md
+    - knowledge/chat/preset/android/features/*.md
+feature:
+  globs:
+    - knowledge/**/features/*.md
+    - knowledge/livekit/core-sdk/**/*.md
+api:
+  globs:
+    - knowledge/**/api.md
+    - knowledge/**/client-api.md
+    - knowledge/**/api-reference/*.md
+plugin:
+  globs:
+    - knowledge/rtcengine/web/plugin/*.md
+sdk:
+  globs:
+    - knowledge/chat/urls/sdk/*.md
+faq:
+  globs:
+    - knowledge/**/faq.md
+    - knowledge/**/faq/**/*.md
+error_code:
+  globs:
+    - knowledge/chat/urls/error-code.md
+    - knowledge/**/error_code*.md
+    - knowledge/**/TXLiteAVCode.md
+product:
+  globs:
+    - knowledge/chat/urls/product.md
+server_api:
+  globs:
+    - knowledge/chat/urls/restapi.md
+webhook:
+  globs:
+    - knowledge/chat/urls/webhook.md

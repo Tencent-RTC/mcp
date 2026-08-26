@@ -1,0 +1,9 @@
+literal:
+  摄影头: ["摄像头"]
+  会议: ["roomkit", "conference"]
+  会议室: ["roomkit", "conference"]
+word:
+  conference: ["meeting", "roomkit", "conference"]
+  meeting: ["meeting", "roomkit", "conference"]
+  room: ["meeting", "roomkit", "conference"]
+  roomkit: ["meeting", "roomkit", "conference"]

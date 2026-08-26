@@ -1,1 +1,0 @@
-{"version":3,"file":"aegis-client.js","sourceRoot":"","sources":["../../src/utils/aegis-client.ts"],"names":[],"mappings":"AAAA,aAAa;AACb,OAAO,KAAK,MAAM,kDAAkD,CAAC;AAErE,MAAM,WAAW,GAAG,IAAI,KAAK,CAAC;IAC5B,EAAE,EAAE,oBAAoB;IACxB,GAAG,EAAE,OAAO;CACb,CAAC,CAAC;AAEH,OAAO,EAAE,WAAW,EAAE,CAAA"}

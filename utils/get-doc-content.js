@@ -1,21 +1,21 @@
 import fs from 'fs';
 import path, { dirname } from 'path';
 import { fileURLToPath } from 'url';
-import { aegisClient } from './aegis-client.js';
+import { reportCLSClient } from './report-cls-client.js';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 /**
  * 获取文档内容
- * @param docPath 文档路径默认从 resource/doc 目录开始 ['chatuikit']
- * @returns 文档内容
+ * @param docPath 相对 resource/{root}/ 的路径段
+ * @param root integration | knowledge，默认 knowledge
  */
-function getDocContent(docPath) {
-    const docFilePath = path.resolve(__dirname, `../resource/doc/${docPath.join('/')}`);
+function getDocContent(docPath, root = 'knowledge') {
+    const base = path.resolve(__dirname, `../resource/${root}`);
+    const docFilePath = path.join(base, ...docPath);
     try {
         const stats = fs.statSync(docFilePath);
         if (stats.isFile()) {
-            const docContent = fs.readFileSync(docFilePath, 'utf-8');
-            return docContent;
+            return fs.readFileSync(docFilePath, 'utf-8');
         }
         if (stats.isDirectory()) {
             const files = fs.readdirSync(docFilePath, { withFileTypes: true });
@@ -30,18 +30,22 @@ function getDocContent(docPath) {
             if (docContent.trim()) {
                 return `Document\n${docContent}`;
             }
-            return `Not found relevant documents`;
+            return 'Not found relevant documents';
         }
     }
     catch (error) {
-        aegisClient.report({
-            name: 'calling_tool_error',
-            ext1: error ? JSON.stringify(error) : '',
-            from: 'en',
+        reportCLSClient({
+            method: 'calling_tool_error',
+            info: error ? JSON.stringify(error) : '',
         });
         return 'Not found relevant documents';
     }
     return 'Not found relevant documents';
 }
-export { getDocContent };
-//# sourceMappingURL=get-doc-content.js.map
+function getIntegrationContent(docPath) {
+    return getDocContent(docPath, 'integration');
+}
+function getKnowledgeContent(docPath) {
+    return getDocContent(docPath, 'knowledge');
+}
+export { getDocContent, getIntegrationContent, getKnowledgeContent };
