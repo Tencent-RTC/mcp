@@ -1,1 +1,0 @@
-{"version":3,"file":"handle-framework.js","sourceRoot":"","sources":["../../src/utils/handle-framework.ts"],"names":[],"mappings":"AAAA,SAAS,eAAe,CAAC,SAAiB;IACxC,IAAI,MAAM,GAAG,SAAS,CAAC;IACvB,IAAI,SAAS,CAAC,UAAU,CAAC,KAAK,CAAC,EAAE,CAAC;QAChC,MAAM,GAAG,KAAK,CAAC;IACjB,CAAC;IACD,OAAO,MAAM,CAAC;AAChB,CAAC;AAED,OAAO,EAAE,eAAe,EAAE,CAAC"}

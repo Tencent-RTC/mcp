@@ -1,0 +1,27 @@
+android:
+  core_api: TRTCCloud
+  type_def: TRTCCloudDef
+  callback: TRTCCloudListener
+  statistics: TRTCStatistics
+  audio_effect: TXAudioEffectManager
+  beauty: TXBeautyManager
+  device: TXDeviceManager
+  error_code: TXLiteAVCode
+ios:
+  core_api: TRTCCloud
+  type_def: TXLiveSDKTypeDef
+  callback: TRTCCloudDelegate
+  statistics: TRTCStatistics
+  audio_effect: TXAudioEffectManager
+  beauty: TXBeautyManager
+  device: TXDeviceManager
+  error_code: TXLiteAVCode
+c++:
+  core_api: ITRTCCloud
+  type_def: TRTCTypeDef
+  callback: TRTCCloudCallback
+  statistics: ITRTCStatistics
+  audio_effect: ITXAudioEffectManager
+  beauty: null
+  device: ITXDeviceManager
+  error_code: TXLiteAVCode

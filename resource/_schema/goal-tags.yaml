@@ -1,0 +1,72 @@
+get_web_chat_uikit_integration:
+  full-featured:
+    root: integration
+    path: chat/preset/{framework}/integration.md
+  chat-only:
+    root: integration
+    path: chat/preset/{framework}/integration.md
+get_native_chat_uikit_integration:
+  full-featured:
+    root: integration
+    path: chat/preset/{framework}/integration.md
+  chat-only:
+    root: integration
+    path: chat/preset/{framework}/integration.md
+get_web_call_uikit_integration:
+  integration:
+    root: integration
+    path: callkit/preset/{framework}/integration.md
+get_native_call_uikit_integration:
+  integration:
+    root: integration
+    path: callkit/preset/{framework}/integration.md
+get_native_callkit_core_integration:
+  make_call:
+    root: knowledge
+    path: callkit/core-sdk/{framework}/make-call.md
+  answer_call:
+    root: knowledge
+    path: callkit/core-sdk/{framework}/answer-call.md
+  offline_push:
+    root: knowledge
+    path: callkit/core-sdk/{framework}/offline-push.md
+get_web_live_uikit_integration:
+  liveList:
+    root: integration
+    path: livekit/preset/live/vue/live-list-integration.md
+  livePlayer-desk:
+    root: integration
+    path: livekit/preset/live/vue/live-player-desk-integration.md
+  livePlayer-h5:
+    root: integration
+    path: livekit/preset/live/vue/live-player-h5-integration.md
+  livePusher:
+    root: integration
+    path: livekit/preset/live/vue/live-pusher-integration.md
+  CoGuestPanel:
+    root: integration
+    path: livekit/preset/live/vue/components/co-guest-panel.md
+get_native_livekit_core_integration:
+  host_streaming:
+    root: knowledge
+    path: livekit/core-sdk/{scenario}/{framework}/*-integration.md
+  audience_streaming:
+    root: knowledge
+    path: livekit/core-sdk/{scenario}/{framework}/*-integration.md
+  live_list:
+    root: knowledge
+    path: livekit/core-sdk/{scenario}/{framework}/*-list.md
+get_web_room_uikit_integration:
+  integration:
+    root: integration
+    path: roomkit/preset/vue/integration.md
+get_web_room_core_integration:
+  room-state:
+    root: knowledge
+    path: roomkit/core-sdk/vue/room-state.md
+  device-detection:
+    root: knowledge
+    path: roomkit/core-sdk/vue/device-detection.md
+  device-state:
+    root: knowledge
+    path: roomkit/core-sdk/vue/device-state.md

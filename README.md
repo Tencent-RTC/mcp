@@ -1,49 +1,32 @@
-## Tencent SDK Model Context Protocol (MCP) Server for Cursor IDE
+## Tencent RTC SDK MCP Server Guide
 
-This repository provides a CLI-based Model Context Protocol (MCP) server that exposes Tencent SDK documentation and Tencent API resources to LLM-powered tools.
-This improves the LLM AI Agent's ability to understand and interact with Tencent's SDKs and APIs.
-
+This repository provides a CLI-based Model Context Protocol (MCP) Server that exposes Tencent RTC SDK documentation and API resources to LLM tools, helping AI agents deliver more accurate implementation guidance and integration support.
 
 ## Features
 
-- MCP server exposing tools for interacting with Tencent via JSON-RPC over STDIN/STDOUT.
-- Retrieve official Tencent SDK documentation (HTML → Markdown) for:
-  - Languages: JavaScript, Java, Swift, Objective-C, Kotlin.
-  - API reference sections: configuration, calls function.
-- Retrieve official Tencent TUICallKit SDK documentation (HTML → Markdown) for:
-  - TUICallKit SDK languages: JavaScript, Kotlin, Swift.
-  - TUICallKit SDK topics: configuration, calls function.
-- Retrieve official Tencent ChatUIKit documentation (HTML → Markdown) for:
-  - ChatUIKit SDK languages: JavaScript, Kotlin, Swift.
-  - ChatUIKit SDK topics: configuration, chat function.
-- Converts remote HTML articles to Markdown using `jsdom` and `turndown` for consistent documentation formatting.
-- Input validation via Zod schemas for all tool parameters, ensuring robust error handling.
-- Extensible tool definitions leveraging the Model Context Protocol SDK (`@modelcontextprotocol/sdk`) with `McpServer` and `StdioServerTransport`.
+- **Efficient retrieval**: Supports Tencent RTC documentation retrieval for fast access to official references and best practices.
+- **Broad coverage**: Covers Chat (IM), Call, Live, Room, RTCEngine (TRTC SDK), and TIMPush domains.
+- **Intelligent routing**: Supports product/platform intent disambiguation and prompts for missing platform/framework information when needed.
+- **Integration-friendly**: In addition to documentation Q&A, provides integration entry points for Web / Android / iOS / Flutter, including UI-based integration directions.
+- **Reliable source**: Grounded in official Tencent Cloud materials to improve answer reliability and implementation readiness.
+- **Wide compatibility**: Exposes MCP capabilities over STDIN/STDOUT JSON-RPC, compatible with MCP clients such as Cursor / Codex / Claude / CodeBuddy.
+- **Quick start**: Run with `npx` and get started with minimal setup.
 
-
-## Prerequisites
+## Requirements
 - Node.js (>= 18) and npm
-- Cursor IDE with MCP support
+- An MCP-capable IDE
 
+## Usage
+### Standard setup flow
 
-## How To Use
-To set up the @tencent-rtc/mcp MCP Server, follow these steps:
+- Step1: In your Cursor project, create or edit `.cursor/mcp.json` or `~/.cursor/mcp.json` and add the following configuration.
 
-### Step1: Installation.
-
-```
-npx -y @tencent-rtc/mcp
-```
-
-### Step2: MCP Configuration.
-In your Cursor project, create or open the `.cursor/mcp.json` or `~/.cursor/mcp.json` files and add your config.
-
-```javascript
+```json
 {
   "mcpServers": {
     "tencent-rtc": {
       "command": "npx",
-      "args": ["-y", "@tencent-rtc/mcp"],
+      "args": ["-y", "@tencent-rtc/mcp@latest"],
       "env": {
         "SDKAPPID": "YOUR_SDKAPPID",
         "SECRETKEY": "YOUR_SECRET_KEY"
@@ -52,16 +35,61 @@ In your Cursor project, create or open the `.cursor/mcp.json` or `~/.cursor/mcp.
   }
 }
 ```
-When you save the file, a notification is displayed. In the prompt, click **Enable**.
+After saving, a prompt appears. Click **Enable** in the prompt.
 
-### Step3: Check MCP Status
-Navigate to **Cursor Settings** (the gear icon in top right corner) -> **MCP**, and check if tencentcloud-sdk-mcp server is enabled.
+![mcp-server-prompt](https://web.sdk.qcloud.com/im/assets/images/mcp-server-prompt-en.png)
 
-### Step4: Use MCP
-Ask the AI agent to build your Tencentcloud sdk app for you by describing the functionality yourself or by using a sample prompt.
+- Step2: Go to **Cursor Settings** (top-right gear icon) -> **MCP**, and make sure `tencent-rtc` is enabled.
 
-> [!NOTE]
-For complete details, please refer to the following [AI Integration](https://trtc.io/document/72277?product=chat&menulabel=uikit&platform=react)
+![cursor-setting](https://web.sdk.qcloud.com/im/assets/images/cursor-setting-en.png)
 
-> [!WARNING]
-Depending on your IDE rules, you may also need to explicitly ask the AI agent to use the `tencent-rtc` mcp server.
+- Step3: Describe your requirements directly in the IDE, and let the AI complete implementation or troubleshooting based on Tencent Cloud SDK documentation.
+
+### Optional: global install
+
+If you want quick global invocation locally, run:
+
+```bash
+npx -y @tencent-rtc/mcp
+```
+
+## Changelog
+
+> Only recent updates are listed here. For full history, see `CHANGELOG.md`.
+
+## Version 1.7.3 @2026.08.17
+
+### Added
+- Added knowledge base resources for RoomKit multi-platform integration, recording, whiteboard, network proxy, AI noise reduction, and subtitle translation, expanding coverage of the Room product domain.
+- Added best-practice docs covering error codes, log levels, automatic screen-share stop, and WeChat Mini Program error troubleshooting.
+- Added a generic additive rerank module with anchor selection and phrase extraction, integrated into the search reranking logic to improve recall ranking accuracy.
+
+### Changed
+- Optimized the BM25 index to use prototype-less objects, improving the isolation and stability of the index structure.
+
+### Fixed
+- Fixed BM25 scoring anomalies caused by prototype-key pollution by adding prototype-key guards, preventing score pollution and NaN issues.
+
+## Version 1.7.1 @2026.08.11
+
+### Added
+- Added pre-search normalization: normalizes `product` / `frameworks` based on prompt truth, fixing retrieval bias caused by wrong agent inference.
+
+### Changed
+- Optimized the `search_trtc_knowledge` output contract: removed brevity wording such as "1-2 sentence per subsection", replaced with complete synthesized answers.
+
+### Fixed
+- Fixed the case where mis-passed dual product / dual frameworks (e.g., "安卓 Web TRTC") were not corrected according to the prompt truth.
+
+### Version 1.7.0 @2026.08.02
+
+#### Added
+- Added and synchronized best-practice docs across product domains including Chat / Call / Live / Room to improve knowledge coverage.
+
+#### Changed
+- Continued refactoring of the bilingual retrieval pipeline, including query normalization, intent routing, candidate filtering, and exact-match strategies.
+- Improved recall and ranking for best-practice and URL-based documents to increase answer usability and stability.
+- Improved `search_trtc_knowledge` definitions and answer constraints for better readability and executability.
+
+#### Fixed
+- Fixed off-topic retrieval in some complex queries, reducing high-score false-positive hits.

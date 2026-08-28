@@ -1,56 +1,42 @@
 // common
-import { registryPresentFrameworkChoiceTool } from './common/present-framework-choice.js';
-import { registryRecordPromptTool } from './common/record-prompt.js';
-import { registryRecordResultTool } from './common/record-result.js';
-import { registryGetUserSigTool } from './common/get-usersig.js';
+import { registryPresentFrameworkChoiceTool } from './common/present_framework_choice.js';
+import { registryGetUserSigTool } from './common/get_usersig.js';
+import { registrySearchTRTCKnowledgeTool } from './common/search_trtc_knowledge.js';
+import { registryFinalizeAnswerTool } from './common/finalize_answer.js';
+import { registrySubmitFeedbackTool } from './common/submit_feedback.js';
 // chat
-import { registryGetWebChatIntegrationTool } from './chat/get-web-chat-integration.js';
-import { registryGetWebChatWindowIntegrationTool } from './chat/get-web-chat-window-integration.js';
-import { registryGetWebChatComponentDetailTool } from './chat/get-web-chat-component-detail.js';
-import { registryGetWebChatInitTool } from './chat/get-web-chat-uikit-init.js';
-// import { registryGetWebCreateGroupTool } from './chat/create-group.js';
-import { registryGetNativeChatIntegrationTool } from './chat/get-native-chat-integration.js';
-import { registryGetChatFaqTool } from './chat/get-chat-faq.js';
+import { registryGetWebChatUIKitIntegrationTool } from './chat/get_web_chat_uikit_integration.js';
+import { registryGetNativeChatUIKitIntegrationTool } from './chat/get_native_chat_uikit_integration.js';
 // call
-import { registryGetWebCallIntegrationTool } from './call/get-web-call-integration.js';
-import { registryGetNativeCallIntegrationTool } from './call/get-native-call-integration.js';
-import { registryGetCallFaqTool } from './call/get-call-faq.js';
-// rtcengine
-import { registryGetTRTCWebSDKFaqTool } from './rtcengine/get-trtc-web-sdk-faq.js';
-import { registryGetRTCEngineWebSDKIntegrationGuideTool } from './rtcengine/get-rtcengine-web-sdk-integration-guide.js';
-import { registryGetTRTCWebSDKIntegrationGuideTool } from './rtcengine/get-trtc-web-sdk-integration-guide.js';
+import { registryGetWebCallUIKitIntegrationTool } from './call/get_web_call_uikit_integration.js';
+import { registryGetNativeCallUIKitIntegrationTool } from './call/get_native_call_uikit_integration.js';
+import { registryGetNativeCallKitCoreIntegrationTool } from './call/get_native_callkit_core_integration.js';
 // live
-import { registryGetWebLiveComponentDetailTool } from './live/get-web-live-component-detail.js';
-import { registerGetWebLiveStateDetailTool } from './live/get-web-live-state-detail.js';
+import { registryGetWebLiveUIKitIntegrationTool } from './live/get_web_live_uikit_integration.js';
+import { registryGetNativeLiveKitCoreIntegrationTool } from './live/get_native_livekit_core_integration.js';
+import { registryGetNativeLiveUIKitIntegrationTool } from './live/get_native_live_uikit_integration.js';
 // room
-import { registryGetWebRoomStateDetailTool } from './room/get-web-room-state-detail.js';
+import { registryGetWebRoomUIKitIntegrationTool } from './room/get_web_room_uikit_integration.js';
+import { registryGetWebRoomCoreIntegrationTool } from './room/get_web_room_core_integration.js';
 function registryTools(mcpServer) {
-    // common
     registryPresentFrameworkChoiceTool(mcpServer);
-    registryRecordPromptTool(mcpServer);
-    registryRecordResultTool(mcpServer);
     registryGetUserSigTool(mcpServer);
+    registrySearchTRTCKnowledgeTool(mcpServer);
+    registryFinalizeAnswerTool(mcpServer);
+    registrySubmitFeedbackTool(mcpServer);
     // chat
-    registryGetWebChatIntegrationTool(mcpServer);
-    registryGetWebChatWindowIntegrationTool(mcpServer);
-    registryGetWebChatComponentDetailTool(mcpServer);
-    registryGetWebChatInitTool(mcpServer);
-    //registryGetWebCreateGroupTool(mcpServer);
-    registryGetNativeChatIntegrationTool(mcpServer);
-    registryGetChatFaqTool(mcpServer);
+    registryGetWebChatUIKitIntegrationTool(mcpServer);
+    registryGetNativeChatUIKitIntegrationTool(mcpServer);
     // call
-    registryGetWebCallIntegrationTool(mcpServer);
-    registryGetNativeCallIntegrationTool(mcpServer);
-    registryGetCallFaqTool(mcpServer);
-    // rtcengine
-    registryGetTRTCWebSDKFaqTool(mcpServer);
-    registryGetRTCEngineWebSDKIntegrationGuideTool(mcpServer);
-    registryGetTRTCWebSDKIntegrationGuideTool(mcpServer);
+    registryGetWebCallUIKitIntegrationTool(mcpServer);
+    registryGetNativeCallUIKitIntegrationTool(mcpServer);
+    registryGetNativeCallKitCoreIntegrationTool(mcpServer);
     // live
-    registryGetWebLiveComponentDetailTool(mcpServer);
-    registerGetWebLiveStateDetailTool(mcpServer);
+    registryGetWebLiveUIKitIntegrationTool(mcpServer);
+    registryGetNativeLiveKitCoreIntegrationTool(mcpServer);
+    registryGetNativeLiveUIKitIntegrationTool(mcpServer);
     // room
-    registryGetWebRoomStateDetailTool(mcpServer);
+    registryGetWebRoomUIKitIntegrationTool(mcpServer);
+    registryGetWebRoomCoreIntegrationTool(mcpServer);
 }
-export { registryTools, };
-//# sourceMappingURL=index.js.map
+export { registryTools };

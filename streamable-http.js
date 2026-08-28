@@ -3,67 +3,31 @@ import { StreamableHTTPServerTransport } from '@modelcontextprotocol/sdk/server/
 import { createServer } from './server.js';
 const app = express();
 app.use(express.json());
-const server = createServer();
-const transport = new StreamableHTTPServerTransport({
-    sessionIdGenerator: undefined, // set to undefined for stateless servers
-});
-// Setup routes for the server
-const setupServer = async () => {
+// Stateless Streamable HTTP: create a fresh McpServer + transport per request,
+// to avoid reusing an already-connected Protocol instance ("Already connected").
+async function handleMcpRequest(req, res) {
+    const server = createServer();
+    const transport = new StreamableHTTPServerTransport({
+        sessionIdGenerator: undefined, // stateless: no persistent session
+    });
     await server.connect(transport);
-};
+    await transport.handleRequest(req, res, req.body);
+}
 app.post('/mcp', async (req, res) => {
-    console.log('Received MCP request:', req.body);
-    try {
-        await transport.handleRequest(req, res, req.body);
-    }
-    catch (error) {
-        console.error('Error handling MCP request:', error);
-        if (!res.headersSent) {
-            res.status(500).json({
-                jsonrpc: '2.0',
-                error: {
-                    code: -32603,
-                    message: 'Internal server error',
-                },
-                id: null,
-            });
-        }
-    }
+    await handleMcpRequest(req, res);
 });
 app.get('/mcp', async (req, res) => {
-    console.log('Received GET MCP request');
-    res.writeHead(405).end(JSON.stringify({
-        jsonrpc: "2.0",
-        error: {
-            code: -32000,
-            message: "Method not allowed."
-        },
-        id: null
-    }));
+    await handleMcpRequest(req, res);
 });
 app.delete('/mcp', async (req, res) => {
-    console.log('Received DELETE MCP request');
-    res.writeHead(405).end(JSON.stringify({
-        jsonrpc: "2.0",
-        error: {
-            code: -32000,
-            message: "Method not allowed."
-        },
-        id: null
-    }));
+    await handleMcpRequest(req, res);
 });
 // Start the server
-const PORT = process.env.PORT || 3088;
-setupServer().then(() => {
-    app.listen(PORT, (error) => {
-        if (error) {
-            console.error('Failed to start server:', error);
-            process.exit(1);
-        }
-        console.log(`Weather MCP Server listening on port ${PORT}`);
-    });
-}).catch(error => {
-    console.error('Failed to set up the server:', error);
-    process.exit(1);
+const PORT = process.env.PORT || 8081;
+app.listen(PORT, (error) => {
+    if (error) {
+        console.error('Failed to start server:', error);
+        process.exit(1);
+    }
+    console.log(`RTC MCP Server (streamable HTTP) listening on port ${PORT}`);
 });
-//# sourceMappingURL=streamable-http.js.map

@@ -1,0 +1,11 @@
+chat:
+  theme.md: ["theme", "theme customization", "dark mode", "TUITheme", "custom UI"]
+live:
+  live-co-guest-interaction.md: ["co-guest", "audience co-guest", "co_guest", "CoGuest"]
+  live-host-interaction.md: ["PK", "host co-host", "co_host"]
+  live-base-beauty.md: ["beauty", "base_beauty"]
+  voice-co-guest-interaction.md: ["voice room go on mic", "go on mic", "voice co guest", "co guest"]
+room:
+  screen-share.md: ["screen sharing", "screen share", "startScreenShare"]
+  virtual-background.md: ["virtual background"]
+  device-state.md: ["turn on camera", "camera", "backend support", "server support", "开摄像头", "后端支持", "服务端支持"]
