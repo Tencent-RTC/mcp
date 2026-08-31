@@ -23,7 +23,7 @@ TRTC.isSupported().then(checkResult => {
 
 ### Option 1: Use Device Detector Plugin (including default UI)
 
-The device detector plugin is used to test the user's media device(camera, microphone, speaker) and network which is recommended to be used before the user enters the room.
+The device detector plugin is used to test the user's media device(camera, microphone, speaker) and network which is recommended to be used before the user enters the room. 
 
 > - Support TRTC Web SDK version >= v5.8.0
 > - The plugin includes a default UI. If the UI does not meet your product design requirements, you can refer to Option 2 for a custom UI implementation.
@@ -38,7 +38,7 @@ const trtc = TRTC.create({ plugins: [DeviceDetector] });
 const result = await trtc.startPlugin('DeviceDetector');
 
 // 2. Test Media Device & Network Quality
-const options = {
+const options = { 
     networkDetect: { sdkAppId, userId, userSig }
 }
 const resultWithNetwork = await trtc.startPlugin('DeviceDetector', options);
@@ -70,11 +70,11 @@ Enable the mirror checkbox during camera detection
 
 | Name            | Type   | Attributes | Description                                                                                                                                                           |
 | --------------- | ------ | ---------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| sdkAppId        | string | required   | Your sdkAppId                                                                                                                                                         |
+| sdkAppId        | number | required   | Your sdkAppId                                                                                                                                                         |
 | userId          | string | required   | The userId for testing uplink network quality. It should be different from downlinkUserId.                                                                            |
 | userSig         | string | required   | The [UserSig](https://trtc.io/document/35166) of the userId.                                                                                                          |
-| downlinkUserId  | string | required   | The userId for testing downlink network quality. It should be different from userId. Fill in downlinkUserId and downlinkUserSig will perform a downlink network test. |
-| downlinkUserSig | string | required   | The [UserSig](https://trtc.io/document/35166) of the downlinkUserId.                                                                                                  |
+| downlinkUserId  | string | optional   | The userId for testing downlink network quality. It should be different from userId. Fill in downlinkUserId and downlinkUserSig will perform a downlink network test. |
+| downlinkUserSig | string | optional   | The [UserSig](https://trtc.io/document/35166) of the downlinkUserId.                                                                                                  |
 | roomId          | number | optional   | Optional. The default value is 8080. The value must be an integer of [1, 4294967294]                                                                                  |
 
 ##### trtc.stopPlugin('DeviceDetector')
@@ -125,7 +125,7 @@ The device connection checks if the user's device has a camera, microphone, and 
 
   ```javascript
   import TRTC from 'trtc-sdk-v5';
-
+  
   const cameraList = await TRTC.getCameraList();
   const micList = await TRTC.getMicrophoneList();
   const hasCameraDevice = cameraList.some(camera => camera.deviceId !== '');

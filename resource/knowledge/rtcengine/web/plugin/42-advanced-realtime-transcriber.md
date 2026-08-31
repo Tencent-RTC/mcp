@@ -90,7 +90,7 @@ const robotId = await trtc.startPlugin('RealtimeTranscriber', {
 trtc.on(TRTC.EVENT.REALTIME_TRANSCRIBER_MESSAGE, (data) => {
   console.log(`👤 ${data.speakerUserId}:`);
   console.log(`  Original: ${data.sourceText}`);
-
+  
   if (data.translationTexts) {
     Object.entries(data.translationTexts).forEach(([lang, text]) => {
       console.log(`  ${lang.toUpperCase()}: ${text}`);
@@ -119,7 +119,7 @@ Starts a real-time transcription task.
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
-| sourceLanguage | `string` | Required | Source language code, currently supports only `'zh'` and `'en'` |
+| sourceLanguage | `string` | Required | Source language code. Specifies the language of the source audio. Use a standard language code (for example, `'zh'`). For the list of supported languages, see [Supported Languages](#supported-languages) |
 | translationLanguages | `string` \| `string[]` | Optional | Target translation language(s), supports single language or array, e.g., `'en'` or `['en', 'ja']` |
 | userIdsToTranscribe | `string` \| `string[]` | Optional | User ID(s) to transcribe, defaults to `'all'` for all users, can also specify single or multiple user IDs |
 | transcriberRobotId | `string` | Optional | Custom transcriber robot ID, auto-generated if not provided |
@@ -183,6 +183,30 @@ trtc.on(TRTC.EVENT.REALTIME_TRANSCRIBER_STATE_CHANGED, (event) => {
 });
 ```
 
+#### Backend Resource Limitation Notification
+
+When the backend AI service (ASR/translation) resources are limited, the SDK proactively notifies through the `TRTC.EVENT.ERROR` event (the backend sends this notification at most once per minute, and stops sending it once resources recover). In this case:
+
+- `error.code` is always `5400` (SERVER_ERROR, indicating the server failed to process the request)
+- `error.extraCode` is the downgrade event code, see the table below
+- `error.data` carries `{ roomId, transcriberRobotId, taskId, resourceType }` to identify the affected transcription task
+
+You should degrade or disable the relevant AI capabilities in time to avoid affecting your online business.
+
+| Event Code (extraCode) | Description | Suggested Action |
+|------------|-------------|------------------|
+
+```javascript
+trtc.on(TRTC.EVENT.ERROR, (error) => {
+  if (error.code === 5400 && error.extraCode === 5001) {
+    // e.g. error.message: 'The ASR/Translate concurrent usage has exceeded the limit. ...'
+    // error.data: { roomId, transcriberRobotId, taskId, resourceType }
+    console.warn(`Transcription service resources are limited, robotId: ${error.data.transcriberRobotId}, ${error.message}`);
+    // Degrade or disable the relevant AI capabilities as needed
+  }
+});
+```
+
 ### TRTC.EVENT.REALTIME_TRANSCRIBER_MESSAGE
 
 Transcription message event, triggered when new transcription results are available.
@@ -204,10 +228,10 @@ Transcription message event, triggered when new transcription results are availa
 ```javascript
 trtc.on(TRTC.EVENT.REALTIME_TRANSCRIBER_MESSAGE, (event) => {
   const { speakerUserId, sourceText, translationTexts, isCompleted } = event;
-
+  
   // Display real-time transcription result
   console.log(`[${isCompleted ? 'Completed' : 'In Progress'}] ${speakerUserId}: ${sourceText}`);
-
+  
   // Display translation results
   if (translationTexts) {
     translationTexts.forEach(({ language, text }) => {
@@ -228,10 +252,6 @@ trtc.off(TRTC.EVENT.REALTIME_TRANSCRIBER_MESSAGE, handler);
 |----------|------|
 | Chinese | `zh` |
 | English | `en` |
-
-<!--
-| Traditional Chinese | `zh-tw` |
-| Chinese Dialects | `zh-dialect` |
 | Cantonese | `zh-yue` |
 | Vietnamese | `vi` |
 | Japanese | `ja` |
@@ -252,7 +272,7 @@ trtc.off(TRTC.EVENT.REALTIME_TRANSCRIBER_MESSAGE, handler);
 | Swedish | `sv` |
 | Danish | `da` |
 | Norwegian | `no` |
--->
+| For more languages
 
 ### Translation Target Languages
 
@@ -301,7 +321,7 @@ const subtitleMap = new Map();
 
 trtc.on(TRTC.EVENT.REALTIME_TRANSCRIBER_MESSAGE, (event) => {
   subtitleMap.set(event.segmentId, event);
-
+  
   if (event.isCompleted) {
     // Speech segment completed, can be archived
     archiveSubtitle(subtitleMap.get(event.segmentId));

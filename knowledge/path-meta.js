@@ -8,6 +8,9 @@ function inferTypesFromFilename(fileName, baseTypes) {
         types.push('error_code');
     if (lower === 'client-api.md' || lower === 'api.md' || lower === 'index.md')
         types.push('api');
+    // api-<变体>.md（如 api-uniapp.md：微信小程序 uni-app 打包 API）同样是 API 文档
+    if (/^api-[\w-]+\.mdx?$/.test(lower))
+        types.push('api');
     if (lower === 'faq.md')
         types.push('faq');
     // 文件名 = integration.md 不再默认 push integration（由上游 framework 分支显式声明 type）
@@ -75,7 +78,14 @@ export function inferPathMeta(relativeSource) {
     else if (normalized.startsWith('knowledge/chat/') || normalized.startsWith('integration/chat/')) {
         product = 'chat';
         if (parts.includes('preset') && parts.length >= 4) {
-            framework = [normalizeFrameworkDir(parts[parts.indexOf('preset') + 1])];
+            const fw = normalizeFrameworkDir(parts[parts.indexOf('preset') + 1]);
+            // vue/react 运行在 Web/H5 端，追加 web 标签，使 frameworks=['web'] 也能命中
+            framework = (fw === 'vue' || fw === 'react') ? [fw, 'web'] : [fw];
+            variant = 'preset';
+            // preset 下的 integration.md 显式标记 integration type
+            if (fileName.toLowerCase() === 'integration.md') {
+                types.push('integration');
+            }
         }
         if (parts.includes('features')) {
             types.push('feature');
@@ -137,6 +147,13 @@ export function inferPathMeta(relativeSource) {
             framework = [normalizeFrameworkDir(parts[coreIdx + 1])];
             variant = 'core-sdk';
         }
+        // 微信小程序 uni-app 打包版：目录归入 miniprogram（运行平台=微信小程序），
+        // 但技术栈是 uni-app，通过文件名 *-uniapp.md / uniapp-*.md 触发双标签，
+        // 使「微信小程序」与「uni-app」两种 framework 检索都能召回同一篇文档。
+        // 原生小程序（api.md/integration.md 等无 uniapp 标记）保持单 miniprogram 标签。
+        if (framework[0] === 'miniprogram' && /(^uniapp[-.]|-uniapp\.mdx?$)/.test(fileName.toLowerCase())) {
+            framework = ['miniprogram', 'uni-app'];
+        }
         // callkit 最佳实践目录：knowledge/callkit/best-practice/{platform}/{topic}.md
         // 统一按 FAQ/经验类知识处理，支持 types=faq + frameworks={platform} 的精确检索。
         // 与 chat best-practice 对齐：common 目录表示多平台通用，按最全集覆盖。
@@ -146,6 +163,11 @@ export function inferPathMeta(relativeSource) {
                 ? ['react', 'vue', 'miniprogram', 'web', 'android', 'ios', 'flutter', 'uni-app']
                 : [fwSlug];
             types.push('faq');
+        }
+        // preset 下的 integration.md（纯文件名，无连字符前缀）需显式标记 integration type，
+        // 否则 inferTypesFromFilename 只匹配 *-integration.md，导致兜底为 faq。
+        if (variant === 'preset' && fileName.toLowerCase() === 'integration.md') {
+            types.push('integration');
         }
         if (parts.includes('faq'))
             types.push('faq', 'error_code');

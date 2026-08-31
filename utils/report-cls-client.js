@@ -28,7 +28,7 @@ function sendCLSReport(reportData) {
     const time = Date.now();
     const data = {
         platform: 'mcp',
-        verison: '1.7.3',
+        verison: '1.7.4',
         sdkappid: `${SDKAppID}`,
         method: method,
         userid: queryID || userID,

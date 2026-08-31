@@ -113,6 +113,19 @@ npx -y @tencent-rtc/mcp@latest
 
 > 这里只保留最近版本，完整历史请查看 `CHANGELOG.md`。
 
+## Version 1.7.4 @2026.08.31
+
+### 新增
+- 新增 CallKit Flutter 最佳实践文档 4 篇：Android 后台通话保活、iOS 后台音频保活、iOS 启动崩溃排查、后台来电无通知排查。
+- 新增 CallKit Android 视频交友场景（VideoChat Demo）最佳实践文档，覆盖 Demo 跑通与组件快速集成。
+- 新增 CallKit HarmonyOS 平台支持：含 UI 集成指南与 API 参考文档。
+- 新增 CallKit 小程序 & uni-app 集成文档：含 UI 集成指南、API 参考、uni-app 打包指南。
+- 新增 CallKit uni-app（Android/iOS）独立集成文档与 API 参考。
+- 新增 Chat Vue3/React H5 移动端集成文档。
+
+### 变更
+- 优化 Chat 含 UI 检索标签：vue/react 的 framework 从单标签改为双标签（`['vue','web']` / `['react','web']`），使 `frameworks=['web']` 也能命中 Chat Web 端文档。
+
 ### Version 1.7.3 @2026.08.17
 
 #### Added
@@ -136,16 +149,3 @@ npx -y @tencent-rtc/mcp@latest
 
 #### Fixed
 - 修复双产品/双平台误传在歧义问题中的纠偏缺失。
-
-### Version 1.7.0 @2026.08.02
-
-#### Added
-- 补充并同步 Chat / Call / Live / Room 的最佳实践文档。
-
-#### Changed
-- 持续重构双语检索链路：归一化、路由、过滤、精确匹配。
-- 提升最佳实践与 URL 文档的召回和排序质量。
-- 优化 `search_trtc_knowledge` 定义与回答约束。
-
-#### Fixed
-- 修复复杂问题中的偏题高分召回，降低误命中。
