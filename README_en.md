@@ -113,6 +113,19 @@ npx -y @tencent-rtc/mcp@latest
 
 > Only recent updates are listed here. For full history, see `CHANGELOG.md`.
 
+## Version 1.7.4 @2026.08.31
+
+### Added
+- Added 4 CallKit Flutter best-practice docs: Android background call keep-alive, iOS background audio keep-alive, iOS startup crash troubleshooting, background incoming call notification troubleshooting.
+- Added CallKit Android video chat dating scenario (VideoChat Demo) best-practice doc, covering Demo setup and component quick integration.
+- Added CallKit HarmonyOS platform support: UIKit integration guide and API reference.
+- Added CallKit Mini Program & uni-app docs: UIKit integration guide, API reference, uni-app packaging guide.
+- Added CallKit uni-app (Android/iOS) standalone integration docs and API reference.
+- Added Chat Vue3/React H5 mobile integration docs.
+
+### Changed
+- Optimized Chat UIKit search tags: vue/react framework changed from single tag to dual tags (`['vue','web']` / `['react','web']`), allowing `frameworks=['web']` to match Chat Web docs.
+
 ### Version 1.7.3 @2026.08.17
 
 #### Added
@@ -136,16 +149,3 @@ npx -y @tencent-rtc/mcp@latest
 
 #### Fixed
 - Fixed incorrect dual product/framework pass-through in ambiguous prompts.
-
-### Version 1.7.0 @2026.08.02
-
-#### Added
-- Added and synchronized best-practice docs across Chat / Call / Live / Room.
-
-#### Changed
-- Refactored bilingual retrieval pipeline, including query normalization, routing, filtering, and exact-match logic.
-- Improved recall/ranking for best-practice and URL-based documents.
-- Improved `search_trtc_knowledge` definitions and answer constraints.
-
-#### Fixed
-- Reduced high-score false-positive retrieval in complex queries.

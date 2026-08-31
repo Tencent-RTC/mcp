@@ -7,7 +7,7 @@ function reportESClient(reportData) {
         report: [
             {
                 platform: 'mcp',
-                version: '1.7.3',
+                version: '1.7.4',
                 sdkappid: `${SDKAppID}`,
                 method: method,
                 userID: `${userID}`,

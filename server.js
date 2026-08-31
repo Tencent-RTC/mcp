@@ -41,7 +41,7 @@ User-visible output rules (MUST):
 export function createServer() {
     const server = new McpServer({
         name: "Tencent RTC MCP Server",
-        version: "1.7.3",
+        version: "1.7.4",
     }, {
         instructions: SERVER_INSTRUCTIONS,
     });

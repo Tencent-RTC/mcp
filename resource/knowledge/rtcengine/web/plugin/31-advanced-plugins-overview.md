@@ -28,6 +28,7 @@ TRTC Web SDK v5 provides a plugin system that supports on-demand loading of vari
 | **AIDenoiser** | AI noise reduction with support for far-field cancellation mode | - | Exclusive Edition | Required | {@tutorial 35-advanced-ai-denoiser} |
 | **VoiceChanger** | Voice effects with 11 voice types (child, loli, uncle, etc.) | ≥ 5.10.0 | Premium Edition | - | {@tutorial 37-advanced-voice-changer} |
 | **RealtimeTranscriber** | Real-time speech transcription and translation, converting audio to text with multi-language translation | ≥ 5.15.0 | None | - | {@tutorial 42-advanced-realtime-transcriber} |
+| **Chorus** | KTV chorus with lead/backup singer roles, lyrics sync
 
 ### Streaming & Mixing
 
@@ -42,6 +43,7 @@ TRTC Web SDK v5 provides a plugin system that supports on-demand loading of vari
 |---------|---------|---------|---------|---------|---------|
 | **DeviceDetector** | Device detection for camera, microphone, speaker, and network with default UI | ≥ 5.8.0 | None | - | {@tutorial 23-advanced-support-detection} |
 | **Debug** | Debug mode with full log upload/export and audio/video dump | ≥ 5.8.0 | None | - | {@tutorial 18-basic-debug} |
+| **TRTCVideoDecoder** | Video decoder fallback to software decoding on failure | ≥ 5.9
 | **SmallStreamAutoSwitcher** | Automatic dual-stream switching for smooth streaming in poor network | ≥ 5.11.0 | None | - | {@tutorial 41-advanced-small-stream-auto-switcher} |
 <!-- | **CustomEncryption** | Custom encryption for end-to-end audio/video encryption with built-in or custom algorithms | - | Contact us | - | - | -->
 
@@ -61,7 +63,7 @@ import TRTC from 'trtc-sdk-v5';
 import { VirtualBackground } from 'trtc-sdk-v5/plugins/video-effect/virtual-background';
 import { AIDenoiser } from 'trtc-sdk-v5/plugins/ai-denoiser';
 
-const trtc = TRTC.create({
+const trtc = TRTC.create({ 
   plugins: [VirtualBackground, AIDenoiser],
   assetsPath: 'https://your-cdn/assets' // If plugins require static assets
 });
@@ -89,7 +91,7 @@ Use `trtc.updatePlugin(pluginName, options)` to dynamically update plugin parame
 ```javascript
 await trtc.updatePlugin('VirtualBackground', {
   type: 'image',
-  imageUrl: 'https://example.com/background.jpg'
+  src: 'https://example.com/background.jpg'
 });
 ```
 
@@ -164,8 +166,8 @@ await trtc.updatePlugin('VideoMixer', {
 });
 
 // Publish mixed track
-await trtc.startLocalVideo({
-  option: {
+await trtc.startLocalVideo({ 
+  option: { 
     videoTrack: track,
     profile: { width: 1920, height: 1080, bitrate: 2000 }
   }
@@ -185,7 +187,7 @@ TRTCVideoDecoder automatically starts fallback logic on decode failure after reg
 ```javascript
 import TRTCVideoDecoder from 'trtc-sdk-v5/plugins/video-decoder';
 
-const trtc = TRTC.create({
+const trtc = TRTC.create({ 
   plugins: [TRTCVideoDecoder],
   assetsPath: 'https://your-cdn/assets'
 });
@@ -309,7 +311,7 @@ cp -r node_modules/trtc-sdk-v5/assets ./public/assets
 Pass the asset path when creating TRTC instance:
 
 ```javascript
-const trtc = TRTC.create({
+const trtc = TRTC.create({ 
   plugins: [VirtualBackground, AIDenoiser],
   assetsPath: 'https://your-cdn.com/assets'
 });
