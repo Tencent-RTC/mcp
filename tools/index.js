@@ -17,7 +17,9 @@ import { registryGetNativeLiveKitCoreIntegrationTool } from './live/get_native_l
 import { registryGetNativeLiveUIKitIntegrationTool } from './live/get_native_live_uikit_integration.js';
 // room
 import { registryGetWebRoomUIKitIntegrationTool } from './room/get_web_room_uikit_integration.js';
-import { registryGetWebRoomCoreIntegrationTool } from './room/get_web_room_core_integration.js';
+// en 站 room 无 UI 集成 Web 文档（房间管理（Web）/设备检测/设备及网络（Web））status=0 未发布，
+// web_room_core（仅支持 vue）无可用文档，故不注册（T11.3 get 工具流程适配）。
+// import { registryGetWebRoomCoreIntegrationTool } from './room/get_web_room_core_integration.js';
 function registryTools(mcpServer) {
     registryPresentFrameworkChoiceTool(mcpServer);
     registryGetUserSigTool(mcpServer);
@@ -37,6 +39,6 @@ function registryTools(mcpServer) {
     registryGetNativeLiveUIKitIntegrationTool(mcpServer);
     // room
     registryGetWebRoomUIKitIntegrationTool(mcpServer);
-    registryGetWebRoomCoreIntegrationTool(mcpServer);
+    // registryGetWebRoomCoreIntegrationTool(mcpServer); // en 站 Web room core 文档未发布，见上方 import 注释
 }
 export { registryTools };

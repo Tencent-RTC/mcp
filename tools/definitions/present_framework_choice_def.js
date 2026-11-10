@@ -1,36 +1,36 @@
 const TOOL_DESCRIPTION = `
 Purpose:
-Guide the user to pick a supported platform or framework when the request does not clearly specify one, before continuing with search_trtc_knowledge or an integration tool.
+Collect platform/framework choice from user when the question requires client-side platform context.
 
-Typical use cases:
-platform choice, framework choice, pick a platform first, pick a framework first, platform not specified, framework not specified, integration guide, setup docs, quick start, API lookup, component lookup, feature lookup, how to configure, Chat UIKit integration, Call UIKit integration, Live UIKit integration, Room UIKit integration, CallKit API, LiveKit API, WebRTC SDK integration, Native TRTC SDK integration, react, vue, web, miniprogram, uni-app, flutter, android, ios, webrtc
+When to call (MUST):
+- User asks API/component/feature/client troubleshooting/integration guidance but does not specify platform.
+- search_trtc_knowledge returns needs_framework.
+- User requests explicit codegen/integration but platform is not specified.
 
-Trigger examples:
-- Get the Chat UIKit integration guide (React/Vue not specified)
-- How do I configure the CallKit ringtone (platform not specified)
-- How do I use a Chat UIKit component (Web/Native not specified)
-- How do I enable virtual background (product or platform not specified)
+When NOT to call:
+- Cross-platform product topics: pricing, product package, console-level product config.
+- Server-side topics: REST API, webhook, UserSig principle.
+- Platform is already explicitly provided by user.
 
-Input:
-- product: chat | call | live | room | rtcengine | native_trtc_sdk | push
+Boundary:
+- This tool only collects platform/framework; it does NOT return documentation content.
+- After user chooses platform:
+  - Q&A / troubleshooting / doc lookup -> call search_trtc_knowledge with product + frameworks.
+  - Explicit codegen request -> call corresponding get_*_integration tool.
 
-Returns:
-- content: [{ type: 'text', text: selectable option list }]
-
-Boundaries:
-- This tool only collects the platform or framework choice. It does not return documentation content.
-- **Consultation chain (hard rule)**: API / component / feature / client troubleshooting / integration lookup without a platform -> MUST call this tool first, then search_trtc_knowledge with **product + frameworks**; do not skip.
-- **Codegen chain (hard rule)**: user wants integration code in a project but platform is unclear -> MUST call this tool first, then the matching get_*_integration tool.
-- Cross-platform general questions (billing, server REST, UserSig principles) unrelated to a single client -> search_trtc_knowledge directly without this tool (product still MUST be inferred from the prompt).
+Few-shot:
+- User: "How do I integrate Chat UIKit?" (no React/Vue) -> CALL present_framework_choice
+- User: "How to configure CallKit ringtone?" (no platform) -> CALL present_framework_choice
+- User: "How do I enable TIMPush vendor channel in console?" -> DO NOT call present_framework_choice
 `;
 const SELECTION_PROMPT_TEXT = `
-Show the supported platform or framework options directly to the user, ask them to pick one, and wait for their reply before calling any integration or lookup tool.
+Please show available platform/framework options to user first. Continue with search or integration only after user selects one option.
 `;
 export const PRESENT_FRAMEWORK_CHOICE_DEFINITION = {
     name: 'present_framework_choice',
     description: TOOL_DESCRIPTION,
     selectionText: SELECTION_PROMPT_TEXT,
     parameter_descriptions: {
-        product: 'Target product. Allowed values: chat | call | live | room | rtcengine | native_trtc_sdk | push.',
+        product: 'Target product. Allowed: chat | call | live | room | trtc | push.',
     },
 };

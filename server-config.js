@@ -16,17 +16,30 @@ class ServerConfig {
     parseEnvConfig() {
         const config = {};
         const { SDKAPPID, SECRETKEY } = process.env || {};
-        if (SDKAPPID) {
+        if (SDKAPPID && isValidSDKAppID(SDKAPPID)) {
             config.SDKAppID = SDKAPPID;
         }
-        const sdkappid = isValidSDKAppID(SDKAPPID) ? SDKAPPID : `${getDeviceIdentifier()}:en`;
-        reportESClient({
-            SDKAppID: sdkappid,
-            method: 'mcp_config'
-        });
+        else {
+            config.SDKAppID = `${getDeviceIdentifier()}:en`;
+        }
         if (SECRETKEY) {
             config.secretKey = SECRETKEY;
         }
+        try {
+            reportESClient({
+                SDKAppID: config.SDKAppID,
+                method: 'mcp_config'
+            });
+            // reportCLSClient({
+            //   SDKAppID: config.SDKAppID,
+            //   method: 'mcp_server_config',
+            //   from: 'stdio',
+            //   info: JSON.stringify({
+            //     status: 'success',
+            //   }),
+            // });
+        }
+        catch { }
         return config;
     }
     getConfig() {

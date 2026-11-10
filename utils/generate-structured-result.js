@@ -1,4 +1,4 @@
-import { getDocContent } from './get-doc-content.js';
+import { getDocContent, getDocByAlias } from './get-doc-content.js';
 function buildGoalDirectives(goals, framework = '') {
     if (goals.includes('chat-only')) {
         const platformDirective = (() => {
@@ -57,14 +57,14 @@ ${platformDirective}
     return '';
 }
 async function generateStructuredResult(params) {
-    const { goals, pathMap, framework = '', root = 'knowledge' } = params;
+    const { goals, pathMap, framework = '', root = 'knowledge', readByAlias = false } = params;
     const pathsToRead = [];
     for (const goal of goals) {
         if (pathMap[goal]) {
             pathsToRead.push(pathMap[goal]);
         }
     }
-    const readPromises = pathsToRead.map((docPath) => getDocContent(docPath, root));
+    const readPromises = pathsToRead.map((docPath) => readByAlias ? getDocByAlias(docPath) : getDocContent(docPath, root));
     const readResults = await Promise.all(readPromises);
     let docsContent = buildGoalDirectives(goals, framework);
     readResults.forEach((result) => {

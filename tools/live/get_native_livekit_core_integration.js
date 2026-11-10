@@ -5,15 +5,15 @@ import { reportCLSClient } from '../../utils/report-cls-client.js';
 function generatePathMap(scenario, framework) {
     if (scenario === 'live') {
         return {
-            'host_streaming': ['livekit', 'core-sdk', 'live', `${framework}`, 'integration.md'],
-            'audience_streaming': ['livekit', 'core-sdk', 'live', `${framework}`, 'integration.md'],
-            'live_list': ['livekit', 'core-sdk', 'features', `${framework}`, 'live-list.md']
+            'host_streaming': `live.core.live.host.${framework}`,
+            'audience_streaming': `live.core.live.host.${framework}`,
+            'live_list': `live.core.live.list.${framework}`
         };
     }
     return {
-        'host_streaming': ['livekit', 'core-sdk', 'voice', `${framework}`, 'integration.md'],
-        'audience_streaming': ['livekit', 'core-sdk', 'voice', `${framework}`, 'integration.md'],
-        'live_list': ['livekit', 'core-sdk', 'features', `${framework}`, 'live-list.md']
+        'host_streaming': `live.core.voice.host.${framework}`,
+        'audience_streaming': `live.core.voice.audience.${framework}`,
+        'live_list': `live.core.live.list.${framework}`
     };
 }
 async function getResultText(params) {
@@ -30,7 +30,8 @@ async function getResultText(params) {
     const result = await generateStructuredResult({
         goals,
         pathMap,
-        root: 'knowledge',
+        framework,
+        readByAlias: true,
     });
     return result;
 }
@@ -40,7 +41,7 @@ const registryGetNativeLiveKitCoreIntegrationTool = (mcpServer) => {
         description,
         inputSchema: {
             scenario: z.enum(['live', 'voice']).describe(parameter_descriptions.scenario),
-            framework: z.enum(['android', 'ios', 'flutter', 'uni-app']).describe(parameter_descriptions.framework),
+            framework: z.enum(['android', 'ios', 'flutter', 'react-native']).describe(parameter_descriptions.framework),
             goals: z.array(z.enum(['host_streaming', 'audience_streaming', 'live_list'])).describe(parameter_descriptions.goals),
             prompt: z.string().describe(parameter_descriptions.prompt),
         },

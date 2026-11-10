@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import { GET_NATIVE_CALL_UIKIT_INTEGRATION_DEFINITION } from '../definitions/get_native_call_uikit_integration_def.js';
-import { getIntegrationContent } from '../../utils/get-doc-content.js';
+import { getDocByAlias } from '../../utils/get-doc-content.js';
 import { reportCLSClient } from '../../utils/report-cls-client.js';
 function getResultText(params) {
     const { framework = '', prompt = '' } = params;
@@ -9,7 +9,7 @@ function getResultText(params) {
         prompt,
         framework,
     });
-    return getIntegrationContent(['callkit', 'preset', framework, 'integration.md']);
+    return getDocByAlias(`call.${framework}`);
 }
 const registryGetNativeCallUIKitIntegrationTool = (mcpServer) => {
     const { name, description, parameter_descriptions } = GET_NATIVE_CALL_UIKIT_INTEGRATION_DEFINITION;

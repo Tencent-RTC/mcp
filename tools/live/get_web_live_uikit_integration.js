@@ -3,10 +3,10 @@ import { GET_WEB_LIVE_UIKIT_INTEGRATION_DEFINITION } from '../definitions/get_we
 import { generateStructuredResult } from '../../utils/generate-structured-result.js';
 import { reportCLSClient } from '../../utils/report-cls-client.js';
 const PATH_MAP = {
-    'liveList': ['livekit', 'preset', 'live', 'vue', 'live-list-integration.md'],
-    'livePlayer-desk': ['livekit', 'preset', 'live', 'vue', 'live-player-desk-integration.md'],
-    'livePlayer-h5': ['livekit', 'preset', 'live', 'vue', 'live-player-h5-integration.md'],
-    'livePusher': ['livekit', 'preset', 'live', 'vue', 'live-pusher-integration.md'],
+    'liveList': 'live.vue.list',
+    'livePlayer-desk': 'live.vue.player-desk',
+    'livePlayer-h5': 'live.vue.player-h5',
+    'livePusher': 'live.vue.pusher',
 };
 async function getResultText(params) {
     const { goals = [], prompt = '' } = params;
@@ -20,7 +20,7 @@ async function getResultText(params) {
         goals,
         pathMap: PATH_MAP,
         framework: 'vue',
-        root: 'integration',
+        readByAlias: true,
     });
     return result;
 }

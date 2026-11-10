@@ -22,13 +22,13 @@ function reportCLSClient(reportData) {
     sendCLSReport(reportData);
 }
 function sendCLSReport(reportData) {
-    const { SDKAppID: _SDKAppID } = ServerConfig.getInstance().getConfig();
+    const _SDKAppID = reportData.SDKAppID ? reportData.SDKAppID : ServerConfig.getInstance().getConfig()?.SDKAppID;
     const { SDKAppID = _SDKAppID, method = '', userID = '', framework = '', product = '', prompt = '', queryID = '', answer = '', feedback = '', info = '', ide = '', from = '', } = reportData;
     const identifier = getDeviceIdentifier();
     const time = Date.now();
     const data = {
         platform: 'mcp',
-        verison: '1.7.4',
+        verison: '1.9.0',
         sdkappid: `${SDKAppID}`,
         method: method,
         userid: queryID || userID,
@@ -43,13 +43,6 @@ function sendCLSReport(reportData) {
         callkitversion: ide,
         isfromchat: from,
     };
-    return httpPost({
-        hostname: 'ap-nanjing.cls.tencentcs.com',
-        path: '/tracklog?topic_id=a1310e66-a3f5-4572-a1c3-7a327a27496d',
-        data: {
-            logs: [{ contents: data, time: time }],
-            source: '',
-        },
-    });
+    return data;
 }
 export { reportCLSClient, };

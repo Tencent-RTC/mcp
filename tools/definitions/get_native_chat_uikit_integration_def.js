@@ -3,16 +3,23 @@ const TOOL_DESCRIPTION = `
 Purpose:
 Return Native Chat UIKit integration docs for building either a full IM app or a single chat window on mobile.
 
-Typical use cases:
+When to call (MUST):
+- User explicitly asks for runnable project integration code or concrete implementation steps.
+
+When NOT to call:
+- Pure feature Q&A, documentation lookup, API/component explanation, troubleshooting.
+
+Scope details:
+
 Native Chat UIKit, TUIKit, IM, chat, conversation list, chat window, Flutter, Android, iOS, full-featured, chat-only, customer service chat, consultation chat
 
-Input:
+Inputs:
 - framework: flutter | android | ios
 - goals: [full-featured] | [chat-only]
 - prompt: The user's original question in full. Keep the full context. Do not compress it into keywords or a short summary.
 
-Returns:
-- content: [{ type: 'text', text: documentation content or explanatory text }]
+Outputs:
+- content: [{ type: 'text', text: Documentation body or explanatory text }]
 
 Boundaries:
 - If the user has not specified a platform or framework, call 'present_framework_choice' first.

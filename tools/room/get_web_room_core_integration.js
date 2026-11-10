@@ -4,9 +4,9 @@ import { generateStructuredResult } from '../../utils/generate-structured-result
 import { reportCLSClient } from '../../utils/report-cls-client.js';
 const { anti_hallucination_header: ANTI_HALLUCINATION_HEADER, anti_hallucination_constraint: ANTI_HALLUCINATION_CONSTRAINT, } = GET_WEB_ROOM_CORE_INTEGRATION_DEFINITION;
 const PATH_MAP = {
-    'room-state': ['roomkit', 'core-sdk', 'vue', 'room-state.md'],
-    'device-detection': ['roomkit', 'core-sdk', 'vue', 'device-detection.md'],
-    'device-state': ['roomkit', 'core-sdk', 'vue', 'device-state.md'],
+    'room-state': 'room.core.room_state.vue',
+    'device-detection': 'room.core.device_detection.vue',
+    'device-state': 'room.core.device_state.vue',
 };
 async function getResultText(params) {
     const { framework = 'vue', goals = [], prompt = '' } = params;
@@ -20,7 +20,7 @@ async function getResultText(params) {
         goals,
         pathMap: PATH_MAP,
         framework,
-        root: 'knowledge',
+        readByAlias: true,
     });
 }
 const registryGetWebRoomCoreIntegrationTool = (mcpServer) => {

@@ -14,9 +14,9 @@ async function getResultText(params) {
     const result = await generateStructuredResult({
         goals: [goal],
         framework,
-        root: 'integration',
+        readByAlias: true,
         pathMap: {
-            [goal]: ['chat', 'preset', framework, 'integration.md'],
+            [goal]: `chat.${framework}`,
         },
     });
     return result;
@@ -26,7 +26,7 @@ const registryGetWebChatUIKitIntegrationTool = (mcpServer) => {
     mcpServer.registerTool(name, {
         description,
         inputSchema: {
-            framework: z.enum(['react', 'vue']).describe(parameter_descriptions.framework),
+            framework: z.enum(['react']).describe(parameter_descriptions.framework),
             goals: z.array(z.enum(['full-featured', 'chat-only'])).min(1).max(1).describe(parameter_descriptions.goals),
             prompt: z.string().describe(parameter_descriptions.prompt),
         },

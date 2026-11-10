@@ -1,4 +1,3 @@
-import { hasBestPracticeFragment, partitionFragments, } from './search-core.js';
 export function buildAnswerContract(status, confidence, retrievalMode, opts) {
     const uncertaintyRule = 'Do not use speculative wording (e.g., "maybe/probably/should/it seems"). When the user asks for a specific detail (API/method/enum/event/error code) that is not present in the returned fragments, do not invent it; instead, explicitly mark it as "[not found in docs]" or "[to be confirmed]" in the answer so the gap is visible to the user.';
     const riskRule = opts?.fabricationRisk ? 'fabrication_risk=true: do not fill unmatched API details. For every detail that cannot be grounded in the returned fragments, explicitly mark it as "[not found in docs]" or "[to be confirmed]"; the user-facing answer must surface every gap, not omit silently.' : '';
@@ -34,10 +33,18 @@ export function buildAnswerContract(status, confidence, retrievalMode, opts) {
         aggregatedRule,
     ].filter(Boolean).join(' ');
 }
+/**
+ * 强制动作指令尾巴：驱动 LLM 在"答完"之后必须调用 finalize_answer / submit_feedback
+ * 的唯一触发来源（不是检索语义的提示语，是通用工具调用协议）。
+ * search_trtc_knowledge 的检索分支（buildAgentMessage）与套餐分支
+ * （zh/src/utils/package-matrix-query.ts 的 buildPackageAgentMessage）共享同一份常量，
+ * 避免协议措辞变更时两处分叉遗漏。
+ */
+export const MANDATORY_FOLLOWUP_TAIL = 'Output contract is in meta.answer_contract and MUST be followed. User-visible output must answer the question directly; do not start with tool-selection or retrieval-plan narrative. Final answer drafted -> MUST call `finalize_answer` before replying, and `prompt`, `answer`, `queryID` are all required (queryID is from this tool output). Explicit follow-up feedback -> call `submit_feedback`.';
 export function buildAgentMessage(status, retrievalMode, fragments, confidence, _references, opts) {
     const riskRule = opts?.fabricationRisk ? 'Current retrieval has hallucination risk (fabrication_risk=true): do not fill unmatched API details.' : '';
     // Keep the output contract in meta.answer_contract only, to avoid duplicated instruction blocks in message.
-    const tail = `${riskRule} Output contract is in meta.answer_contract and MUST be followed. User-visible output must answer the question directly; do not start with tool-selection or retrieval-plan narrative. Final answer drafted -> MUST call \`finalize_answer\` before replying, and \`prompt\`, \`answer\`, \`queryID\` are all required (queryID is from this tool output). Explicit follow-up feedback -> call \`submit_feedback\`.`;
+    const tail = `${riskRule} ${MANDATORY_FOLLOWUP_TAIL}`;
     if (status === 'needs_framework') {
         return '[Hard rule] The question depends on a concrete platform implementation, but frameworks are missing. Cross-platform mixed retrieval is disallowed due to low precision. MUST call `present_framework_choice` first (with product), then call this tool again after user selects web/miniprogram/android/ios/flutter/react/vue/uni-app etc, and MUST include both **product + frameworks**. Do not hard-search with empty frameworks.';
     }
@@ -53,35 +60,10 @@ export function buildAgentMessage(status, retrievalMode, fragments, confidence, 
     if (status === 'success' && retrievalMode === 'point' && opts?.preferDocuments) {
         return `Current results have converged to a single best-practice document: fragments already contain the full document in original section order. Answer in that order, preserve code samples and key notes, and do not compress into a short summary. ${tail}`;
     }
-    const { urlMapping, localDoc, urlMappingKinds } = partitionFragments(fragments);
-    const hasUrlMapping = urlMapping.length > 0;
-    const hasLocalDoc = localDoc.length > 0;
-    const hasBestPractice = hasBestPracticeFragment(fragments);
-    const urlKindLabel = urlMappingKinds.join(' / ') || 'urls';
     if (status === 'success' && fragments.length > 0) {
-        const topFragment = fragments[0];
-        if (topFragment?.capability_status === 'unsupported') {
-            const scopeLabel = topFragment.scope ? ` (${topFragment.scope})` : '';
-            return `This capability is **NOT supported** on the current platform/form${scopeLabel}. Answer MUST: (1) clearly state "**not supported**" in the first paragraph; (2) explain this is a current platform Core capability boundary, not a missing sample-code issue; (3) provide only supported alternatives on this platform (e.g., corresponding preset UI); if no explicit alternative exists in knowledge, clearly state no executable alternative path is available; (4) DO NOT output Core API invocation steps or integration steps for this unsupported capability. ${tail}`;
-        }
-        if (hasUrlMapping && !hasLocalDoc) {
-            return `Available information is mainly documentation-entry links (${urlKindLabel}). First map user question to target URL(s), fetch official docs, then synthesize the answer. Do not merely repeat URL mappings or invent API/error-code details. ${tail}`;
-        }
-        if (hasUrlMapping && hasLocalDoc) {
-            if (hasBestPractice) {
-                return `Prioritize direct answering from matched best-practice and local fragments; use URL mapping only as supplemental reference. Do not fetch official docs again for secondary verification by default. ${tail}`;
-            }
-            return `Local documentation fragments are sufficient for direct answering. Only if key details are still missing, extract target URL from URL mapping and fetch official docs to fill gaps. ${tail}`;
-        }
         return `Synthesize the answer strictly from returned fragments; do not run parallel web_search or extra official-doc fetching. ${tail}`;
     }
     if (status === 'low_confidence') {
-        if (hasUrlMapping) {
-            if (hasBestPractice) {
-                return `Prioritize actionable conclusions from best-practice and local fragments. ${tail}`;
-            }
-            return `First extract target URL(s) from URL mapping and fetch official docs for key details, then answer. ${tail}`;
-        }
         return `Provide the most actionable answer from existing fragments; you may guide user to provide component/API/error-code specifics for another retrieval round. Do not run parallel web_search by default. ${tail}`;
     }
     return `No effective fragment was retrieved from the knowledge base. Ask user to verify product/framework; if platform is still missing and the question depends on client-specific implementation, call \`present_framework_choice\` first. ${tail}`;

@@ -2,98 +2,27 @@
 
 [中文（国内站）](./README.md) | [English (Global)](./README_en.md)
 
-MCP server that exposes Tencent RTC documentation and APIs (TRTC / IM / Call / Live / Room) to AI agents.
-It helps with product Q&A, integration guidance, and troubleshooting in real projects.
+Tencent RTC SDK MCP Server exposes official Tencent Cloud RTC knowledge, package selection, and code integration capabilities to AI assistants through MCP (Model Context Protocol), helping teams deliver Chat/Call/Live/Room/RTCEngine/TIMPush/IoT implementations and selections faster.
 
-## Capability Matrix (TRTC)
+## Highlights
 
-| Scenario | What MCP can do | Example |
-| --- | --- | --- |
-| Knowledge Q&A | Explain how to use Live / Room / Call components and APIs | “How to choose between UI and UI-less integration for Vue3 TUIRoomKit?” |
-| Knowledge Q&A | Explain how to use Live / Room / Call UI-less SDKs | “How can a voice-room admin move to seat 0?” |
-| Knowledge Q&A | Explain WebRTC SDK, plugins, and Native TRTC API capabilities | “How to use BasicBeauty in TRTC Web SDK beauty plugin?” |
-| Code Integration | Detect Vue3 / Android / iOS / Flutter / uni-app and scaffold broadcast, audience, and co-host entry pages | “Help me integrate LiveKit voice room in an iOS project.” |
-| Code Integration | Detect Vue3 and scaffold meeting entry, room page, route registration, and screen sharing support | “Help me integrate RoomKit video meeting in a Vue3 project.” |
-| Code Integration | Detect Vue3 / React / Android / iOS / Flutter and scaffold call launch + incoming call handling pages | “Help me integrate CallKit in a Flutter project.” |
-| Troubleshooting | Diagnose init failures, no-audio-on-seat issues, and error-code related problems | “On iOS AtomicXCore voice room, audience cannot hear host after joinLive. How to debug?” |
-
-## Capability Matrix (IM/Chat)
-
-| Scenario | What MCP can do | Example |
-| --- | --- | --- |
-| Knowledge Q&A | Explain UI component usage (ConversationList, MessageList, etc.) | “How can I render custom message cards in Vue3 MessageList?” |
-| Knowledge Q&A | Explain UI-less SDK API usage | “How to send voice messages with Web IM SDK in H5?” |
-| Knowledge Q&A | Explain SDK/server error codes and troubleshooting suggestions | “Why do I get error code 2025 when logging in with Web IM SDK?” |
-| Knowledge Q&A | Explain server REST API usage (account import, server-side messaging) | “How to send custom group messages via REST API?” |
-| Knowledge Q&A | Explain Webhook config and third-party callback integration | “What is the request payload format for IM callback State.StateChange?” |
-| Knowledge Q&A | Explain pricing, capability limits, multi-device login, and intranet proxy | “How can Web IM SDK work with intranet proxy?” |
-| Knowledge Q&A | Explain offline push integration, vendor config, and key caveats | “How to configure iOS offline push certificates?” |
-| Code Integration | Detect Vue3/React context and scaffold Chat UIKit code | “Help me integrate full Chat UIKit in a Vue3 project.” |
-| Code Integration | Detect Android/iOS/Flutter context and scaffold Chat UIKit code | “Help me integrate full Chat UIKit in a Flutter project.” |
-| Troubleshooting | Diagnose UIKit/SDK integration issues from error messages | “Android error: Fail to create more groups. This sdkappid has reached group amount max limit.” |
-
-## Site Strategy
-
-- **China site (Chinese)**: for Chinese developers
-- **Global site (English)**: for global developers
-
-## Packages
-
-- **China site (Chinese)**: [`@tencentcloud/sdk-mcp`](https://www.npmjs.com/package/@tencentcloud/sdk-mcp)
-- **Global site (English)**: [`@tencent-rtc/mcp`](https://www.npmjs.com/package/@tencent-rtc/mcp)
-
-## Documentation
-
-- **China docs (Chinese)**: [`https://cloud.tencent.com/document/product/647/129285`](https://cloud.tencent.com/document/product/647/129285)
-- **Global docs (English)**: [`https://trtc.io/document/78382`](https://trtc.io/document/78382)
-
-## Features
-
-- Official Tencent RTC knowledge retrieval
-- Coverage across TRTC / IM / Call / Live / Room
-- Intent routing for product/framework questions
-- Integration-oriented guidance for Web / Android / iOS / Flutter
-- MCP over stdio JSON-RPC, compatible with Cursor / Codex / Claude / CodeBuddy
+- **Official knowledge retrieval**: Quickly locate product docs, integration guides, and best practices.
+- **Package selection & purchase**: Recommends packages by scenario, capability requirements, and budget, with price, base dependencies, and purchase links.
+- **Intent-aware routing**: Routes by product, platform, and framework to reduce retrieval noise.
+- **Integration generation support**: Supports Web / Android / iOS / Flutter integration entry points.
+- **MCP compatible**: Works with Cursor, CodeBuddy, Codex, Claude, and other MCP clients.
 
 ## Requirements
 
 - Node.js >= 18
 - npm
-- Any MCP-capable IDE
+- Any MCP-capable IDE / AI client
 
-## Quick Start
+## 30-Second Quick Start (No console app creation required)
 
-### China package
+### 1) Configure MCP Server (Trial mode)
 
-```bash
-npx -y @tencentcloud/sdk-mcp@latest
-```
-
-### Global package
-
-```bash
-npx -y @tencent-rtc/mcp@latest
-```
-
-## Cursor Setup Examples
-
-### Example A: China package (`@tencentcloud/sdk-mcp`)
-
-```json
-{
-  "mcpServers": {
-    "tencent-rtc": {
-      "command": "npx",
-      "args": ["-y", "@tencentcloud/sdk-mcp@latest"],
-      "env": {
-        "SDKAPPID": "YOUR_SDKAPPID"
-      }
-    }
-  }
-}
-```
-
-### Example B: Global package (`@tencent-rtc/mcp`)
+Using Cursor as an example, add this to your project `.cursor/mcp.json` (or `~/.cursor/mcp.json`):
 
 ```json
 {
@@ -102,50 +31,66 @@ npx -y @tencent-rtc/mcp@latest
       "command": "npx",
       "args": ["-y", "@tencent-rtc/mcp@latest"],
       "env": {
-        "SDKAPPID": "YOUR_SDKAPPID"
+        "SDKAPPID": "",
+        "SECRETKEY": ""
       }
     }
   }
 }
 ```
 
+### 2) Confirm server is connected
+
+In your MCP panel, ensure `tencent-rtc` shows **Connected**.
+
+### 3) Explicitly trigger tools
+
+For higher tool activation rate and more stable results, prefix your prompt with `@tencent-rtc`.
+
+Example:
+
+```text
+@tencent-rtc How do I send an audio message when integrating the Web IM SDK in H5?
+```
+
+## Full Configuration (Requires creating an app in console)
+
+```json
+{
+  "mcpServers": {
+    "tencent-rtc": {
+      "command": "npx",
+      "args": ["-y", "@tencent-rtc/mcp@latest"],
+      "env": {
+        "SDKAPPID": "YOUR_SDKAPPID",
+        "SECRETKEY": "YOUR_SECRET_KEY"
+      }
+    }
+  }
+}
+```
+
+Console entries: `https://console.trtc.io`
+
+## Prerequisites
+
+- **No account / no app yet? You can still try first**: Start with document retrieval and knowledge Q&A in trial mode.
+- `SDKAPPID`: Your IM/TRTC application ID from Tencent Cloud console.
+- `SECRETKEY`: Used for local/test `userSig` generation.
+- **Production requirement**: `userSig` must be generated by your server-side service.
+
+## Common Issues
+
+- **Connection failed / tool not activated**: Verify MCP config and Connected status.
+- **`npx` failures**: Retry after cache cleanup: `rm -rf ~/.npm/_npx && npm cache verify`.
+- **Invalid `userSig`**: Regenerate via `get_usersig`.
+
 ## Changelog
 
-> Only recent updates are listed here. For full history, see `CHANGELOG.md`.
+> Only the latest release is shown here. See `CHANGELOG.md` for full history.
 
-## Version 1.7.4 @2026.08.31
+## Version 1.9.0 @2026.11.10
 
 ### Added
-- Added 4 CallKit Flutter best-practice docs: Android background call keep-alive, iOS background audio keep-alive, iOS startup crash troubleshooting, background incoming call notification troubleshooting.
-- Added CallKit Android video chat dating scenario (VideoChat Demo) best-practice doc, covering Demo setup and component quick integration.
-- Added CallKit HarmonyOS platform support: UIKit integration guide and API reference.
-- Added CallKit Mini Program & uni-app docs: UIKit integration guide, API reference, uni-app packaging guide.
-- Added CallKit uni-app (Android/iOS) standalone integration docs and API reference.
-- Added Chat Vue3/React H5 mobile integration docs.
-
-### Changed
-- Optimized Chat UIKit search tags: vue/react framework changed from single tag to dual tags (`['vue','web']` / `['react','web']`), allowing `frameworks=['web']` to match Chat Web docs.
-
-### Version 1.7.3 @2026.08.17
-
-#### Added
-- Added RoomKit multi-platform integration resources, recording, whiteboard, network proxy, AI noise reduction, and subtitle translation docs.
-- Added best-practice docs for error codes, log levels, automatic screen-share stop, and WeChat Mini Program troubleshooting.
-- Added a generic additive rerank module with anchor selection and phrase extraction for better ranking quality.
-
-#### Changed
-- Optimized BM25 index with prototype-less objects for higher stability.
-
-#### Fixed
-- Fixed BM25 prototype-key pollution issues that could cause score anomalies and NaN.
-
-### Version 1.7.1 @2026.08.11
-
-#### Added
-- Added pre-search normalization for `product` and `frameworks` based on prompt truth.
-
-#### Changed
-- Updated `search_trtc_knowledge` output contract to return complete synthesized answers.
-
-#### Fixed
-- Fixed incorrect dual product/framework pass-through in ambiguous prompts.
+- Added structured package/billing queries: a deterministic package knowledge matrix now answers package selection, version pricing, capability lists, billing rules, and component coexistence questions with structured results (exact price + capabilities + version limits + official purchase/activation links), replacing the "retrieve docs + model extracts numbers" path. Tested on 700+ real ticket questions: 97.2% recall, 86.2% exact-price hit rate.
+- Added package selection (scenario + capabilities + budget), version lookup, billing-rule FAQ, and component coexistence-constraint queries for CallKit/LiveKit/RoomKit components and TRTC/Chat base packages.

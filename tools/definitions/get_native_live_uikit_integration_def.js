@@ -1,34 +1,40 @@
 import { INTEGRATION_BOUNDARY_SUFFIX } from './integration-boundary.js';
 const TOOL_DESCRIPTION = `
 Purpose:
-Return Native video live streaming integration docs based on TUILiveKit's preset UI components, for AI to complete out-of-the-box mobile (Android / iOS) video live streaming integration and code generation. Covers the live list page (audience entry), host streaming page, and audience watching page — all preset components with complete interactive UI and business logic (e.g. AnchorPrepareView, live list waterfall view, etc.).
+Return Native video live streaming integration docs based on TUILiveKit preset UI components for out-of-the-box Android/iOS integration and code generation.
 
-Typical use cases (shared trigger words, may also match the 'get_native_livekit_core_integration' Core tool):
+When to call (MUST):
+- User explicitly asks for runnable project integration code or concrete implementation steps.
+
+When NOT to call:
+- Pure feature Q&A, documentation lookup, API/component explanation, troubleshooting.
+
+Scope details (shared triggers, may also match 'get_native_livekit_core_integration' Core tool):
 integrate LiveKit, TUILiveKit, video live streaming, live broadcast, host streaming, audience watching, live list, host page, watch page, live room list, Android, iOS
-When a shared trigger word is matched, **proactively ask the user first**: "Would you like to quickly integrate with the default live streaming UI (TUILiveKit preset), or build a custom UI on top of Core SDK / AtomicXCore?" Call this tool only after the user chooses "default/preset"; call 'get_native_livekit_core_integration' if they choose "custom/Core".
+When shared triggers match, ask user first: "Do you want the default live UI (TUILiveKit preset), or a custom UI on top of Core SDK/AtomicXCore?" If user chooses default/preset, call this tool; if user chooses custom/Core, call 'get_native_livekit_core_integration'.
 
-Typical use cases (preset-only trigger words, match this tool exclusively, call directly without asking):
-TUILiveKit, Native TUILiveKit, Native Live UIKit, preset, preset integration, preset UI, preset host page, preset watch page, preset live list, default live streaming UI, out-of-the-box live streaming UI, ready-made streaming page, already have a live streaming UI, TUILiveKit Android, TUILiveKit iOS, AnchorPrepareView
+Scope details (preset-only triggers, match this tool directly):
+TUILiveKit, Native TUILiveKit, Native Live UIKit, preset, preset integration, preset UI, preset host page, preset watch page, preset live list, default live streaming UI, out-of-the-box live streaming UI, ready-made streaming page, TUILiveKit Android, TUILiveKit iOS, AnchorPrepareView
 
-Input:
+Inputs:
 - framework: android | ios
-- goals: feature module list (multi-select; results are organized in the order live_list → host_streaming → audience_streaming)
+- goals: feature module list (results are organized in order: live_list -> host_streaming -> audience_streaming)
 - prompt: The user's original question in full. Keep the full context. Do not compress it into keywords or a short summary.
 
-Returns:
-- content: [{ type: 'text', text: documentation body (common environment setup / dependency integration for all platforms, plus integration steps and code for the selected feature pages) }]
+Outputs:
+- content: [{ type: 'text', text: Documentation body or explanatory text }]
 
 Boundaries:
-- This tool is for **video live streaming (live)** scenarios only. Voice room (voice / audio room / seat) is **out of scope** — for that use 'get_native_livekit_core_integration' instead, or inform the user preset UI is not yet supported for voice room
-- framework only supports android | ios (TUILiveKit video live streaming preset UI has no flutter / uni-app docs yet — for that use 'get_native_livekit_core_integration' instead, or inform the user it is not supported)
-- If the user has not specified a platform, call 'present_framework_choice' first
-- If the user has explicitly indicated Core-specific trigger words such as "custom UI", "Core SDK", "AtomicXCore", "LiveCoreView", or "build my own live page", call 'get_native_livekit_core_integration' directly instead of this tool
-- Covers full page integration for host streaming / audience watching / live list only. Not responsible for co-guest, PK, gifts, barrage, beauty, or audio effects extensions (use 'search_trtc_knowledge' for those)
+- This tool is for video live streaming scenarios only. Voice room scenarios are out of scope and should use 'get_native_livekit_core_integration'.
+- framework supports android | ios only. For flutter / uni-app, route to 'get_native_livekit_core_integration' or explain unsupported preset path.
+- If the user has not specified a platform, call 'present_framework_choice' first.
+- If the user explicitly indicates Core-specific words such as "custom UI", "Core SDK", "AtomicXCore", "LiveCoreView", or "build my own live page", call 'get_native_livekit_core_integration' directly.
+- Covers host_streaming / audience_streaming / live_list page integration only. For co-guest, PK, gifts, barrage, beauty, or audio effects, use 'search_trtc_knowledge'.
 ${INTEGRATION_BOUNDARY_SUFFIX}
 `;
 const PARAMETER_DESCRIPTIONS = {
     framework: 'Target platform. The parameter name must be framework. Do not use platform. Allowed values: android | ios.',
-    goals: 'Feature list (multi-select). Allowed values: live_list (live list page, audience entry) | host_streaming (host streaming page) | audience_streaming (audience watching page). A complete mobile live streaming app usually needs live_list + host_streaming + audience_streaming.',
+    goals: 'Feature list (multi-select). Allowed values: live_list (live list page, audience entry) | host_streaming (host streaming page) | audience_streaming (audience watching page). A complete mobile live app usually needs all three.',
     prompt: "The user's original question in full. Keep the full context. Do not compress it into keywords or a short summary.",
 };
 export const GET_NATIVE_LIVE_UIKIT_INTEGRATION_DEFINITION = {

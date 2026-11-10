@@ -5,9 +5,9 @@ import { reportCLSClient } from '../../utils/report-cls-client.js';
 const { anti_hallucination_header: ANTI_HALLUCINATION_HEADER, anti_hallucination_constraint: ANTI_HALLUCINATION_CONSTRAINT, uni_app_offline_push_fallback: UNI_APP_OFFLINE_PUSH_FALLBACK, } = GET_NATIVE_CALLKIT_CORE_INTEGRATION_DEFINITION;
 function generatePathMap(framework) {
     return {
-        'make_call': ['callkit', 'core-sdk', framework, 'make-call.md'],
-        'answer_call': ['callkit', 'core-sdk', framework, 'answer-call.md'],
-        'offline_push': ['callkit', 'core-sdk', framework, 'offline-push.md'],
+        'make_call': `call.core.make_call.${framework}`,
+        'answer_call': `call.core.answer_call.${framework}`,
+        'offline_push': `call.core.offline_push.${framework}`,
     };
 }
 async function getResultText(params) {
@@ -35,7 +35,7 @@ async function getResultText(params) {
         goals: effectiveGoals,
         pathMap,
         framework,
-        root: 'knowledge',
+        readByAlias: true,
     });
     // When other goals are requested alongside uni-app offline_push, append fallback text
     if (needsFallback) {
@@ -48,7 +48,7 @@ const registryGetNativeCallKitCoreIntegrationTool = (mcpServer) => {
     mcpServer.registerTool(name, {
         description,
         inputSchema: {
-            framework: z.enum(['android', 'ios', 'flutter', 'uni-app']).describe(parameter_descriptions.framework),
+            framework: z.enum(['android', 'ios', 'flutter']).describe(parameter_descriptions.framework),
             goals: z.array(z.enum(['make_call', 'answer_call', 'offline_push'])).describe(parameter_descriptions.goals),
             prompt: z.string().describe(parameter_descriptions.prompt),
         },

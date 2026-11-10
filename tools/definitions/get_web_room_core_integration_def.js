@@ -3,29 +3,32 @@ const TOOL_DESCRIPTION = `
 Purpose:
 Return Web RoomKit Atomicx Core integration docs for building a custom meeting room without preset UI, covering login, room state, and device capabilities.
 
-Shared trigger phrases (may also match the preset tool \`get_web_room_uikit_integration\`):
-Web RoomKit, TUIRoomKit, Atomicx, Vue, integrate RoomKit, meeting room, room, meeting
-If the user only hits these shared trigger phrases, ask first:
-"Do you want the preset UI for quick integration (TUIRoomUIKit preset), or a custom room built on Atomicx APIs?"
-If the user chooses custom / Atomicx / Core, call this tool.
-If the user chooses preset / default UI, call \`get_web_room_uikit_integration\`.
+When to call (MUST):
+- User explicitly asks for runnable project integration code or concrete implementation steps.
 
-Core-only trigger phrases (call directly, no follow-up needed):
+When NOT to call:
+- Pure feature Q&A, documentation lookup, API/component explanation, troubleshooting.
+
+Scope details (shared triggers, may also match 'get_web_room_uikit_integration' preset tool):
+Web RoomKit, TUIRoomKit, Atomicx, Vue, integrate RoomKit, meeting room, room, meeting
+When user only hits shared triggers, ask first: "Do you want the preset UI for quick integration (TUIRoomUIKit), or a custom room built on Atomicx APIs?" If user chooses custom/Atomicx/Core, call this tool. If user chooses preset/default UI, call 'get_web_room_uikit_integration'.
+
+Scope details (Core-only triggers, call directly):
 Atomicx API, custom meeting room, custom room UI, without preset UI, useRoomState, useDeviceState, useLoginState, room-state, device-state, device-detection
 
-Input:
+Inputs:
 - framework: vue
 - goals: room-state | device-detection | device-state
 - prompt: The user's original question in full. Keep the full context. Do not compress it into keywords or a short summary.
 
-Returns:
-- content: [{ type: 'text', text: documentation content or explanatory text }]
+Outputs:
+- content: [{ type: 'text', text: Documentation body or explanatory text }]
 
 Boundaries:
-- If the user has not specified a platform or framework, call \`present_framework_choice\` first.
-- This is for Atomicx Core integration only (login + room-state / device modules), not preset UI page templates.
-- Screen sharing, virtual background, scheduled meeting, and other advanced modules -> call \`search_trtc_knowledge(types=[feature])\`.
-- **Login constraint**: MUST call \`get_usersig\` to get a UserSig, then use \`useLoginState.login\`; never implement local UserSig generation such as GenerateTestUserSig inside the project.
+- If the user has not specified a platform or framework, call 'present_framework_choice' first.
+- This is for Atomicx Core integration only (login + room-state/device modules), not preset UI page templates.
+- Screen sharing, virtual background, scheduled meeting, and other advanced modules -> call 'search_trtc_knowledge(types=[feature])'.
+- Login constraint: MUST call 'get_usersig' to get a UserSig, then use useLoginState.login; never implement local UserSig generation such as GenerateTestUserSig inside the project.
 ${INTEGRATION_BOUNDARY_SUFFIX}
 `;
 const PARAMETER_DESCRIPTIONS = {
