@@ -35,22 +35,23 @@ function normalizeVariant(value) {
         return value;
     return undefined;
 }
-function normalizeDocKind(value) {
-    if (value === 'capability_matrix' || value === 'unsupported_summary' || value === 'negative_faq') {
-        return value;
-    }
-    return undefined;
-}
-function normalizeCapabilityStatus(value) {
-    if (value === 'supported' || value === 'unsupported' || value === 'partial' || value === 'version_gated') {
-        return value;
-    }
-    return undefined;
-}
-function normalizeRetrievableScope(value) {
-    if (value === 'always')
-        return 'always';
-    return normalizeStringArray(value);
+function normalizeFeatureDomain(value) {
+    const allowed = [
+        'app',
+        'app_demo',
+        'app_integration',
+        'device',
+        'device_demo',
+        'device_integration',
+        'security-camera',
+        'smart-vision',
+        'kids-watch',
+        'voice-recorder',
+        'client_api',
+    ];
+    return allowed.includes(value)
+        ? value
+        : undefined;
 }
 function parseFrontmatterObject(input) {
     if (!input || typeof input !== 'object' || Array.isArray(input)) {
@@ -67,6 +68,8 @@ export function resolveFrontmatterMeta(rawMarkdown) {
             hasFrontmatter: false,
             frontmatterMeta: {},
             overrideFields: [],
+            navPath: undefined,
+            tags: undefined,
         };
     }
     const rawBlock = match[1] ?? '';
@@ -120,27 +123,21 @@ export function resolveFrontmatterMeta(rawMarkdown) {
         frontmatterMeta.scope = scope;
         overrideFields.push('scope');
     }
-    const docKind = normalizeDocKind(fm.doc_kind);
-    if (docKind) {
-        frontmatterMeta.doc_kind = docKind;
-        overrideFields.push('doc_kind');
+    const featureDomain = normalizeFeatureDomain(fm.feature_domain);
+    if (featureDomain) {
+        frontmatterMeta.feature_domain = featureDomain;
+        overrideFields.push('feature_domain');
     }
-    const capabilityStatus = normalizeCapabilityStatus(fm.capability_status);
-    if (capabilityStatus) {
-        frontmatterMeta.capability_status = capabilityStatus;
-        overrideFields.push('capability_status');
-    }
-    const retrievableScope = normalizeRetrievableScope(fm.retrievable_scope);
-    if (retrievableScope) {
-        frontmatterMeta.retrievable_scope = retrievableScope;
-        overrideFields.push('retrievable_scope');
-    }
+    const navPath = normalizeStringArray(fm.nav_path);
+    const tags = normalizeStringArray(fm.tags);
     return {
         content,
         contentOffset,
         hasFrontmatter: true,
         frontmatterMeta,
         overrideFields: uniq(overrideFields),
+        navPath,
+        tags,
     };
 }
 export function mergePathMetaWithFrontmatter(pathMeta, frontmatterMeta, overrideFields) {

@@ -12,9 +12,9 @@ async function getResultText(params) {
     const result = await generateStructuredResult({
         goals: ['integration'],
         framework,
-        root: 'integration',
+        readByAlias: true,
         pathMap: {
-            ['integration']: ['roomkit', 'preset', framework, 'integration.md'],
+            ['integration']: `room.${framework}`,
         },
     });
     return result;

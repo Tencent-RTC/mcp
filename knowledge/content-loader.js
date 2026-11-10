@@ -14,14 +14,26 @@ function readSourceFile(source) {
     if (cached !== undefined)
         return cached;
     const abs = path.join(resolveResourceRoot(), source);
-    const text = fs.readFileSync(abs, 'utf-8');
-    fileCache.set(source, text);
-    return text;
+    try {
+        const text = fs.readFileSync(abs, 'utf-8');
+        fileCache.set(source, text);
+        return text;
+    }
+    catch (err) {
+        // 防御：manifest 与资源不一致（旧 manifest 引用已删除/改名的文件）时，
+        // 单个缺失文件不应让整次检索 ENOENT 崩溃。按空内容降级并缓存，
+        // 该 chunk 正文为空 → 检索得分自然趋零，不影响其他 chunk 正常召回。
+        if (err.code !== 'ENOENT')
+            throw err;
+        console.warn(`[content-loader] 源文件缺失，已按空内容降级: ${source}`);
+        fileCache.set(source, '');
+        return '';
+    }
 }
 export function getSourceFileContent(source) {
     return readSourceFile(source);
 }
-/** 按 build 时写入的 char 偏移从 md 源文件切片（方案 B：manifest 不存 content） */
+/** 按 build 时写入的 char 偏移从 md 源文件切片（manifest 不存 content） */
 export function getChunkContent(chunk) {
     const full = readSourceFile(chunk.source);
     return full.slice(chunk.char_start, chunk.char_end);
@@ -35,7 +47,4 @@ export function attachPoolContent(pool) {
         readSourceFile(source);
     }
     return pool.map((chunk) => attachChunkContent(chunk));
-}
-export function clearContentCache() {
-    fileCache.clear();
 }

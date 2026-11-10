@@ -14,9 +14,9 @@ async function getResultText(params) {
     const result = await generateStructuredResult({
         goals: [goal],
         framework,
-        root: 'integration',
+        readByAlias: true,
         pathMap: {
-            [goal]: ['chat', 'preset', framework, 'integration.md'],
+            [goal]: `chat.${framework}`,
         },
     });
     return result;

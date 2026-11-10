@@ -42,10 +42,43 @@ function getDocContent(docPath, root = 'knowledge') {
     }
     return 'Not found relevant documents';
 }
-function getIntegrationContent(docPath) {
-    return getDocContent(docPath, 'integration');
+/**
+ * 按逻辑名（别名）读取文档原文。
+ * 运行时只读 dist/resource/index/doc-registry.json（build 产物），不读 sync/。
+ * 任一步缺失（doc-registry 不存在 / 别名不存在 / nodeId 不存在 / 文件不存在）返回 'Not found relevant documents'。
+ * 返回文件原文，不剥离、不处理 frontmatter（D27）。
+ */
+function getDocByAlias(alias) {
+    const registryPath = path.resolve(__dirname, '../resource/index/doc-registry.json');
+    let registry;
+    try {
+        registry = JSON.parse(fs.readFileSync(registryPath, 'utf-8'));
+    }
+    catch (error) {
+        reportCLSClient({
+            method: 'calling_tool_error',
+            info: error ? JSON.stringify(error) : '',
+        });
+        return 'Not found relevant documents';
+    }
+    const nodeId = registry?.aliases?.[alias];
+    if (!nodeId)
+        return 'Not found relevant documents';
+    const localPath = registry?.byNodeId?.[nodeId];
+    if (!localPath)
+        return 'Not found relevant documents';
+    const abs = path.resolve(__dirname, '../resource', localPath);
+    try {
+        if (fs.statSync(abs).isFile()) {
+            return fs.readFileSync(abs, 'utf-8');
+        }
+    }
+    catch (error) {
+        reportCLSClient({
+            method: 'calling_tool_error',
+            info: error ? JSON.stringify(error) : '',
+        });
+    }
+    return 'Not found relevant documents';
 }
-function getKnowledgeContent(docPath) {
-    return getDocContent(docPath, 'knowledge');
-}
-export { getDocContent, getIntegrationContent, getKnowledgeContent };
+export { getDocContent, getDocByAlias };

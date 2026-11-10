@@ -16,7 +16,6 @@ export function hasFrameworkFallbackMatch(chunk, opts) {
     const roomWebVueFallback = Boolean(opts.product?.includes('room')
         && opts.framework === 'web'
         && chunk.variant === 'core-sdk'
-        && chunk.framework.includes('vue')
-        && chunk.source.includes('knowledge/roomkit/core-sdk/vue/'));
+        && chunk.framework.includes('vue'));
     return callCoreWebFallback || liveWebVueFallback || roomWebVueFallback;
 }

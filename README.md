@@ -1,151 +1,98 @@
-# Tencent RTC MCP Server
+## 腾讯云 SDK MCP Server
 
 [中文（国内站）](./README.md) | [English (Global)](./README_en.md)
 
-这是一个将腾讯 RTC（TRTC / IM / Call / Live / Room）文档与 API 能力开放给 AI Agent 的 MCP 服务。
-可用于知识问答、集成指导和问题排查，帮助开发者更快完成接入。
+腾讯云 SDK MCP Server 通过 MCP（Model Context Protocol）向 AI 助手提供官方文档检索、套餐选型与代码集成能力，帮助你更快完成腾讯云实时音视频相关开发与选型（Chat/Call/Live/Room/RTCEngine/TIMPush/IoT）。
 
-## 能力清单（实时音视频 TRTC）
+## 功能概览
 
-| 能力场景 | 能力说明 | 示例 |
-| --- | --- | --- |
-| 知识咨询 | 查询 Live / Room / Call 组件与 API 的使用方式 | “Vue3 TUIRoomKit 无 UI 和含 UI 方案怎么选？” |
-| 知识咨询 | 查询 Live / Room / Call 无 UI SDK 的使用方式 | “语聊房管理员怎么上麦到 0 号麦位？” |
-| 知识咨询 | 查询 WebRTC SDK、插件与 Native TRTC API 的能力 | “TRTC Web SDK 美颜插件 BasicBeauty 的使用方法？” |
-| 代码集成 | 根据上下文识别 Vue3 / Android / iOS / Flutter / uni-app，生成开播页、观看页、连麦入口 | “帮我在 iOS 项目里集成 LiveKit 语聊房” |
-| 代码集成 | 根据上下文识别 Vue3，生成会议入口页、会议房间页、路由注册，并支持屏幕共享 | “帮我在 Vue3 项目集成视频会议 RoomKit” |
-| 代码集成 | 根据上下文识别 Vue3 / React / Android / iOS / Flutter，生成发起通话与来电处理页面 | “帮我在 Flutter 项目集成音视频通话 CallKit 组件” |
-| 错误排查 | 诊断初始化失败、麦上用户无声、错误码等常见问题 | “iOS AtomicXCore 语聊房观众 joinLive 后听不到主播声音，怎么排查？” |
-
-## 能力清单（即时通信 IM/Chat）
-
-| 能力场景 | 能力说明 | 示例 |
-| --- | --- | --- |
-| 知识咨询 | 查询 UI 组件（ConversationList、MessageList 等）用法 | “Vue3 MessageList 组件如何渲染自定义消息卡片？” |
-| 知识咨询 | 查询无 UI SDK API 用法 | “H5 集成 Web IM SDK 怎么发送语音消息？” |
-| 知识咨询 | 查询 SDK 和服务端错误码含义与处理建议 | “Web IM SDK 登录时为什么会 2025 错误码？” |
-| 知识咨询 | 查询服务端 REST API（导入账号、服务端发消息等）用法 | “REST API 怎么在群组中发送自定义消息？” |
-| 知识咨询 | 查询 Webhook 配置与第三方回调对接方式 | “IM 回调 State.StateChange 状态变更回调的请求体字段格式是什么？” |
-| 知识咨询 | 查询套餐价格、能力限制、多端登录配置与内网代理 | “Web IM SDK 怎么实现内网代理？” |
-| 知识咨询 | 查询离线推送 Push 接入、厂商配置与注意事项 | “iOS 离线推送证书怎么配置？” |
-| 代码集成 | 根据上下文识别 Vue3 / React 并生成 Chat UIKit 代码 | “帮我在 Vue3 项目中集成 Chat UIKit 完整功能。” |
-| 代码集成 | 根据上下文识别 Android / iOS / Flutter 并生成 Chat UIKit 代码 | “帮我在 Flutter 项目接入完整 Chat UIKit 功能。” |
-| 错误排查 | 结合报错诊断 UIKit 或 SDK 集成问题 | “安卓 App 报错：Fail to create more groups. This sdkappid has reached group amount max limit.” |
-
-## 站点策略
-
-- **国内站（中文）**：面向中文开发者
-- **海外站（英文）**：面向国际开发者
-
-## 包名映射
-
-- **国内站（中文）**：[`@tencentcloud/sdk-mcp`](https://www.npmjs.com/package/@tencentcloud/sdk-mcp)
-- **海外站（英文）**：[`@tencent-rtc/mcp`](https://www.npmjs.com/package/@tencent-rtc/mcp)
-
-## 文档入口
-
-- **国内站（中文）**：[`https://cloud.tencent.com/document/product/647/129285`](https://cloud.tencent.com/document/product/647/129285)
-- **海外站（英文）**：[`https://trtc.io/document/78382`](https://trtc.io/document/78382)
-
-## 能力概览
-
-- 官方知识检索与回答
-- 覆盖 TRTC / IM / Call / Live / Room
-- 支持产品与平台意图路由
-- 面向 Web / Android / iOS / Flutter 的集成指导
-- 基于 stdio JSON-RPC，兼容 Cursor / Codex / Claude / CodeBuddy
+- **官方资料检索**：快速定位产品文档、集成指引与最佳实践。
+- **套餐选型与购买**：按场景、能力需求与预算推荐套餐，输出价格、底座依赖与购买入口。
+- **智能分流**：按产品、平台、框架进行语义路由，降低检索噪声。
+- **代码集成能力**：支持 Web / Android / iOS / Flutter 等主流端侧集成入口。
+- **MCP 兼容**：可接入 Cursor、CodeBuddy、Codex、Claude 等 MCP 客户端。
 
 ## 环境要求
 
 - Node.js >= 18
 - npm
-- 支持 MCP 的 IDE
+- 任一支持 MCP 的 IDE / AI 客户端
 
-## 快速开始
+## 30 秒快速开始（免控制台创建应用试用）
 
-### 国内站包
+### 1) 配置 MCP Server（试用模式）
 
-```bash
-npx -y @tencentcloud/sdk-mcp@latest
-```
-
-### 海外站包
-
-```bash
-npx -y @tencent-rtc/mcp@latest
-```
-
-## Cursor 配置示例
-
-### 示例 A：国内站包（`@tencentcloud/sdk-mcp`）
+以 Cursor 为例，在项目 `.cursor/mcp.json`（或 `~/.cursor/mcp.json`）中添加：
 
 ```json
 {
   "mcpServers": {
-    "tencent-rtc": {
+    "tencentcloud-sdk-mcp": {
       "command": "npx",
       "args": ["-y", "@tencentcloud/sdk-mcp@latest"],
       "env": {
-        "SDKAPPID": "YOUR_SDKAPPID"
+        "SDKAPPID": "",
+        "SECRETKEY": ""
       }
     }
   }
 }
 ```
 
-### 示例 B：海外站包（`@tencent-rtc/mcp`）
+### 2) 确认服务已连接
+
+在 MCP 面板确认 `tencentcloud-sdk-mcp` 状态为 **Connected**。
+
+### 3) 用前缀显式激活工具
+
+建议在问题前加 `@tencentcloud-sdk-mcp`，提升工具命中率与回答稳定性。
+
+示例：
+
+```text
+@tencentcloud-sdk-mcp H5 集成 Web IM SDK 怎么发送语音消息？
+```
+
+## 完整配置（需要在控制台创建应用）
 
 ```json
 {
   "mcpServers": {
-    "tencent-rtc": {
+    "tencentcloud-sdk-mcp": {
       "command": "npx",
-      "args": ["-y", "@tencent-rtc/mcp@latest"],
+      "args": ["-y", "@tencentcloud/sdk-mcp@latest"],
       "env": {
-        "SDKAPPID": "YOUR_SDKAPPID"
+        "SDKAPPID": "YOUR_SDKAPPID",
+        "SECRETKEY": "YOUR_SECRET_KEY"
       }
     }
   }
 }
 ```
 
-## 版本更新
+控制台入口：
+- 即时通信 IM 控制台：`https://console.cloud.tencent.com/im`
+- 音视频 TRTC 控制台：`https://console.cloud.tencent.com/trtc`
 
-> 这里只保留最近版本，完整历史请查看 `CHANGELOG.md`。
+## 接入准备说明
 
-## Version 1.7.4 @2026.08.31
+- **无账号/未创建应用也可先试用**：可先体验文档检索与知识咨询能力。
+- `SDKAPPID`：你的 IM/TRTC 应用 ID（控制台获取）。
+- `SECRETKEY`：用于测试生成 `userSig`。
+- **生产环境要求**：`userSig` 必须由服务端签发，不建议长期使用本地测试签发方式。
+
+## 常见问题
+
+- **连接失败/工具未激活**：检查 MCP 配置是否生效，确认服务状态为 Connected。
+- **`npx` 异常**：可清理 `npx` 缓存后重试：`rm -rf ~/.npm/_npx && npm cache verify`。
+- **`userSig` 无效**：重新调用 `get_usersig` 生成。
+
+## 更新记录
+
+> 仅展示最近更新，完整历史请查看 `CHANGELOG.md`。
+
+## Version 1.9.0 @2026.11.10
 
 ### 新增
-- 新增 CallKit Flutter 最佳实践文档 4 篇：Android 后台通话保活、iOS 后台音频保活、iOS 启动崩溃排查、后台来电无通知排查。
-- 新增 CallKit Android 视频交友场景（VideoChat Demo）最佳实践文档，覆盖 Demo 跑通与组件快速集成。
-- 新增 CallKit HarmonyOS 平台支持：含 UI 集成指南与 API 参考文档。
-- 新增 CallKit 小程序 & uni-app 集成文档：含 UI 集成指南、API 参考、uni-app 打包指南。
-- 新增 CallKit uni-app（Android/iOS）独立集成文档与 API 参考。
-- 新增 Chat Vue3/React H5 移动端集成文档。
-
-### 变更
-- 优化 Chat 含 UI 检索标签：vue/react 的 framework 从单标签改为双标签（`['vue','web']` / `['react','web']`），使 `frameworks=['web']` 也能命中 Chat Web 端文档。
-
-### Version 1.7.3 @2026.08.17
-
-#### Added
-- 新增 RoomKit 多端集成、录制、白板、网络代理、AI 降噪、字幕翻译等文档。
-- 新增错误码、日志级别、自动停屏共享、小程序排障等最佳实践文档。
-- 新增加性 rerank 模块（锚点选择与短语提取），提升检索排序准确率。
-
-#### Changed
-- BM25 索引改为无原型对象，提升稳定性。
-
-#### Fixed
-- 修复原型键污染导致的 BM25 评分异常与 NaN 问题。
-
-### Version 1.7.1 @2026.08.11
-
-#### Added
-- 新增检索前 `product` / `frameworks` 真值归一化。
-
-#### Changed
-- 优化 `search_trtc_knowledge` 输出契约，返回完整综合答案。
-
-#### Fixed
-- 修复双产品/双平台误传在歧义问题中的纠偏缺失。
+- 新增套餐/计费结构化查询：基于确定性套餐知识矩阵，对套餐选型、版本价格、能力清单、计费规则、组件共存等问题直接返回结构化答案（精确价格 + 能力 + 版本限制 + 官方购买/开通链接），替代"检索文档 + 大模型抠数字"。基于 700+ 的真实工单问题测试：召回率 97.2%、精确价格命中率 86.2%。
+- 支持 CallKit/LiveKit/RoomKit 组件与 TRTC/Chat 底座的套餐选型（场景 + 能力 + 预算）、版本点查、计费规则 FAQ、组件共存约束查询。

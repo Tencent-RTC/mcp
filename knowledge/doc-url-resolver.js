@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { PRODUCT_DIRS } from './product-dirs.js';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 /** 控制台/购买页等不适合作为「参考文档」的链接 */
 const NOISE_URL_RE = /console\.cloud\.tencent|buy\.cloud\.tencent|account\.renewal|edu\/learning/i;
@@ -49,21 +50,12 @@ export function extractUrlsFromContent(content, max = 3) {
     const merged = [...preferred, ...found];
     return merged.slice(0, max);
 }
-/** L1 URL 映射 chunk：表格行中的目标文档 URL */
-export function extractUrlMappingPrimaryUrl(content) {
-    const row = content.match(/\|\s*[^|]+\s*\|\s*`?(https?:\/\/[^|`\s]+)`?\s*\|/);
-    return row?.[1] ? normalizeUrl(row[1]) : null;
-}
-/** 产品无关的 URL 映射行判定：knowledge/<product>/urls/... */
-function isUrlMappingSource(source) {
-    return /knowledge\/[a-z0-9_-]+\/urls\/.+\.md$/i.test(source.replace(/\\/g, '/'));
-}
-const RTCENGINE_WEB_API_SOURCE = 'knowledge/rtcengine/web/api.md';
+const RTCENGINE_WEB_API_SOURCE = `knowledge/${PRODUCT_DIRS.trtc}/web/api.md`;
 const RTCENGINE_WEB_API_BASE_URL = 'https://web.sdk.qcloud.com/trtc/webrtc/doc/en/TRTC.html';
 /** api.md 中的非方法标题（示例/成员枚举/类型定义等），不作为锚点生成 */
 const RTCENGINE_WEB_API_NON_METHOD_RE = /^(?:Example|Members|Type|Definitions)$/i;
 /**
- * rtcengine/web/api.md 的 API 章节 chunk（如 `### TRTC.setCurrentSpeaker` / `### setCurrentSpeaker`）
+ * trtc/web/api.md 的 API 章节 chunk（如 `### TRTC.setCurrentSpeaker` / `### setCurrentSpeaker`）
  * 生成稳定参考链接：`.../TRTC.html#.setCurrentSpeaker`
  * 兼容两种标题格式：静态方法带 `TRTC.` 前缀，实例方法不带前缀。
  */
@@ -79,10 +71,9 @@ function resolveRtcengineWebApiUrl(source, content) {
 }
 /**
  * 为检索 fragment 解析可参考的官网 URL（去重、按优先级）。
- * 1. rtcengine/web/api.md：优先按 API 标题生成锚点 URL（例如 #.setCurrentSpeaker）
- * 2. sync-manifest 落盘的 localPath → 官网 URL（rtcengine 等）
- * 3. L1 URL 映射行内目标 URL
- * 4. 本地文档正文中的官网链接
+ * 1. trtc/web/api.md：优先按 API 标题生成锚点 URL（例如 #.setCurrentSpeaker）
+ * 2. sync-manifest 落盘的 localPath → 官网 URL（trtc 等）
+ * 3. 本地文档正文中的官网链接
  */
 export function resolveFragmentDocUrls(source, content, fullSourceContent) {
     const normalized = source.replace(/\\/g, '/');
@@ -94,12 +85,6 @@ export function resolveFragmentDocUrls(source, content, fullSourceContent) {
     const canonical = loadSourceUrlMap()[normalized];
     if (canonical)
         urls.push(canonical);
-    if (isUrlMappingSource(normalized)) {
-        const primary = extractUrlMappingPrimaryUrl(content);
-        if (primary && !urls.includes(primary))
-            urls.push(primary);
-        return urls;
-    }
     const collect = (text) => {
         for (const url of extractUrlsFromContent(text)) {
             if (!urls.includes(url))
@@ -112,22 +97,29 @@ export function resolveFragmentDocUrls(source, content, fullSourceContent) {
     }
     return urls.slice(0, 3);
 }
-/** 从 fragments 汇总去重后的参考链接列表（按 fragment 相关度排序）。
- * 规则：每个 fragment 仅取一个参考链接（优先 doc_urls[0]），避免 1 个片段膨胀出多个 references。 */
+/** 从 fragments 汇总去重后的参考链接列表（rank 与 fragment.rank 对齐）。
+ *
+ * 规则：
+ * 1. 每个 fragment 仅生成一个 reference（优先 doc_urls[0]），避免单片段膨胀出多个 references。
+ * 2. rank 直接沿用 fragment.rank，保证 references 与 fragments 位置一一对应；
+ *    历史实现用 refs.length+1 自增序号，导致 fragments[0] 无 URL 时 references[0]
+ *    的 rank/source 都会与 fragments[0] 错位（LLM/观测层难对齐）。
+ * 3. 当 fragment.doc_urls 全为空或全为噪音 URL 时，仍生成占位 reference（url=''），
+ *    保持 references.length == fragments.length；下游若判空可用 url==='' 兜底展示 title/source。
+ * 4. URL 去重：同一 URL 只在首次出现的 fragment 上保留，后续同 URL fragment 降级为占位。 */
 export function buildReferences(fragments) {
     const refs = [];
     const seen = new Set();
     for (const fragment of fragments) {
         const primaryUrl = fragment.doc_urls.find((u) => isUsefulDocUrl(u));
-        if (!primaryUrl)
-            continue;
-        if (seen.has(primaryUrl))
-            continue;
-        seen.add(primaryUrl);
+        // 占位规则：无可用 URL 或 URL 已被更靠前的 fragment 占用 → url=''，rank/source 仍保留
+        const url = primaryUrl && !seen.has(primaryUrl) ? primaryUrl : '';
+        if (url)
+            seen.add(url);
         refs.push({
-            rank: refs.length + 1,
+            rank: fragment.rank,
             title: fragment.title,
-            url: primaryUrl,
+            url,
             source: fragment.source,
         });
     }
@@ -151,17 +143,20 @@ export function buildDocSourceUrlMap(syncManifestPath) {
     const manifest = JSON.parse(fs.readFileSync(syncManifestPath, 'utf-8'));
     const map = {};
     const entries = manifest.entries ?? {};
-    for (const entry of Object.values(entries)) {
-        const url = resolveManifestDocUrl(entry);
+    // 1. 遍历 entries（key 即 nodeId）：webdoc 的 nodeId 本身就是官网 URL，
+    //    写写节点的 nodeId 是内部数字 id（非 http，会被 coerceHttpUrl 过滤掉）。
+    for (const [nodeId, entry] of Object.entries(entries)) {
+        const url = resolveManifestDocUrl({ nodeId, ref: entry.ref });
         if (url && entry.localPath) {
             map[entry.localPath.replace(/\\/g, '/')] = url;
         }
     }
+    // 2. 兜底：byLocalPath 有而 entries 未映射到的路径，同样用 nodeId 兜底（webdoc url）。
     for (const [localPath, nodeId] of Object.entries(manifest.byLocalPath ?? {})) {
         const normalized = localPath.replace(/\\/g, '/');
         if (map[normalized])
             continue;
-        const url = resolveManifestDocUrl(entries[nodeId] ?? { nodeId });
+        const url = resolveManifestDocUrl({ nodeId, ref: entries[nodeId]?.ref });
         if (url)
             map[normalized] = url;
     }

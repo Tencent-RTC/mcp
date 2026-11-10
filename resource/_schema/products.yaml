@@ -1,19 +1,12 @@
 chat:
   knowledge_root: chat
-  integration_root: chat
 call:
-  knowledge_root: callkit
-  integration_root: callkit
+  knowledge_root: call
 live:
-  knowledge_root: livekit
-  integration_root: livekit
+  knowledge_root: live
 room:
-  knowledge_root: roomkit
-  integration_root: roomkit
+  knowledge_root: room
 push:
   knowledge_root: push
-  integration_root: push
-rtcengine:
-  knowledge_root: rtcengine
-native_trtc_sdk:
+trtc:
   knowledge_root: trtc

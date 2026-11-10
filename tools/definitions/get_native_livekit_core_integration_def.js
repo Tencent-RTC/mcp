@@ -3,17 +3,24 @@ const TOOL_DESCRIPTION = `
 Purpose:
 Return Native LiveKit Core base-integration docs based on AtomicXCore SDK for publishing, viewing, and room-list flows in live streaming or voice room apps.
 
-Typical use cases:
+When to call (MUST):
+- User explicitly asks for runnable project integration code or concrete implementation steps.
+
+When NOT to call:
+- Pure feature Q&A, documentation lookup, API/component explanation, troubleshooting.
+
+Scope details:
+
 Native LiveKit Core, AtomicXCore, no-UI SDK, core SDK, live streaming, voice room, publish, watch, room list, Android, iOS, Flutter, live, voice, set up the base live flow, set up the base voice room flow
 
-Input:
+Inputs:
 - scenario: live | voice
 - framework: android | ios | flutter
 - goals: feature module list
 - prompt: The user's original question in full. Keep the full context. Do not compress it into keywords or a short summary.
 
-Returns:
-- content: [{ type: 'text', text: documentation content or explanatory text }]
+Outputs:
+- content: [{ type: 'text', text: Documentation body or explanatory text }]
 
 Boundaries:
 - If the user has not specified a platform or framework, call 'present_framework_choice' first.

@@ -3,16 +3,23 @@ const TOOL_DESCRIPTION = `
 Purpose:
 Return Web Chat UIKit integration docs for building either a full chat app or a single chat window.
 
-Typical use cases:
+When to call (MUST):
+- User explicitly asks for runnable project integration code or concrete implementation steps.
+
+When NOT to call:
+- Pure feature Q&A, documentation lookup, API/component explanation, troubleshooting.
+
+Scope details:
+
 Web Chat UIKit, TUIKit, IM, chat, conversation list, chat window, React, Vue, full-featured, chat-only, customer service chat, consultation chat, message entry
 
-Input:
+Inputs:
 - framework: react | vue
 - goals: [full-featured] | [chat-only]
 - prompt: The user's original question in full. Keep the full context. Do not compress it into keywords or a short summary.
 
-Returns:
-- content: [{ type: 'text', text: documentation content or explanatory text }]
+Outputs:
+- content: [{ type: 'text', text: Documentation body or explanatory text }]
 
 Boundaries:
 - If the user has not specified a platform or framework, call 'present_framework_choice' first.

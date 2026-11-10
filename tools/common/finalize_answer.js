@@ -8,7 +8,7 @@ const registryFinalizeAnswerTool = (mcpServer) => {
         inputSchema: {
             prompt: z.string().describe(parameter_descriptions.prompt),
             answer: z.string().describe(parameter_descriptions.answer),
-            product: z.array(z.enum(['chat', 'call', 'live', 'room', 'push', 'rtcengine', 'native_trtc_sdk'])).min(1).max(4).optional().describe(parameter_descriptions.product),
+            product: z.array(z.enum(['chat', 'call', 'live', 'room', 'push', 'trtc', 'iot'])).min(1).max(4).optional().describe(parameter_descriptions.product),
             framework: z.enum(['react', 'vue', 'web', 'miniprogram', 'android', 'ios', 'flutter', 'c++', 'uni-app', 'harmonyos', 'react-native', 'unity', 'unreal-engine', 'donut']).optional().describe(parameter_descriptions.framework),
             queryID: z.string().describe(parameter_descriptions.queryID),
         },

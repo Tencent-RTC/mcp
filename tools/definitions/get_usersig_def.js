@@ -1,26 +1,33 @@
 const TOOL_DESCRIPTION = `
 Purpose:
-Generate a test userSig from the MCP environment variables SDKAppID and secretKey for local IM or TRTC testing.
+Generate a test userSig using SDKAppID and secretKey from MCP environment variables, for IM/TRTC local debugging.
 
-Typical use cases:
-generate a userSig for a specific userID, create a test credential, local debugging credential, userSig for this userID, SDKAppID, secretKey, IM login credential, TRTC login credential
+When to call (MUST):
+- User explicitly asks to generate userSig for a specific userID.
+- User needs a test credential for IM/TRTC local integration debugging.
 
-Input:
+When NOT to call:
+- User asks about userSig principles, production signing architecture, or security design.
+- User does not provide a concrete userID yet.
+
+Common trigger lexicon:
+- generate userSig, test credential, local debug credential, userSig for userID, IM login credential, TRTC login credential
+
+Inputs:
 - userID
 
-Returns:
-- content: [{ type: 'text', text: userSig result or an error message }]
+Outputs:
+- content: [{ type: 'text', text: userSig result or error details }]
 
 Boundaries:
-- Use this tool only when the userID is already known and you need a test credential.
-- It does not explain userSig principles, issuing flow, or production authentication design.
-- It is for development and testing only.
-- Production systems should issue userSig from a server.
+- This tool is for test credential generation only.
+- Production should use server-side signing.
+- If required environment variables are missing, return configuration guidance.
 `;
 export const GET_USERSIG_DEFINITION = {
     name: 'get_usersig',
     description: TOOL_DESCRIPTION,
     parameter_descriptions: {
-        userID: 'The userID used to log in to the Tencent Cloud application.',
+        userID: 'Target userID for Tencent Cloud app login.',
     },
 };

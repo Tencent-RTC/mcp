@@ -1,11 +1,11 @@
 import { attachPoolContent } from './content-loader.js';
-import { buildBM25Index, chunkSearchText } from './bm25.js';
+import { buildBM25Index } from './bm25.js';
 /**
  * 按 product 维度 lazy 构建 BM25 索引并进程内缓存。
  *
  * 设计要点：
  * - cache key = product（未指定时用 '*'，对全 manifest 建索引）
- * - 索引基于该 product 全部 chunks（含 integration corpus），子集 ranking 只看 filteredPool.map(id)
+ * - 索引基于该 product 全部 chunks，子集 ranking 只看 filteredPool.map(id)
  * - 首次按 product 触发，后续命中缓存零开销；约 8 个 product 自然分摊冷启动成本
  * - 不落盘，纯进程常驻；体积粗估 8~12MB（postings + idf）
  */
@@ -34,10 +34,7 @@ export function getProductBM25Index(allChunks, product) {
         return cached;
     const productChunks = selectProductChunks(allChunks, product);
     const withContent = attachPoolContent(productChunks);
-    const index = buildBM25Index(withContent.map((chunk) => ({
-        id: chunk.id,
-        text: chunkSearchText(chunk),
-    })));
+    const index = buildBM25Index(withContent);
     indexCache.set(key, index);
     return index;
 }
@@ -56,18 +53,7 @@ export function getProductsBM25Index(allChunks, products) {
         return cached;
     const productChunks = allChunks.filter((chunk) => products.includes(chunk.product) || chunk.product === '*');
     const withContent = attachPoolContent(productChunks);
-    const index = buildBM25Index(withContent.map((chunk) => ({
-        id: chunk.id,
-        text: chunkSearchText(chunk),
-    })));
+    const index = buildBM25Index(withContent);
     indexCache.set(key, index);
     return index;
-}
-/** 测试用：清空缓存（生产代码不应调用） */
-export function clearBM25Cache() {
-    indexCache.clear();
-}
-/** 调试用：返回当前缓存的 product 列表 */
-export function listCachedProducts() {
-    return [...indexCache.keys()];
 }

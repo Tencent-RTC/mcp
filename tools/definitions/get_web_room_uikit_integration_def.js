@@ -3,15 +3,22 @@ const TOOL_DESCRIPTION = `
 Purpose:
 Return Web Room UIKit preset integration docs for the main meeting entry page, room page, and default meeting app flow.
 
-Typical use cases:
+When to call (MUST):
+- User explicitly asks for runnable project integration code or concrete implementation steps.
+
+When NOT to call:
+- Pure feature Q&A, documentation lookup, API/component explanation, troubleshooting.
+
+Scope details:
+
 Web Room UIKit, TUIRoomUIKit, Atomicx, Vue, preset UI, default meeting app, meeting app, home.vue, room.vue, meeting entry page, meeting room page, H5 meeting, PC meeting, integrate Room UIKit
 
-Input:
+Inputs:
 - framework: vue
 - prompt: The user's original question in full. Keep the full context. Do not compress it into keywords or a short summary.
 
-Returns:
-- content: [{ type: 'text', text: documentation content or explanatory text }]
+Outputs:
+- content: [{ type: 'text', text: Documentation body or explanatory text }]
 
 Boundaries:
 - This tool is for preset UI integration. It is not for Atomicx API details or custom single-feature modules.

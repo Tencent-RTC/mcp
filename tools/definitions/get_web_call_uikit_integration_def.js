@@ -3,15 +3,22 @@ const TOOL_DESCRIPTION = `
 Purpose:
 Return Web TUICallKit preset integration docs for setting up a complete calling experience on PC or H5.
 
-Typical use cases:
+When to call (MUST):
+- User explicitly asks for runnable project integration code or concrete implementation steps.
+
+When NOT to call:
+- Pure feature Q&A, documentation lookup, API/component explanation, troubleshooting.
+
+Scope details:
+
 Web Call UIKit, Web TUICallKit, TUICallKit, preset integration, React, Vue, PC, H5, audio/video calling, video call, voice call, integrate CallKit, calling flow, answering flow
 
-Input:
+Inputs:
 - framework: react | vue
 - prompt: The user's original question in full. Keep the full context. Do not compress it into keywords or a short summary.
 
-Returns:
-- content: [{ type: 'text', text: documentation content or explanatory text }]
+Outputs:
+- content: [{ type: 'text', text: Documentation body or explanatory text }]
 
 Boundaries:
 - If the user has not specified a platform or framework, call 'present_framework_choice' first.

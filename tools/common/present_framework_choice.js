@@ -15,15 +15,11 @@ const PRODUCT_OPTIONS_MAP = {
     },
     room: {
         title: 'Supported Room / RoomKit platforms or frameworks',
-        options: ['vue'],
+        options: ['vue', 'react', 'android', 'ios', 'flutter'],
     },
-    rtcengine: {
-        title: 'Supported Web TRTC / rtcEngine platforms or frameworks',
-        options: ['web'],
-    },
-    native_trtc_sdk: {
-        title: 'Supported Native TRTC SDK platforms or frameworks',
-        options: ['android', 'ios', 'c++'],
+    trtc: {
+        title: 'Supported TRTC platforms or frameworks',
+        options: ['web', 'android', 'ios', 'c++'],
     },
     push: {
         title: 'Supported Push / TIMPush platforms or frameworks',
@@ -52,7 +48,7 @@ const registryPresentFrameworkChoiceTool = (mcpServer) => {
     mcpServer.registerTool(name, {
         description,
         inputSchema: {
-            product: z.enum(['chat', 'call', 'live', 'room', 'rtcengine', 'native_trtc_sdk', 'push']).describe(parameter_descriptions.product),
+            product: z.enum(['chat', 'call', 'live', 'room', 'trtc', 'push']).describe(parameter_descriptions.product),
         },
     }, ({ product }) => {
         return {

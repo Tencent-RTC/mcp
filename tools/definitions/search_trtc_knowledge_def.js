@@ -1,40 +1,66 @@
 const TOOL_DESCRIPTION = `
-For Tencent RTC documentation lookup (Chat / Call / Live / Room / Push / Web TRTC / Native TRTC): FAQ, error code, API, component, feature, plugin, integration lookup, troubleshooting -> MUST use this tool first. Do not use web_search. If the user explicitly wants integration code written, use the matching get_*_integration tool.
+Purpose:
+Use this tool as the default retrieval entry for Tencent RTC documentation and troubleshooting.
 
-**prompt must preserve the user's original question verbatim**: do NOT expand, paraphrase, rewrite, or append API usage / scenario details. Pass exactly what the user asked. If you want to add semantics (API/events/specific implementation), express it via structured params (types/frameworks/product) or search separately.
+When to call (MUST):
+- Technical Q&A: product capability, configuration, best practice, and documentation lookup.
+- API lookup: API / component / event / parameter / error code.
+- Troubleshooting: error, exception, failure, or compatibility issue.
+- Integration reference lookup when user wants guidance/docs but does NOT explicitly ask for runnable code generation.
+- Package/pricing/selection/version-price/billing-rule questions (e.g. "how much is the Chat Pro plan" / "which package supports recording" / "is the UI component itself free" / "price difference between CallKit and RoomKit") -> ALSO call THIS tool directly. This tool internally resolves package/pricing facts from a deterministic knowledge matrix when applicable, and otherwise falls back to normal retrieval. Pass "requirements" (capability needs, e.g. ["virtual background","multi-guest"]) when the question is about selecting a package; everything else (version name / budget) is extracted internally from "prompt", do not try to encode them elsewhere.
 
-**product** (if inferable, MUST pass; if not, ask first):
-push: TIMPush / push / vendor channel / FCM / Huawei / Xiaomi / OPPO (not chat) | chat: conversation / TUIKit / IM / theme
-call: CallKit | live: LiveKit | room: RoomKit / meeting | rtcengine: Web TRTC | native_trtc_sdk: TRTCCloud | cross-domain: ["push","chat"]
+When NOT to call:
+- Non-technical chat/greeting/small talk.
+- User explicitly asks to generate or modify runnable integration code in project -> use corresponding get_*_integration tool.
 
-**frameworks** (same decision order as requires-framework.ts):
-If provided -> search. If response is needs_framework -> call present_framework_choice, then retry.
-chat + error code / ERR_ -> ask platform first | native_trtc_sdk -> MUST include one of android / ios / c++ | rtcengine -> implicit web
-push: vendor name alone is not a platform (framework optional); enablement / console / vendor config may omit framework; if android / ios / flutter etc. appear -> MUST pass framework
-billing / REST / Webhook / UserSig -> framework optional | if types only contain server_api / webhook / product -> framework optional
-console / product capability config (multi-device login, login policy, message storage, console settings) -> types=["product"], not feature; even if Agent passes feature, runtime treats as cross-platform product config
-if types include api / component / feature / plugin / sdk / integration -> framework required | API / component / enterRoom / SDK / plugin / troubleshooting usually require framework or a follow-up question
+Hard input rule:
+- prompt MUST preserve original user question verbatim. Do NOT expand, rewrite, or inject extra assumptions.
 
-**types**: usually omit. Open default narrow case: ["faq"]. Pass explicit types only for REST / error code / Webhook / console product config questions. Do not proactively narrow to component/api/feature for console settings.
-- Discovery / listing questions ("what components are available", "有哪些组件/API") -> MUST omit types (narrowing kills recall).
-- component and feature are equivalent (UIKit docs are tagged feature); passing either matches both. RoomKit / LiveKit Web are Vue-based (framework=web already covers vue).
+Product routing:
+- push: TIMPush / push / vendor channel / FCM / APNs / Huawei / Xiaomi / OPPO / vivo
+- chat: conversation / TUIKit / ChatKit / IM / theme
+- call: CallKit / call
+- live: LiveKit / live streaming / voice room
+- room: RoomKit / meeting
+- trtc: Web TRTC / WebRTC / TRTCCloud / Native SDK / client
+- iot: IoT / kids watch / recording card / security camera / smart vision service / IoT client API
+- Multi-domain is allowed (e.g. ["push","chat"]).
 
-**L0/L1**: For local fragments, answer only from the returned text. For chat/urls/ results, fetch the official URL before stating facts. Never invent content.
+Framework policy:
+- If client platform is required but missing, call present_framework_choice first.
+- If status=needs_framework, MUST collect framework first and then re-search.
+- Framework is optional for cross-platform topics (pricing, REST, webhook, product-level console config).
 
-**Returns**: status, confidence, fragments(doc_urls), meta.references/exact_hits, top_score/second_score, queryID, message, meta.answer_contract. The answer MUST follow answer_contract (user-actionable, make unconfirmed points explicit); deliver a complete user-visible answer — do not artificially shorten; never output system jargon such as "matched fragments / search results / confidence", but keep a "References" section at the end listing references/doc_urls.
+Types policy:
+- Default: do not pass types.
+- Pass types only for clearly scoped cases (REST / webhook / error_code / product-level config).
+- For discovery/listing questions (e.g. "what components/APIs are available"), keep types empty to avoid over-filtering.
 
-**Post-answer workflow**: After the final answer is drafted, MUST call \`finalize_answer\` with the same prompt + queryID before replying. Append its follow-up text. On explicit follow-up feedback, call \`submit_feedback\`.
+Few-shot:
+- User: "What does TRTC error 10015 mean?" -> CALL search_trtc_knowledge
+- User: "What components are configurable in RoomKit?" -> CALL search_trtc_knowledge
+- User: "How much is the Chat Pro plan, and what does it support?" -> CALL search_trtc_knowledge (product=["chat"], internally resolved by the deterministic package matrix, kind:"package_result")
+- User: "Is the UI component itself a separate charge?" -> CALL search_trtc_knowledge (billing-rule question, internally resolved by the matrix, no product array required)
+- User: "Integrate Web Chat UIKit into my React project and provide runnable code" -> Prefer get_*_integration (not this tool first)
+
+Return contract:
+- Two possible shapes (both carry message/meta.answer_contract, both require finalize_answer/submit_feedback the same way):
+  1. Retrieval branch: status/confidence/fragments/meta.references/queryID/answer_contract.
+  2. Package branch (kind:"package_result"): deterministic matrix lookup, NOT a retrieval result — packages[]/faq/queryID/message/meta.answer_contract. Field semantics differ from the retrieval branch (no confidence/fragments/retrieval_mode); render packages[]/faq fields verbatim per meta.answer_contract.
+- Before final user reply, MUST call finalize_answer (required for both branches).
+- After explicit follow-up feedback, MUST call submit_feedback.
 `;
 const PARAMETER_DESCRIPTIONS = {
-    prompt: "The user's original question VERBATIM. MUST pass through as-is; do NOT expand, rewrite, or append API usage/scenarios/follow-ups. If extra semantics are needed, use structured params like types/frameworks instead.",
-    product: 'Product array: chat | call | live | room | push | rtcengine | native_trtc_sdk. If inferable, MUST pass it. Push takes priority for TIMPush / push topics and must not be misrouted to chat. Common live keywords: LiveKit / live streaming / voice room / TUILiveKit / AtomicXCore / host streaming / watch live. If uncertain, ask the user first.',
-    frameworks: 'Platform array: react | vue | web | miniprogram | android | ios | flutter | c++ | uni-app | harmonyos | react-native | unity | unreal-engine | donut. Multiple platforms can be passed for cross-platform lookup. For CallKit, TUICallKit is best searched separately by react/vue, while TUICallEngine/TUICallEvent still map to web; use miniprogram for Mini Program. harmonyos / react-native / unity / unreal-engine / donut are only valid for push. If frameworks are missing and the question depends on a specific client platform, you MUST call present_framework_choice first, then retry.',
-    types: 'Usually omit. Allowed values: integration | component | feature | api | plugin | sdk | faq | error_code | product | server_api | webhook. component and feature are equivalent (match both). Discovery/listing questions ("what components are available") MUST omit types. Console/billing/product-capability config -> product (not feature). Do not proactively over-narrow.',
-    scenario: 'live | voice. Only valid for the live product.',
-    queryID: "First call: ''. Follow-up calls in the same consultation MUST pass through the original queryID returned by the server.",
-    ide: 'IDE name (cursor|claude-code|vscode|codebuddy|codex|trae｜others). Required.',
-    from: 'Empty string by default.',
-    limit: 'Number of fragments. Default 8, maximum 16.',
+    prompt: 'Original user question, MUST be passed verbatim. Do not rewrite or extend. Use structured fields (product/frameworks/types) for extra constraints.',
+    product: 'Product array: chat|call|live|room|push|trtc|iot. Infer and pass when confident. push has priority for TIMPush/push queries.',
+    frameworks: 'Framework/platform array: react|vue|web|miniprogram|android|ios|flutter|c++|uni-app|harmonyos|react-native|unity|unreal-engine|donut. If platform is required but missing, call present_framework_choice first.',
+    types: 'Optional filter. Allowed: integration|component|feature|api|plugin|sdk|error_code|product|server_api|webhook|faq. Keep empty for discovery/listing queries.',
+    requirements: 'Capability requirements for package selection, e.g. ["virtual background","multi-guest"] / ["recording","AI"]. ONLY for package/pricing selection questions; leave empty for technical questions. Version name / budget are extracted internally from prompt, do not encode them here.',
+    scenario: 'live|voice, only for live product.',
+    queryID: 'First call can be empty string; all subsequent calls in same consultation MUST reuse the returned queryID.',
+    ide: 'IDE name: cursor|claude-code|vscode|codebuddy|codex|trae|others.',
+    from: 'Optional, default empty string.',
+    limit: 'Fragment count, default 8, max 16.',
 };
 export const SEARCH_KNOWLEDGE_DEFINITION = {
     name: 'search_trtc_knowledge',

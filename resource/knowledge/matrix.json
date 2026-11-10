@@ -1,0 +1,1577 @@
+{
+  "trtc_versions": [
+    {
+      "name": "Free Trial (Default Edition)",
+      "price": 0,
+      "abilities": [
+        {
+          "name": "Pay-as-you-go upon exhaustion (before the package expires)",
+          "source": "https://trtc.io/document/56025"
+        },
+        {
+          "name": "Audio/Video call",
+          "source": "https://trtc.io/document/56025"
+        },
+        {
+          "name": "On-cloud recording",
+          "source": "https://trtc.io/document/56025"
+        },
+        {
+          "name": "On-Cloud MixTranscoding",
+          "source": "https://trtc.io/document/56025"
+        },
+        {
+          "name": "Relay to CDN",
+          "source": "https://trtc.io/document/56025"
+        },
+        {
+          "name": "Conversational AI Services (pay-as-you-go)",
+          "source": "https://trtc.io/document/56025"
+        },
+        {
+          "name": "Speech-to-Text (pay-as-you-go)",
+          "source": "https://trtc.io/document/56025"
+        },
+        {
+          "name": "AI Real-Time Translation (pay-as-you-go)",
+          "source": "https://trtc.io/document/56025"
+        },
+        {
+          "name": "Text-to-Speech (pay-as-you-go)",
+          "source": "https://trtc.io/document/56025"
+        }
+      ],
+      "platforms": [
+        "iOS/macOS",
+        "Android",
+        "Windows",
+        "Web",
+        "Electron",
+        "Flutter",
+        "React Native"
+      ],
+      "limits": [
+        {
+          "name": "Free minutes (deducts the duration of audio/video call, On-Cloud recording, and On-Cloud MixTranscoding+ Conversational AI+ Speech AI)",
+          "value": "10,000 minutes/month"
+        }
+      ]
+    },
+    {
+      "name": "Lite",
+      "price": 49.5,
+      "abilities": [
+        {
+          "name": "Pay-as-you-go upon exhaustion (before the package expires)",
+          "source": "https://trtc.io/document/56025"
+        },
+        {
+          "name": "Audio/Video call",
+          "source": "https://trtc.io/document/56025"
+        },
+        {
+          "name": "On-cloud recording",
+          "source": "https://trtc.io/document/56025"
+        },
+        {
+          "name": "On-Cloud MixTranscoding",
+          "source": "https://trtc.io/document/56025"
+        },
+        {
+          "name": "Relay to CDN",
+          "source": "https://trtc.io/document/56025"
+        },
+        {
+          "name": "Conversational AI Services (pay-as-you-go)",
+          "source": "https://trtc.io/document/56025"
+        },
+        {
+          "name": "Speech-to-Text (pay-as-you-go)",
+          "source": "https://trtc.io/document/56025"
+        },
+        {
+          "name": "AI Real-Time Translation (pay-as-you-go)",
+          "source": "https://trtc.io/document/56025"
+        },
+        {
+          "name": "Text-to-Speech (pay-as-you-go)",
+          "source": "https://trtc.io/document/56025"
+        }
+      ],
+      "platforms": [
+        "iOS/macOS",
+        "Android",
+        "Windows",
+        "Web",
+        "Electron",
+        "Flutter",
+        "React Native"
+      ],
+      "limits": [
+        {
+          "name": "Free minutes (deducts the duration of audio/video call, On-Cloud recording, and On-Cloud MixTranscoding+ Conversational AI+ Speech AI)",
+          "value": "10,000 minutes/month"
+        },
+        {
+          "name": "Package minutes (deducts audio/video call duration)",
+          "value": "50,000 minutes/month"
+        },
+        {
+          "name": "Technical support",
+          "value": "Response time: 5 days/12 hours P1 - 2 hours P2 - 6 hours P3 - 12 hours"
+        }
+      ]
+    },
+    {
+      "name": "Standard",
+      "price": 499,
+      "abilities": [
+        {
+          "name": "Pay-as-you-go upon exhaustion (before the package expires)",
+          "source": "https://trtc.io/document/56025"
+        },
+        {
+          "name": "Audio/Video call",
+          "source": "https://trtc.io/document/56025"
+        },
+        {
+          "name": "On-cloud recording",
+          "source": "https://trtc.io/document/56025"
+        },
+        {
+          "name": "On-Cloud MixTranscoding",
+          "source": "https://trtc.io/document/56025"
+        },
+        {
+          "name": "Relay to CDN",
+          "source": "https://trtc.io/document/56025"
+        },
+        {
+          "name": "Relay to third-party CDNs",
+          "source": "https://trtc.io/document/56025"
+        },
+        {
+          "name": "AI noise suppression",
+          "source": "https://trtc.io/document/56025"
+        },
+        {
+          "name": "Less stutter under poor network conditions",
+          "source": "https://trtc.io/document/56025"
+        },
+        {
+          "name": "Pushing to rooms over RTMP",
+          "source": "https://trtc.io/document/56025"
+        },
+        {
+          "name": "Pushing online media streams",
+          "source": "https://trtc.io/document/56025"
+        },
+        {
+          "name": "Conversational AI Services (pay-as-you-go)",
+          "source": "https://trtc.io/document/56025"
+        },
+        {
+          "name": "Speech-to-Text (pay-as-you-go)",
+          "source": "https://trtc.io/document/56025"
+        },
+        {
+          "name": "AI Real-Time Translation (pay-as-you-go)",
+          "source": "https://trtc.io/document/56025"
+        },
+        {
+          "name": "Text-to-Speech (pay-as-you-go)",
+          "source": "https://trtc.io/document/56025"
+        }
+      ],
+      "platforms": [
+        "iOS/macOS",
+        "Android",
+        "Windows",
+        "Web",
+        "Electron",
+        "Flutter",
+        "React Native"
+      ],
+      "limits": [
+        {
+          "name": "Free minutes (deducts the duration of audio/video call, On-Cloud recording, and On-Cloud MixTranscoding+ Conversational AI+ Speech AI)",
+          "value": "10,000 minutes/month"
+        },
+        {
+          "name": "Package minutes (deducts audio/video call duration)",
+          "value": "500,000 minutes/month"
+        },
+        {
+          "name": "Technical support",
+          "value": "Response time: 5 days/12 hours P1 - 2 hours P2 - 6 hours P3 - 12 hours"
+        }
+      ]
+    },
+    {
+      "name": "Pro",
+      "price": 1499,
+      "abilities": [
+        {
+          "name": "Pay-as-you-go upon exhaustion (before the package expires)",
+          "source": "https://trtc.io/document/56025"
+        },
+        {
+          "name": "Audio/Video call",
+          "source": "https://trtc.io/document/56025"
+        },
+        {
+          "name": "On-cloud recording",
+          "source": "https://trtc.io/document/56025"
+        },
+        {
+          "name": "On-Cloud MixTranscoding",
+          "source": "https://trtc.io/document/56025"
+        },
+        {
+          "name": "Relay to CDN",
+          "source": "https://trtc.io/document/56025"
+        },
+        {
+          "name": "Relay to third-party CDNs",
+          "source": "https://trtc.io/document/56025"
+        },
+        {
+          "name": "AI noise suppression",
+          "source": "https://trtc.io/document/56025"
+        },
+        {
+          "name": "Less stutter under poor network conditions",
+          "source": "https://trtc.io/document/56025"
+        },
+        {
+          "name": "Pushing to rooms over RTMP",
+          "source": "https://trtc.io/document/56025"
+        },
+        {
+          "name": "Pushing online media streams",
+          "source": "https://trtc.io/document/56025"
+        },
+        {
+          "name": "Video screenshot upload",
+          "source": "https://trtc.io/document/56025"
+        },
+        {
+          "name": "Web Page Recording",
+          "source": "https://trtc.io/document/56025"
+        },
+        {
+          "name": "3D spatial audio",
+          "source": "https://trtc.io/document/56025"
+        },
+        {
+          "name": "Scaled video coding",
+          "source": "https://trtc.io/document/56025"
+        },
+        {
+          "name": "Region of interest coding",
+          "source": "https://trtc.io/document/56025"
+        },
+        {
+          "name": "2K/4K video quality",
+          "source": "https://trtc.io/document/56025"
+        },
+        {
+          "name": "Voice Changer Effect",
+          "source": "https://trtc.io/document/56025"
+        },
+        {
+          "name": "Conversational AI Services (pay-as-you-go)",
+          "source": "https://trtc.io/document/56025"
+        },
+        {
+          "name": "Speech-to-Text (pay-as-you-go)",
+          "source": "https://trtc.io/document/56025"
+        },
+        {
+          "name": "AI Real-Time Translation (pay-as-you-go)",
+          "source": "https://trtc.io/document/56025"
+        },
+        {
+          "name": "Text-to-Speech (pay-as-you-go)",
+          "source": "https://trtc.io/document/56025"
+        }
+      ],
+      "platforms": [
+        "iOS/macOS",
+        "Android",
+        "Windows",
+        "Web",
+        "Electron",
+        "Flutter",
+        "React Native"
+      ],
+      "limits": [
+        {
+          "name": "Free minutes (deducts the duration of audio/video call, On-Cloud recording, and On-Cloud MixTranscoding+ Conversational AI+ Speech AI)",
+          "value": "10,000 minutes/month"
+        },
+        {
+          "name": "Package minutes (deducts audio/video call duration)",
+          "value": "1,500,000 minutes/month"
+        },
+        {
+          "name": "Technical support",
+          "value": "Response time: 7 days/24 hours P1 - 1 hour P2 - 4 hours P3 - 8 hours"
+        }
+      ]
+    }
+  ],
+  "im_versions": [
+    {
+      "name": "Free",
+      "price": 0,
+      "abilities": [],
+      "limits": [
+        {
+          "name": "Included MAU",
+          "value": "1,000"
+        }
+      ]
+    },
+    {
+      "name": "Standard",
+      "price": 399,
+      "abilities": [],
+      "limits": [
+        {
+          "name": "Included MAU",
+          "value": "10,000"
+        }
+      ]
+    },
+    {
+      "name": "Pro",
+      "price": 699,
+      "abilities": [],
+      "limits": [
+        {
+          "name": "Included MAU",
+          "value": "10,000"
+        }
+      ]
+    },
+    {
+      "name": "Pro Plus",
+      "price": 1299,
+      "abilities": [],
+      "limits": [
+        {
+          "name": "Included MAU",
+          "value": "25,000"
+        }
+      ]
+    }
+  ],
+  "components": [
+    {
+      "product": "call",
+      "versions": [
+        {
+          "name": "Free Trial",
+          "price": 0,
+          "abilities": [
+            {
+              "name": "Pay-as-you-go upon Exhaustion (within the validity of the package)",
+              "source": "https://trtc.io/document/54632",
+              "note": "Services become unavailable after exhaustion."
+            },
+            {
+              "name": "Audio/Video Calls",
+              "source": "https://trtc.io/document/54632"
+            },
+            {
+              "name": "Complete UI",
+              "source": "https://trtc.io/document/54632"
+            },
+            {
+              "name": "Call Status Display",
+              "source": "https://trtc.io/document/54632"
+            },
+            {
+              "name": "Call Notifications and Offline Push (If the application is not in the foreground, push notifications will be sent.)",
+              "source": "https://trtc.io/document/54632"
+            },
+            {
+              "name": "Floating Window (The call page can be displayed as a floating window.)",
+              "source": "https://trtc.io/document/54632"
+            },
+            {
+              "name": "Custom Ringtones",
+              "source": "https://trtc.io/document/54632"
+            },
+            {
+              "name": "Make/Answer/Decline/Hang up a Call",
+              "source": "https://trtc.io/document/54632"
+            },
+            {
+              "name": "Video Call Switch to Audio Call",
+              "source": "https://trtc.io/document/54632"
+            },
+            {
+              "name": "One-to-One Call",
+              "source": "https://trtc.io/document/54632"
+            },
+            {
+              "name": "Group Call (up to 9 people)",
+              "source": "https://trtc.io/document/54632"
+            },
+            {
+              "name": "Invite to/Join Ongoing Calls",
+              "source": "https://trtc.io/document/54632"
+            },
+            {
+              "name": "Call History API (Supports using callbacks and RESTful APIs to obtain call history data.)",
+              "source": "https://trtc.io/document/54632"
+            },
+            {
+              "name": "Multi-Platform Call (A successful connection will automatically terminate requests from other platforms.)",
+              "source": "https://trtc.io/document/54632"
+            },
+            {
+              "name": "Multi-Device Call (A user can be logged in to multiple devices of the same platform, such as several iOS devices. When a call is answered, the device that connects will automatically prevent other devices from accessing the call.)",
+              "source": "https://trtc.io/document/54632",
+              "note": "✓ (Must be used together with Chat Pro)"
+            },
+            {
+              "name": "Virtual Backgrounds",
+              "source": "https://trtc.io/document/54632"
+            },
+            {
+              "name": "AI Noise Suppression (Removes background noises with the help of AI.)",
+              "source": "https://trtc.io/document/54632"
+            },
+            {
+              "name": "Less Stutter under Poor Network Conditions (Reduces stutter rate and loading time under poor network conditions.)",
+              "source": "https://trtc.io/document/54632"
+            },
+            {
+              "name": "On-Cloud Recording",
+              "source": "https://trtc.io/document/54632"
+            },
+            {
+              "name": "On-Cloud Mixtranscoding",
+              "source": "https://trtc.io/document/54632"
+            },
+            {
+              "name": "Relay to CDN",
+              "source": "https://trtc.io/document/54632"
+            }
+          ],
+          "limits": [
+            {
+              "name": "Free Minutes",
+              "value": "10,000 minutes/month"
+            },
+            {
+              "name": "Quota of Free Monthly Active Users (MAU)",
+              "value": "100/month"
+            }
+          ]
+        },
+        {
+          "name": "1-to-1 Call",
+          "price": 199,
+          "abilities": [
+            {
+              "name": "Pay-as-you-go upon Exhaustion (within the validity of the package)",
+              "source": "https://trtc.io/document/54632"
+            },
+            {
+              "name": "Audio/Video Calls",
+              "source": "https://trtc.io/document/54632"
+            },
+            {
+              "name": "Complete UI",
+              "source": "https://trtc.io/document/54632"
+            },
+            {
+              "name": "Call Status Display",
+              "source": "https://trtc.io/document/54632"
+            },
+            {
+              "name": "Call Notifications and Offline Push (If the application is not in the foreground, push notifications will be sent.)",
+              "source": "https://trtc.io/document/54632"
+            },
+            {
+              "name": "Floating Window (The call page can be displayed as a floating window.)",
+              "source": "https://trtc.io/document/54632"
+            },
+            {
+              "name": "Custom Ringtones",
+              "source": "https://trtc.io/document/54632"
+            },
+            {
+              "name": "Make/Answer/Decline/Hang up a Call",
+              "source": "https://trtc.io/document/54632"
+            },
+            {
+              "name": "Video Call Switch to Audio Call",
+              "source": "https://trtc.io/document/54632"
+            },
+            {
+              "name": "One-to-One Call",
+              "source": "https://trtc.io/document/54632"
+            },
+            {
+              "name": "On-Cloud Recording",
+              "source": "https://trtc.io/document/54632"
+            },
+            {
+              "name": "On-Cloud Mixtranscoding",
+              "source": "https://trtc.io/document/54632"
+            },
+            {
+              "name": "Relay to CDN",
+              "source": "https://trtc.io/document/54632"
+            }
+          ],
+          "limits": [
+            {
+              "name": "Free Minutes",
+              "value": "10,000 minutes/month"
+            },
+            {
+              "name": "Package Minutes",
+              "value": "100,000 minutes/month"
+            },
+            {
+              "name": "Quota of Free Monthly Active Users (MAU)",
+              "value": "5,000/month"
+            },
+            {
+              "name": "Technical Support",
+              "value": "Response time: 5 day/12 hour P1 - 2 hours P2 - 6 hours P3 - 12 hours"
+            }
+          ]
+        },
+        {
+          "name": "Group Call",
+          "price": 597,
+          "abilities": [
+            {
+              "name": "Pay-as-you-go upon Exhaustion (within the validity of the package)",
+              "source": "https://trtc.io/document/54632"
+            },
+            {
+              "name": "Audio/Video Calls",
+              "source": "https://trtc.io/document/54632"
+            },
+            {
+              "name": "Complete UI",
+              "source": "https://trtc.io/document/54632"
+            },
+            {
+              "name": "Call Status Display",
+              "source": "https://trtc.io/document/54632"
+            },
+            {
+              "name": "Call Notifications and Offline Push (If the application is not in the foreground, push notifications will be sent.)",
+              "source": "https://trtc.io/document/54632"
+            },
+            {
+              "name": "Floating Window (The call page can be displayed as a floating window.)",
+              "source": "https://trtc.io/document/54632"
+            },
+            {
+              "name": "Custom Ringtones",
+              "source": "https://trtc.io/document/54632"
+            },
+            {
+              "name": "Make/Answer/Decline/Hang up a Call",
+              "source": "https://trtc.io/document/54632"
+            },
+            {
+              "name": "Video Call Switch to Audio Call",
+              "source": "https://trtc.io/document/54632"
+            },
+            {
+              "name": "One-to-One Call",
+              "source": "https://trtc.io/document/54632"
+            },
+            {
+              "name": "Group Call (up to 9 people)",
+              "source": "https://trtc.io/document/54632"
+            },
+            {
+              "name": "Invite to/Join Ongoing Calls",
+              "source": "https://trtc.io/document/54632"
+            },
+            {
+              "name": "Call History API (Supports using callbacks and RESTful APIs to obtain call history data.)",
+              "source": "https://trtc.io/document/54632"
+            },
+            {
+              "name": "Multi-Platform Call (A successful connection will automatically terminate requests from other platforms.)",
+              "source": "https://trtc.io/document/54632"
+            },
+            {
+              "name": "Multi-Device Call (A user can be logged in to multiple devices of the same platform, such as several iOS devices. When a call is answered, the device that connects will automatically prevent other devices from accessing the call.)",
+              "source": "https://trtc.io/document/54632"
+            },
+            {
+              "name": "Virtual Backgrounds",
+              "source": "https://trtc.io/document/54632"
+            },
+            {
+              "name": "AI Noise Suppression (Removes background noises with the help of AI.)",
+              "source": "https://trtc.io/document/54632"
+            },
+            {
+              "name": "Less Stutter under Poor Network Conditions (Reduces stutter rate and loading time under poor network conditions.)",
+              "source": "https://trtc.io/document/54632"
+            },
+            {
+              "name": "On-Cloud Recording",
+              "source": "https://trtc.io/document/54632"
+            },
+            {
+              "name": "On-Cloud Mixtranscoding",
+              "source": "https://trtc.io/document/54632"
+            },
+            {
+              "name": "Relay to CDN",
+              "source": "https://trtc.io/document/54632"
+            }
+          ],
+          "limits": [
+            {
+              "name": "Free Minutes",
+              "value": "10,000 minutes/month"
+            },
+            {
+              "name": "Package Minutes",
+              "value": "300,000 minutes/month"
+            },
+            {
+              "name": "Quota of Free Monthly Active Users (MAU)",
+              "value": "10,000/month"
+            },
+            {
+              "name": "Technical Support",
+              "value": "Response time: 7 day/24 hour P1 - 1 hour P2 - 4 hours P3 - 8 hours"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "product": "live",
+      "versions": [
+        {
+          "name": "Free Trial",
+          "price": 0,
+          "abilities": [
+            {
+              "name": "Pay-as-you-go upon Exhaustion (within the validity of the package)",
+              "source": "https://trtc.io/document/59407",
+              "note": "Services become unavailable after exhaustion."
+            },
+            {
+              "name": "Single-room Multi-Guest",
+              "source": "https://trtc.io/document/59407",
+              "note": "Up to 16 Multi-Guests per Room"
+            },
+            {
+              "name": "Cross-room Multi-Guest/PK",
+              "source": "https://trtc.io/document/59407",
+              "note": "Up to 9-Room Simultaneous PK"
+            },
+            {
+              "name": "Gift System",
+              "source": "https://trtc.io/document/59407",
+              "note": "Up to 30 Gifts"
+            },
+            {
+              "name": "Video Live component",
+              "source": "https://trtc.io/document/59407"
+            },
+            {
+              "name": "Live Audio Room component",
+              "source": "https://trtc.io/document/59407"
+            },
+            {
+              "name": "Live Preview",
+              "source": "https://trtc.io/document/59407"
+            },
+            {
+              "name": "Live Feed",
+              "source": "https://trtc.io/document/59407"
+            },
+            {
+              "name": "View Past Messages",
+              "source": "https://trtc.io/document/59407"
+            },
+            {
+              "name": "Follow",
+              "source": "https://trtc.io/document/59407"
+            },
+            {
+              "name": "In-Room Search",
+              "source": "https://trtc.io/document/59407"
+            },
+            {
+              "name": "Chat in Live Room",
+              "source": "https://trtc.io/document/59407"
+            },
+            {
+              "name": "Face Beautification",
+              "source": "https://trtc.io/document/59407"
+            },
+            {
+              "name": "Audience List",
+              "source": "https://trtc.io/document/59407"
+            },
+            {
+              "name": "PC Live Streaming Assistant",
+              "source": "https://trtc.io/document/59407"
+            },
+            {
+              "name": "RTMP Entry/Input Online Media Stream",
+              "source": "https://trtc.io/document/59407"
+            },
+            {
+              "name": "QUIC Weak Network Optimization",
+              "source": "https://trtc.io/document/59407"
+            },
+            {
+              "name": "AI Noise Suppression",
+              "source": "https://trtc.io/document/59407"
+            },
+            {
+              "name": "On-cloud Recording",
+              "source": "https://trtc.io/document/59407"
+            },
+            {
+              "name": "On-Cloud Mix-Transcoding",
+              "source": "https://trtc.io/document/59407"
+            }
+          ],
+          "limits": [
+            {
+              "name": "Free Minutes",
+              "value": "10,000 minutes/month"
+            },
+            {
+              "name": "Quota of Free Monthly Active Users (MAU)",
+              "value": "100/month"
+            },
+            {
+              "name": "Max Live Rooms",
+              "value": "10"
+            },
+            {
+              "name": "Max Viewers in a Room",
+              "value": "100"
+            },
+            {
+              "name": "Number of robots",
+              "value": "30"
+            },
+            {
+              "name": "Max Input Resolution",
+              "value": "2K/4K"
+            }
+          ]
+        },
+        {
+          "name": "Lite",
+          "price": 299,
+          "abilities": [
+            {
+              "name": "Pay-as-you-go upon Exhaustion (within the validity of the package)",
+              "source": "https://trtc.io/document/59407"
+            },
+            {
+              "name": "Single-room Multi-Guest",
+              "source": "https://trtc.io/document/59407",
+              "note": "Standard or Pro Only"
+            },
+            {
+              "name": "Video Live component",
+              "source": "https://trtc.io/document/59407"
+            },
+            {
+              "name": "Live Audio Room component",
+              "source": "https://trtc.io/document/59407"
+            },
+            {
+              "name": "Chat in Live Room",
+              "source": "https://trtc.io/document/59407"
+            },
+            {
+              "name": "Face Beautification",
+              "source": "https://trtc.io/document/59407"
+            },
+            {
+              "name": "Audience List",
+              "source": "https://trtc.io/document/59407"
+            },
+            {
+              "name": "PC Live Streaming Assistant",
+              "source": "https://trtc.io/document/59407",
+              "note": "✓ （Time-Limited Freebie）"
+            },
+            {
+              "name": "On-cloud Recording",
+              "source": "https://trtc.io/document/59407"
+            },
+            {
+              "name": "On-Cloud Mix-Transcoding",
+              "source": "https://trtc.io/document/59407"
+            }
+          ],
+          "limits": [
+            {
+              "name": "Free Minutes",
+              "value": "10,000 minutes/month"
+            },
+            {
+              "name": "Package Minutes",
+              "value": "100,000 minutes/month"
+            },
+            {
+              "name": "Quota of Free Monthly Active Users (MAU)",
+              "value": "10,000/month"
+            },
+            {
+              "name": "Max Live Rooms",
+              "value": "30"
+            },
+            {
+              "name": "Max Viewers in a Room",
+              "value": "500"
+            },
+            {
+              "name": "Max Input Resolution",
+              "value": "1080P"
+            },
+            {
+              "name": "Technical Support",
+              "value": "Response time: 5 days/12 h P1 - 2 h P2 - 6 h P3 - 12 h"
+            }
+          ]
+        },
+        {
+          "name": "Standard",
+          "price": 599,
+          "abilities": [
+            {
+              "name": "Pay-as-you-go upon Exhaustion (within the validity of the package)",
+              "source": "https://trtc.io/document/59407"
+            },
+            {
+              "name": "Single-room Multi-Guest",
+              "source": "https://trtc.io/document/59407",
+              "note": "Up to 10 Multi-Guests per Room"
+            },
+            {
+              "name": "Cross-room Multi-Guest/PK",
+              "source": "https://trtc.io/document/59407",
+              "note": "Up to 2-Room Simultaneous PK"
+            },
+            {
+              "name": "Gift System",
+              "source": "https://trtc.io/document/59407",
+              "note": "Up to 10 Gifts"
+            },
+            {
+              "name": "Video Live component",
+              "source": "https://trtc.io/document/59407"
+            },
+            {
+              "name": "Live Audio Room component",
+              "source": "https://trtc.io/document/59407"
+            },
+            {
+              "name": "Chat in Live Room",
+              "source": "https://trtc.io/document/59407"
+            },
+            {
+              "name": "Face Beautification",
+              "source": "https://trtc.io/document/59407"
+            },
+            {
+              "name": "Audience List",
+              "source": "https://trtc.io/document/59407"
+            },
+            {
+              "name": "PC Live Streaming Assistant",
+              "source": "https://trtc.io/document/59407",
+              "note": "✓ （Time-Limited Freebie）"
+            },
+            {
+              "name": "RTMP Entry/Input Online Media Stream",
+              "source": "https://trtc.io/document/59407"
+            },
+            {
+              "name": "AI Noise Suppression",
+              "source": "https://trtc.io/document/59407"
+            },
+            {
+              "name": "On-cloud Recording",
+              "source": "https://trtc.io/document/59407"
+            },
+            {
+              "name": "On-Cloud Mix-Transcoding",
+              "source": "https://trtc.io/document/59407"
+            }
+          ],
+          "limits": [
+            {
+              "name": "Free Minutes",
+              "value": "10,000 minutes/month"
+            },
+            {
+              "name": "Package Minutes",
+              "value": "300,000 minutes/month"
+            },
+            {
+              "name": "Quota of Free Monthly Active Users (MAU)",
+              "value": "10,000/month"
+            },
+            {
+              "name": "Max Live Rooms",
+              "value": "100"
+            },
+            {
+              "name": "Max Viewers in a Room",
+              "value": "5000"
+            },
+            {
+              "name": "Number of robots",
+              "value": "10"
+            },
+            {
+              "name": "Max Input Resolution",
+              "value": "1080P"
+            },
+            {
+              "name": "Technical Support",
+              "value": "Response time: 7 days/24 h P1 - 1 h P2 - 4 h P3 - 9 h"
+            }
+          ]
+        },
+        {
+          "name": "Pro",
+          "price": 899,
+          "abilities": [
+            {
+              "name": "Pay-as-you-go upon Exhaustion (within the validity of the package)",
+              "source": "https://trtc.io/document/59407"
+            },
+            {
+              "name": "Max Viewers in a Room",
+              "source": "https://trtc.io/document/59407",
+              "note": "Unlimited"
+            },
+            {
+              "name": "Single-room Multi-Guest",
+              "source": "https://trtc.io/document/59407",
+              "note": "Up to 16 Multi-Guests per Room"
+            },
+            {
+              "name": "Cross-room Multi-Guest/PK",
+              "source": "https://trtc.io/document/59407",
+              "note": "Up to 9-Room Simultaneous PK"
+            },
+            {
+              "name": "Gift System",
+              "source": "https://trtc.io/document/59407",
+              "note": "Up to 30 Gifts"
+            },
+            {
+              "name": "Video Live component",
+              "source": "https://trtc.io/document/59407"
+            },
+            {
+              "name": "Live Audio Room component",
+              "source": "https://trtc.io/document/59407"
+            },
+            {
+              "name": "Live Preview",
+              "source": "https://trtc.io/document/59407"
+            },
+            {
+              "name": "Live Feed",
+              "source": "https://trtc.io/document/59407"
+            },
+            {
+              "name": "View Past Messages",
+              "source": "https://trtc.io/document/59407"
+            },
+            {
+              "name": "Follow",
+              "source": "https://trtc.io/document/59407"
+            },
+            {
+              "name": "In-Room Search",
+              "source": "https://trtc.io/document/59407"
+            },
+            {
+              "name": "Chat in Live Room",
+              "source": "https://trtc.io/document/59407"
+            },
+            {
+              "name": "Face Beautification",
+              "source": "https://trtc.io/document/59407"
+            },
+            {
+              "name": "Audience List",
+              "source": "https://trtc.io/document/59407"
+            },
+            {
+              "name": "PC Live Streaming Assistant",
+              "source": "https://trtc.io/document/59407"
+            },
+            {
+              "name": "RTMP Entry/Input Online Media Stream",
+              "source": "https://trtc.io/document/59407"
+            },
+            {
+              "name": "QUIC Weak Network Optimization",
+              "source": "https://trtc.io/document/59407"
+            },
+            {
+              "name": "AI Noise Suppression",
+              "source": "https://trtc.io/document/59407"
+            },
+            {
+              "name": "Ultimate Image Quality（beta）",
+              "source": "https://trtc.io/document/59407",
+              "note": "✓ (Apply for Test)"
+            },
+            {
+              "name": "On-cloud Recording",
+              "source": "https://trtc.io/document/59407"
+            },
+            {
+              "name": "On-Cloud Mix-Transcoding",
+              "source": "https://trtc.io/document/59407"
+            }
+          ],
+          "limits": [
+            {
+              "name": "Free Minutes",
+              "value": "10,000 minutes/month"
+            },
+            {
+              "name": "Package Minutes",
+              "value": "450,000 minutes/month"
+            },
+            {
+              "name": "Quota of Free Monthly Active Users (MAU)",
+              "value": "10,000/month"
+            },
+            {
+              "name": "Max Live Rooms",
+              "value": "500"
+            },
+            {
+              "name": "Number of robots",
+              "value": "30"
+            },
+            {
+              "name": "Max Input Resolution",
+              "value": "2K/4K"
+            },
+            {
+              "name": "Technical Support",
+              "value": "Response time: 7 days/24 h P1 - 1 h P2 - 4 h P3 - 9 h"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "product": "room",
+      "versions": [
+        {
+          "name": "Free Trial",
+          "price": 0,
+          "abilities": [
+            {
+              "name": "Pay-as-you-go upon Exhaustion (within the validity of the package)",
+              "source": "https://trtc.io/document/59409",
+              "note": "Services become unavailable after exhaustion"
+            },
+            {
+              "name": "Complete UI",
+              "source": "https://trtc.io/document/59409"
+            },
+            {
+              "name": "Custom UI",
+              "source": "https://trtc.io/document/59409"
+            },
+            {
+              "name": "Floating Window",
+              "source": "https://trtc.io/document/59409"
+            },
+            {
+              "name": "Screen Sharing",
+              "source": "https://trtc.io/document/59409"
+            },
+            {
+              "name": "Member Management",
+              "source": "https://trtc.io/document/59409"
+            },
+            {
+              "name": "Room Management",
+              "source": "https://trtc.io/document/59409"
+            },
+            {
+              "name": "Free Speech Mode",
+              "source": "https://trtc.io/document/59409"
+            },
+            {
+              "name": "Audio Mix by default",
+              "source": "https://trtc.io/document/59409"
+            },
+            {
+              "name": "On-Stage Speech Mode",
+              "source": "https://trtc.io/document/59409"
+            },
+            {
+              "name": "Microphone Management",
+              "source": "https://trtc.io/document/59409"
+            },
+            {
+              "name": "Chat in Conference",
+              "source": "https://trtc.io/document/59409"
+            },
+            {
+              "name": "AI Noise Suppression",
+              "source": "https://trtc.io/document/59409"
+            },
+            {
+              "name": "Less Stutter under Poor Network Conditions",
+              "source": "https://trtc.io/document/59409"
+            },
+            {
+              "name": "Multi-Terminal Login",
+              "source": "https://trtc.io/document/59409"
+            },
+            {
+              "name": "On-Cloud Recording",
+              "source": "https://trtc.io/document/59409"
+            },
+            {
+              "name": "On-Cloud Mix-Transcoding",
+              "source": "https://trtc.io/document/59409"
+            },
+            {
+              "name": "Relay To CDN",
+              "source": "https://trtc.io/document/59409"
+            }
+          ],
+          "limits": [
+            {
+              "name": "Free Minutes",
+              "value": "10,000 minutes/month"
+            },
+            {
+              "name": "Quota of Free Monthly Active Users (MAU)",
+              "value": "100/month"
+            },
+            {
+              "name": "Participants per Room",
+              "value": "100"
+            },
+            {
+              "name": "Active Rooms",
+              "value": "10"
+            },
+            {
+              "name": "Video Quality",
+              "value": "HD, FHD, 2K, 4K"
+            },
+            {
+              "name": "Microphone Quantity",
+              "value": "20"
+            }
+          ]
+        },
+        {
+          "name": "Lite",
+          "price": 299,
+          "abilities": [
+            {
+              "name": "Pay-as-you-go upon Exhaustion (within the validity of the package)",
+              "source": "https://trtc.io/document/59409"
+            },
+            {
+              "name": "Video Quality",
+              "source": "https://trtc.io/document/59409",
+              "note": "HD, FHD"
+            },
+            {
+              "name": "Complete UI",
+              "source": "https://trtc.io/document/59409"
+            },
+            {
+              "name": "Custom UI",
+              "source": "https://trtc.io/document/59409"
+            },
+            {
+              "name": "Floating Window",
+              "source": "https://trtc.io/document/59409"
+            },
+            {
+              "name": "Screen Sharing",
+              "source": "https://trtc.io/document/59409"
+            },
+            {
+              "name": "Member Management",
+              "source": "https://trtc.io/document/59409"
+            },
+            {
+              "name": "Room Management",
+              "source": "https://trtc.io/document/59409"
+            },
+            {
+              "name": "Free Speech Mode",
+              "source": "https://trtc.io/document/59409"
+            },
+            {
+              "name": "Audio Mix by default",
+              "source": "https://trtc.io/document/59409"
+            },
+            {
+              "name": "On-Cloud Recording",
+              "source": "https://trtc.io/document/59409"
+            },
+            {
+              "name": "On-Cloud Mix-Transcoding",
+              "source": "https://trtc.io/document/59409"
+            },
+            {
+              "name": "Relay To CDN",
+              "source": "https://trtc.io/document/59409"
+            }
+          ],
+          "limits": [
+            {
+              "name": "Free Minutes",
+              "value": "10,000 minutes/month"
+            },
+            {
+              "name": "Package Minutes",
+              "value": "100,000 minutes/month"
+            },
+            {
+              "name": "Quota of Free Monthly Active Users (MAU)",
+              "value": "10,000/month"
+            },
+            {
+              "name": "Participants per Room",
+              "value": "20"
+            },
+            {
+              "name": "Active Rooms",
+              "value": "20"
+            },
+            {
+              "name": "Technical Support",
+              "value": "Response time: 5 day/12 hour P1 - 2 hours P2 - 6 hours P3 - 12 hours"
+            }
+          ]
+        },
+        {
+          "name": "Standard",
+          "price": 599,
+          "abilities": [
+            {
+              "name": "Pay-as-you-go upon Exhaustion (within the validity of the package)",
+              "source": "https://trtc.io/document/59409"
+            },
+            {
+              "name": "Video Quality",
+              "source": "https://trtc.io/document/59409",
+              "note": "HD, FHD"
+            },
+            {
+              "name": "Complete UI",
+              "source": "https://trtc.io/document/59409"
+            },
+            {
+              "name": "Custom UI",
+              "source": "https://trtc.io/document/59409"
+            },
+            {
+              "name": "Floating Window",
+              "source": "https://trtc.io/document/59409"
+            },
+            {
+              "name": "Screen Sharing",
+              "source": "https://trtc.io/document/59409"
+            },
+            {
+              "name": "Member Management",
+              "source": "https://trtc.io/document/59409"
+            },
+            {
+              "name": "Room Management",
+              "source": "https://trtc.io/document/59409"
+            },
+            {
+              "name": "Free Speech Mode",
+              "source": "https://trtc.io/document/59409"
+            },
+            {
+              "name": "Audio Mix by default",
+              "source": "https://trtc.io/document/59409"
+            },
+            {
+              "name": "On-Stage Speech Mode",
+              "source": "https://trtc.io/document/59409"
+            },
+            {
+              "name": "Microphone Management",
+              "source": "https://trtc.io/document/59409"
+            },
+            {
+              "name": "Chat in Conference",
+              "source": "https://trtc.io/document/59409"
+            },
+            {
+              "name": "AI Noise Suppression",
+              "source": "https://trtc.io/document/59409"
+            },
+            {
+              "name": "Less Stutter under Poor Network Conditions",
+              "source": "https://trtc.io/document/59409"
+            },
+            {
+              "name": "On-Cloud Recording",
+              "source": "https://trtc.io/document/59409"
+            },
+            {
+              "name": "On-Cloud Mix-Transcoding",
+              "source": "https://trtc.io/document/59409"
+            },
+            {
+              "name": "Relay To CDN",
+              "source": "https://trtc.io/document/59409"
+            }
+          ],
+          "limits": [
+            {
+              "name": "Free Minutes",
+              "value": "10,000 minutes/month"
+            },
+            {
+              "name": "Package Minutes",
+              "value": "300,000 minutes/month"
+            },
+            {
+              "name": "Quota of Free Monthly Active Users (MAU)",
+              "value": "10,000/month"
+            },
+            {
+              "name": "Participants per Room",
+              "value": "50"
+            },
+            {
+              "name": "Active Rooms",
+              "value": "100"
+            },
+            {
+              "name": "Microphone Quantity",
+              "value": "9"
+            },
+            {
+              "name": "Technical Support",
+              "value": "Response time: 5 day/12 hour P1 - 2 hours P2 - 6 hours P3 - 12 hours"
+            }
+          ]
+        },
+        {
+          "name": "Pro",
+          "price": 899,
+          "abilities": [
+            {
+              "name": "Pay-as-you-go upon Exhaustion (within the validity of the package)",
+              "source": "https://trtc.io/document/59409"
+            },
+            {
+              "name": "Complete UI",
+              "source": "https://trtc.io/document/59409"
+            },
+            {
+              "name": "Custom UI",
+              "source": "https://trtc.io/document/59409"
+            },
+            {
+              "name": "Floating Window",
+              "source": "https://trtc.io/document/59409"
+            },
+            {
+              "name": "Screen Sharing",
+              "source": "https://trtc.io/document/59409"
+            },
+            {
+              "name": "Member Management",
+              "source": "https://trtc.io/document/59409"
+            },
+            {
+              "name": "Room Management",
+              "source": "https://trtc.io/document/59409"
+            },
+            {
+              "name": "Free Speech Mode",
+              "source": "https://trtc.io/document/59409"
+            },
+            {
+              "name": "Audio Mix by default",
+              "source": "https://trtc.io/document/59409"
+            },
+            {
+              "name": "On-Stage Speech Mode",
+              "source": "https://trtc.io/document/59409"
+            },
+            {
+              "name": "Microphone Management",
+              "source": "https://trtc.io/document/59409"
+            },
+            {
+              "name": "Chat in Conference",
+              "source": "https://trtc.io/document/59409"
+            },
+            {
+              "name": "AI Noise Suppression",
+              "source": "https://trtc.io/document/59409"
+            },
+            {
+              "name": "Less Stutter under Poor Network Conditions",
+              "source": "https://trtc.io/document/59409"
+            },
+            {
+              "name": "Multi-Terminal Login",
+              "source": "https://trtc.io/document/59409"
+            },
+            {
+              "name": "On-Cloud Recording",
+              "source": "https://trtc.io/document/59409"
+            },
+            {
+              "name": "On-Cloud Mix-Transcoding",
+              "source": "https://trtc.io/document/59409"
+            },
+            {
+              "name": "Relay To CDN",
+              "source": "https://trtc.io/document/59409"
+            }
+          ],
+          "limits": [
+            {
+              "name": "Free Minutes",
+              "value": "10,000 minutes/month"
+            },
+            {
+              "name": "Package Minutes",
+              "value": "450,000 minutes/month"
+            },
+            {
+              "name": "Quota of Free Monthly Active Users (MAU)",
+              "value": "10,000/month"
+            },
+            {
+              "name": "Participants per Room",
+              "value": "200"
+            },
+            {
+              "name": "Active Rooms",
+              "value": "200"
+            },
+            {
+              "name": "Video Quality",
+              "value": "HD, FHD, 2K, 4K"
+            },
+            {
+              "name": "Microphone Quantity",
+              "value": "20"
+            },
+            {
+              "name": "Technical Support",
+              "value": "Response time: 7 day/24 hour P1 - 1 hour P2 - 4 hours P3 - 8 hours"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "constraints": [
+    {
+      "type": "platform",
+      "description": "TRTC Live Lite and Standard editions: Web and Electron platform support is a time-limited freebie, not a guaranteed long-term entitlement; Free Trial and Pro editions have full iOS/Android/Web/Flutter/Electron support.",
+      "source": "https://trtc.io/document/59407"
+    },
+    {
+      "type": "billing",
+      "description": "TRTC Call/Live/Conference/RTC-Engine packages are prepaid: you must purchase a package before it can be used for usage deduction.",
+      "source": "https://trtc.io/document/54632"
+    },
+    {
+      "type": "billing",
+      "description": "Each TRTC package (Call/Live/Conference/RTC-Engine) is effective for a single application (SDKAppID) only; if you have multiple applications, you need to purchase a separate monthly package for each.",
+      "source": "https://trtc.io/document/56025"
+    },
+    {
+      "type": "billing",
+      "description": "Each application can be subscribed to only one TRTC package edition at a time; to change the edition before it expires, you must submit a support ticket (e.g. you cannot self-service upgrade from Live Lite to Live Standard/Pro mid-cycle).",
+      "source": "https://trtc.io/document/56025"
+    },
+    {
+      "type": "billing",
+      "description": "When a TRTC package expires without renewal, the application reverts to the Free Trial package and the paid features become unavailable; auto-renewal is recommended to avoid service interruption.",
+      "source": "https://trtc.io/document/56025"
+    },
+    {
+      "type": "billing",
+      "description": "MAU is counted per application (SDKAppID), not per product: if the same end user uses Chat, Call, Live, or Conference within the same SDKAppID in a month, it is only counted as one MAU.",
+      "source": "https://trtc.io/document/54632"
+    },
+    {
+      "type": "billing",
+      "description": "Chat (IM) monthly plans are prepaid and effective for one calendar month from the purchase date (e.g. purchased Jan 1 -> valid Jan 1 to Feb 1); each plan applies to a single application (SDKAppID).",
+      "source": "https://trtc.io/document/34349"
+    }
+  ],
+  "faq": [
+    {
+      "keywords": [
+        "can I use Call/Live/Conference on a pure pay-as-you-go basis",
+        "pay as you go only",
+        "no monthly package",
+        "postpaid only"
+      ],
+      "answer": "No. TRTC Call/Live/Conference components cannot run on pure pay-as-you-go billing — a package (at minimum the Free Trial, which is auto-assigned to new applications) must be active first; only usage exceeding the package's included resources is billed pay-as-you-go. If the package/free quota is exhausted and no paid package is active, the component becomes unavailable.",
+      "source": "https://trtc.io/document/54632"
+    },
+    {
+      "keywords": [
+        "can I upgrade my package mid-cycle",
+        "switch package edition before expiry",
+        "change plan before it expires"
+      ],
+      "answer": "No, not via self-service. Each application can only be subscribed to one package edition (Call/Live/Conference/RTC-Engine) at a time; to change the edition before the current one expires, you must submit a support ticket.",
+      "source": "https://trtc.io/document/56025"
+    },
+    {
+      "keywords": [
+        "does using Chat and Call together double-count MAU",
+        "MAU shared across Chat Call Live Conference",
+        "how is MAU calculated across products"
+      ],
+      "answer": "MAU is counted once per end user per application (SDKAppID) per month, regardless of how many Tencent RTC products (Chat/Call/Live/Conference) that user touches within the same SDKAppID — repeated logins or cross-product usage by the same user do not add extra MAU.",
+      "source": "https://trtc.io/document/54632"
+    }
+  ],
+  "_meta": {
+    "check_warnings": []
+  }
+}

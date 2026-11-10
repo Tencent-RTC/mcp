@@ -7,3 +7,6 @@ word:
   meeting: ["meeting", "roomkit", "conference"]
   room: ["meeting", "roomkit", "conference"]
   roomkit: ["meeting", "roomkit", "conference"]
+  # TRTC/IM 初始化类英文问法 → 文档实际表达（sharedInstance / create instance / singleton）
+  initialize: ["create instance", "shared instance", "singleton", "instantiate"]
+  instantiate: ["create instance", "shared instance", "singleton"]

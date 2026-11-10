@@ -21,8 +21,6 @@ export function postProcess(ranked, chunksById, limit, opts) {
             types: chunk.types,
             variant: chunk.variant,
             scope: chunk.scope,
-            doc_kind: chunk.doc_kind,
-            capability_status: chunk.capability_status,
             api_names: chunk.api_names,
             contains_code: chunk.contains_code,
             citation: `${CITATION_PREFIX} ${chunk.id}]${aggregated ? '[aggregated]' : ''}`,
@@ -36,11 +34,21 @@ export function postProcess(ranked, chunksById, limit, opts) {
             .filter((chunk) => chunk.source === opts.preferredSource)
             .sort((a, b) => a.char_start - b.char_start);
         if (sections.length > 0) {
-            return sections.map((section, idx) => buildFragment(section, scoreMap.get(section.id) ?? 0, idx + 1));
+            const fullDocumentMaxChars = Math.max(1000, opts.fullDocumentMaxChars ?? 7000);
+            const selectedSections = [];
+            let usedChars = 0;
+            for (const section of sections) {
+                const sectionChars = section.content.length;
+                if (selectedSections.length > 0 && usedChars + sectionChars > fullDocumentMaxChars)
+                    break;
+                selectedSections.push(section);
+                usedChars += sectionChars;
+            }
+            return selectedSections.map((section, idx) => buildFragment(section, scoreMap.get(section.id) ?? 0, idx + 1));
         }
     }
     const sourceCount = {};
-    const urlMappingSourceCount = {};
+    const maxPerSource = Math.max(1, opts?.maxPerSource ?? 3);
     /** 已入选的 push config/android/{vendor} 文件，用于抑制其他厂商噪声 */
     let selectedVendorFile = null;
     const fragments = [];
@@ -50,24 +58,14 @@ export function postProcess(ranked, chunksById, limit, opts) {
             continue;
         if (opts?.preferredSource && chunk.source !== opts.preferredSource)
             continue;
-        const isUrlMapping = Boolean(isUrlMappingSource(chunk.source));
-        const isPinnedUrlRow = isUrlMapping && (opts?.pinnedUrlRowChunkIds?.has(chunk.id) ?? false);
-        if (isUrlMapping) {
-            const urlCount = urlMappingSourceCount[chunk.source] ?? 0;
-            if (!isPinnedUrlRow && urlCount >= 1)
-                continue;
-            urlMappingSourceCount[chunk.source] = urlCount + 1;
-        }
-        else {
-            const count = sourceCount[chunk.source] ?? 0;
-            if (count >= 3)
-                continue;
-            sourceCount[chunk.source] = count + 1;
-        }
+        const count = sourceCount[chunk.source] ?? 0;
+        if (count >= maxPerSource)
+            continue;
+        sourceCount[chunk.source] = count + 1;
         // 当用户明确问某厂商时，抑制同目录下其他厂商文档的噪声
-        // 规则：如果已有 config/android/{vendor}.md 入选，
-        // 后续其他 config/android/{other}.md 跳过
-        const isVendorDoc = chunk.source.match(/^knowledge\/push\/config\/android\/[a-z]+\.md$/);
+        // 规则：如果已有「厂商配置/Android/{vendor}.md」入选，
+        // 后续其他「厂商配置/Android/{other}.md」跳过
+        const isVendorDoc = chunk.source.match(/^knowledge\/push\/快速接入\/厂商配置\/Android\/[^/]+\.md$/);
         if (isVendorDoc) {
             if (!selectedVendorFile) {
                 selectedVendorFile = chunk.source;
@@ -76,9 +74,9 @@ export function postProcess(ranked, chunksById, limit, opts) {
                 continue; // 跳过其他厂商
             }
         }
-        // 当已明确命中了厂商配置页后，后续的 push 通用文件（integration/、其他 config/）不再有意义
-        // 只保留同厂商文件（已由 vendor dedup 处理）和 overview 综述，其他 push 通用文档视为噪声
-        if (selectedVendorFile && chunk.source.startsWith('knowledge/push/') && !chunk.source.includes('/overview/')) {
+        // 当已明确命中了厂商配置页后，后续的 push 通用文件不再有意义
+        // 只保留同厂商文件（已由 vendor dedup 处理）和接入前准备综述，其他 push 通用文档视为噪声
+        if (selectedVendorFile && chunk.product === 'push' && !chunk.source.includes('/接入前准备')) {
             if (chunk.source !== selectedVendorFile)
                 continue;
         }
@@ -86,26 +84,11 @@ export function postProcess(ranked, chunksById, limit, opts) {
         if (firstPush) {
             // 首条不设分数截止，至少保证 1 条返回
         }
-        else if (!isPinnedUrlRow) {
+        else {
             const topScore = fragments[0].score;
-            // 方案A：分数断崖截断。
-            // 当已有 E7 精确命中行（pinned url-row）时，后续非 pinned 行若跌破 Top1 的 20%，
-            // 视为「Top1 已精确命中、后续多为泛匹配噪声」，提前截断，避免凑满 limit 返回冗余。
-            // 无 E7 命中时不触发（此时答案依赖 best-practice/本地文档，需完整保留）。
-            if (topScore > 0) {
-                const pinnedChunkIds = opts?.pinnedUrlRowChunkIds;
-                const hasPinnedRow = pinnedChunkIds
-                    ? fragments.some((f) => pinnedChunkIds.has(f.chunk_id))
-                    : false;
-                // 原有：分数衰减到 top 的 5% 以下时停止
-                if (item.score < topScore * 0.05)
-                    break;
-                // 新增：已有 E7 精确命中 + 后续跌破 35% → 断崖截断
-                // 阈值取 35%（非 20%）：best-practice 泛匹配分数常在 Top1 的 20%~35% 区间，
-                // 用 35% 才能拦住「Top1 精确命中后仍返回一堆无关 best-practice」的冗余。
-                if (hasPinnedRow && item.score < topScore * 0.35)
-                    break;
-            }
+            // 分数衰减到 top 的 5% 以下时停止
+            if (topScore > 0 && item.score < topScore * 0.05)
+                break;
         }
         const aggregated = Boolean(chunk.aggregable) && fragments.length > 0 && fragments[0].source === chunk.source;
         fragments.push(buildFragment(chunk, item.score, fragments.length + 1, aggregated));
@@ -113,32 +96,6 @@ export function postProcess(ranked, chunksById, limit, opts) {
             break;
     }
     return fragments;
-}
-/** 产品无关的 URL 映射行判定：knowledge/<product>/urls/.../xxx.md */
-export function isUrlMappingSource(source) {
-    return /knowledge\/[a-z0-9_-]+\/urls\/.+\.md$/i.test(source.replace(/\\/g, '/'));
-}
-/** 产品无关地提取 URL 映射行的「子文件 kind」（如 sdk/web、error-code）；非映射行返回 null */
-export function extractUrlMappingKind(source) {
-    const normalized = source.replace(/\\/g, '/');
-    const match = normalized.match(/knowledge\/[a-z0-9_-]+\/urls\/(.+\.md)$/);
-    if (!match)
-        return null;
-    return match[1].replace(/\.md$/, '').replace(/\/index$/, '');
-}
-export function partitionFragments(fragments) {
-    const urlMapping = [];
-    const localDoc = [];
-    for (const fragment of fragments) {
-        if (isUrlMappingSource(fragment.source)) {
-            urlMapping.push(fragment);
-        }
-        else {
-            localDoc.push(fragment);
-        }
-    }
-    const urlMappingKinds = [...new Set(urlMapping.map((f) => extractUrlMappingKind(f.source)).filter(Boolean))];
-    return { urlMapping, localDoc, urlMappingKinds };
 }
 export function isNarrativeSource(source) {
     const normalized = source.replace(/\\/g, '/');
@@ -151,16 +108,24 @@ export function sourceTitle(source) {
     const base = source.split('/').pop()?.replace(/\.md$/i, '') ?? source;
     return base || source;
 }
-export function pickNarrativeSource(_exactHits, ranked, poolWithContent) {
+function detectH5Intent(prompt) {
+    return /(\bh5\b|移动端网页|手机网页|mobile\s*web|web\s*mobile)/i.test(prompt);
+}
+function hasNativeIntent(prompt) {
+    return /(android|ios|flutter|react\s*native|react-native|uni-?app|harmonyos|鸿蒙|原生|小程序|miniprogram)/i.test(prompt);
+}
+export function pickNarrativeSource(prompt, ranked, poolWithContent) {
     const bySource = new Map();
     const chunksById = new Map(poolWithContent.map((chunk) => [chunk.id, chunk]));
-    const upsertSource = (source, score, weight) => {
+    const h5BoostEnabled = detectH5Intent(prompt) && !hasNativeIntent(prompt);
+    const upsertSource = (source, score, weight, platform) => {
         const prev = bySource.get(source);
         if (!prev) {
             bySource.set(source, {
                 hitCount: 1,
                 bestScore: score,
                 weightedScore: score * weight,
+                platform,
             });
             return;
         }
@@ -168,6 +133,7 @@ export function pickNarrativeSource(_exactHits, ranked, poolWithContent) {
             hitCount: prev.hitCount + 1,
             bestScore: Math.max(prev.bestScore, score),
             weightedScore: prev.weightedScore + score * weight,
+            platform: prev.platform ?? platform,
         });
     };
     const topScore = ranked[0]?.score ?? 0;
@@ -178,12 +144,21 @@ export function pickNarrativeSource(_exactHits, ranked, poolWithContent) {
             continue;
         if (topScore > 0 && idx > 120 && item.score < topScore * 0.03)
             break;
-        const weight = idx < 20 ? 1 : idx < 80 ? 0.7 : 0.5;
-        upsertSource(chunk.source, item.score, weight);
+        let weight = idx < 20 ? 1 : idx < 80 ? 0.7 : 0.5;
+        if (h5BoostEnabled && chunk.platform === 'mobile') {
+            weight *= 1.3;
+        }
+        upsertSource(chunk.source, item.score, weight, chunk.platform);
     }
     const candidates = [...bySource.entries()].sort((a, b) => {
         if (b[1].weightedScore !== a[1].weightedScore)
             return b[1].weightedScore - a[1].weightedScore;
+        if (h5BoostEnabled && a[1].platform !== b[1].platform) {
+            if (a[1].platform === 'mobile')
+                return 1;
+            if (b[1].platform === 'mobile')
+                return -1;
+        }
         if (b[1].hitCount !== a[1].hitCount)
             return b[1].hitCount - a[1].hitCount;
         return b[1].bestScore - a[1].bestScore;
@@ -269,8 +244,6 @@ export function buildDiscoveryCatalog(ranked, poolWithContent, limit) {
         const chunk = chunksById.get(item.id);
         if (!chunk)
             continue;
-        if (isUrlMappingSource(chunk.source))
-            continue;
         if (seenSource.has(chunk.source))
             continue;
         seenSource.add(chunk.source);
@@ -289,9 +262,6 @@ export function buildDiscoveryCatalog(ranked, poolWithContent, limit) {
     }
     return catalog;
 }
-export function hasBestPracticeFragment(fragments) {
-    return fragments.some((f) => /\/best-practice\//i.test(f.source));
-}
 export function inferQueryApiTokens(prompt) {
     const tokens = new Set();
     // 仅保留 API 形态 token，剔除产品/平台品牌词，避免把“TRTC Conference Web ...”误判为 API 缺口。
@@ -303,8 +273,18 @@ export function inferQueryApiTokens(prompt) {
         'ios', 'android', 'flutter', 'web', 'react', 'vue', 'miniprogram',
         'harmonyos', 'react-native', 'unity', 'unreal', 'unreal-engine', 'donut', 'uni-app',
         'pc', 'h5',
+        // 产品/组件品牌名（PascalCase 形式会误入 API token，如 CallKit/RoomKit/LiveKit）。
+        // upperNoise 只覆盖全大写缩写，这里补 PascalCase 的小写形态，避免 E16 把产品名当 API 提权。
+        'callkit', 'roomkit', 'livekit', 'tencent', 'trtc',
     ]);
     for (const match of prompt.matchAll(/\b([a-z]+[A-Z][A-Za-z0-9_]*)\b/g)) {
+        tokens.add(match[1]);
+    }
+    // PascalCase（大写开头的驼峰，如 StartAIConversation / TRTCCloud / V2TIMManager / TUICallKit）：
+    // 上面的 camelCase 正则只覆盖小写开头，这类大写开头的标识符（含内部大写缩写）会漏掉，
+    // 导致 E16 精确标识符硬提权对它们不生效。此正则要求至少一个内部大小写边界（[A-Z][a-z] 或 [a-z][A-Z]），
+    // 天然排除「全大写缩写」（SDK/TRTC）与「普通首字母大写单词」（How/The）。
+    for (const match of prompt.matchAll(/\b([A-Z][A-Za-z0-9_]*(?:[A-Z][a-z]|[a-z][A-Z])[A-Za-z0-9_]*)\b/g)) {
         tokens.add(match[1]);
     }
     for (const match of prompt.matchAll(/\b([A-Z][A-Za-z0-9_]*\.[A-Za-z_][A-Za-z0-9_]*)\b/g)) {
@@ -360,7 +340,29 @@ export function hasNativeClientFramework(frameworks) {
         return false;
     return frameworks.some((fw) => ['android', 'ios', 'flutter', 'c++'].includes(fw));
 }
+function normalizeCompactText(input) {
+    return input.toLowerCase().replace(/[\s\-_]+/g, '');
+}
+function hasExactTitleMatch(prompt, title) {
+    if (!prompt || !title)
+        return false;
+    const p = normalizeCompactText(prompt);
+    const t = normalizeCompactText(title);
+    if (!p || !t)
+        return false;
+    return (t.length >= 3 && p.includes(t)) || (p.length >= 3 && t.includes(p));
+}
+function tokenizePromptForTitle(prompt) {
+    return [...new Set(prompt
+            .toLowerCase()
+            .split(/[^a-z0-9\u4e00-\u9fff]+/)
+            .map((s) => s.trim())
+            .filter((s) => s.length >= 2))];
+}
 export function applyRankMultipliers(ranked, chunksById, opts) {
+    const prompt = opts.prompt ?? '';
+    const promptTokens = tokenizePromptForTitle(prompt);
+    const isIotProfile = opts.rank_profile === 'iot';
     const adjusted = ranked.map((item) => {
         const chunk = chunksById.get(item.id);
         if (!chunk)
@@ -370,12 +372,49 @@ export function applyRankMultipliers(ranked, chunksById, opts) {
         if (opts.product?.length && chunk.product === '*') {
             multiplier *= 0.2;
         }
-        // F2: framework 软降权（保留硬过滤，处理 fallback/边界残留）
-        if (opts.framework && opts.frameworks?.length && !chunk.framework.includes('*')) {
+        // F2: framework 软降权（改造 1：framework 已不做硬过滤，此处是唯一约束点）
+        // 0.2 与原硬过滤语义对齐：不匹配的排到匹配项之后，但保留在候选池里可被强信号拉回。
+        if (opts.frameworks?.length && !chunk.framework.includes('*')) {
             const explicitMatch = hasExplicitFrameworkMatch(chunk.framework, opts.frameworks);
             const fallbackMatch = hasFrameworkFallbackMatch(chunk, opts);
             if (!explicitMatch && !fallbackMatch) {
                 multiplier *= 0.2;
+            }
+        }
+        // F3: types 软降权（改造 1）：原 isSoftAllowed 的 types 硬过滤改为降权。
+        // best-practice 免疫（内容不依赖 types 分类），与原软过滤的例外保持一致。
+        if (opts.types?.length && !chunk.types.some((t) => opts.types.includes(t))) {
+            if (!chunk.source.includes('/best-practice/'))
+                multiplier *= 0.35;
+        }
+        // F4: scenario 软降权（改造 1）：原本是硬过滤，场景不符降权而非删除。
+        if (opts.scenario && chunk.scenario && chunk.scenario !== opts.scenario) {
+            multiplier *= 0.5;
+        }
+        // Phase1: title/h2 与 query 精确短语命中增强
+        if (prompt && hasExactTitleMatch(prompt, chunk.title)) {
+            multiplier *= isIotProfile ? 1.15 : 1.03;
+        }
+        if (promptTokens.length > 0) {
+            const titleText = `${chunk.title} ${(chunk.key_phrases ?? []).join(' ')}`.toLowerCase();
+            const overlap = promptTokens.reduce((acc, token) => (titleText.includes(token) ? acc + 1 : acc), 0);
+            if (overlap > 0) {
+                multiplier *= 1 + Math.min(0.06, overlap * (isIotProfile ? 0.015 : 0.008));
+            }
+        }
+        // Phase2: IoT feature_domain 软回退（IoT 唯一排序信号）
+        if (chunk.product === 'iot') {
+            if (chunk.feature_domain && opts.preferred_iot_feature_domain) {
+                if (chunk.feature_domain === opts.preferred_iot_feature_domain)
+                    multiplier *= 1.15;
+                else
+                    multiplier *= 0.9;
+            }
+            // 非 demo 意图下，弱化 app_demo/device_demo 对功能问法的抢位
+            if (chunk.feature_domain && /demo$/i.test(chunk.feature_domain)) {
+                if (!/\bdemo\b|示例|sample|example|演示/i.test(prompt)) {
+                    multiplier *= 0.82;
+                }
             }
         }
         return { ...item, score: item.score * multiplier };

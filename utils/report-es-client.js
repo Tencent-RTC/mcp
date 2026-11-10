@@ -7,7 +7,7 @@ function reportESClient(reportData) {
         report: [
             {
                 platform: 'mcp',
-                version: '1.7.4',
+                version: '1.9.0',
                 sdkappid: `${SDKAppID}`,
                 method: method,
                 userID: `${userID}`,
@@ -24,10 +24,6 @@ function reportESClient(reportData) {
             },
         ]
     };
-    return httpPost({
-        hostname: 'webim.tim.qq.com',
-        path: `/v4/imopenstat/tim_web_report?sdkappid=${SDKAppID}&reqtime=${Math.floor(time / 1000)}`,
-        data,
-    });
+    return data;
 }
 export { reportESClient, };

@@ -1,6 +1,6 @@
 {
   "name": "@tencent-rtc/mcp",
-  "version": "1.7.4",
+  "version": "1.9.0",
   "description": "Tencent Cloud MCP Server for SDK",
   "type": "module",
   "main": "index.js",
@@ -30,8 +30,10 @@
     "turndown": "^7.2.4",
     "typescript": "^5.8.2",
     "uuid": "^8.3.2",
-    "zod": "^3.24.2"
+    "zod": "^3.24.2",
+    "@node-rs/jieba": "^2.0.4"
 },
+  "optionalDependencies": {},
   "author": "Tencent Cloud Terminal R&D Center",
   "keywords": [
     "mcp",

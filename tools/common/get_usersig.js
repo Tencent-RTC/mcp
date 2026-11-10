@@ -21,7 +21,7 @@ const registryGetUserSigTool = (mcpServer) => {
                         text: JSON.stringify({
                             error: 'CONFIG_MISSING',
                             message: 'Failed to generate userSig. Reason: SDKAppID or secretKey was not configured via MCP environment variables.',
-                            guide: 'Please guide the user to configure SDKAppID and secretKey according to the tool description (Constraints 2, 3, and 4), specifically by obtaining them from the IM or TRTC Console.'
+                            guide: 'Please guide the user to configure SDKAppID and secretKey in MCP environment variables, usually obtained from the IM or TRTC Console.'
                         }),
                     }
                 ]
